@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #D97706;
+  --primary-dark: #B45309;
+  --primary-light: #FDE68A;
+  --text-dark: #1E293B;
+  --text-muted: #64748B;
+  --bg-warm: #FFFBF5;
+  --bg-card: #FFFFFF;
+  --border: #E2E8F0;
+}
+
+body {
+  background-color: var(--bg-warm);
+  color: var(--text-dark);
+  font-family: system-ui, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
