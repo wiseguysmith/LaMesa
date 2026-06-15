@@ -203,6 +203,24 @@ export default function LoginForm() {
           <Button type="submit" loading={loading} className="w-full" size="lg">
             {mode === 'signin' ? 'Sign In' : 'Create Account'}
           </Button>
+
+          {mode === 'signin' && (
+            <p className="text-center text-sm text-slate-500 mt-2">
+              <button
+                type="button"
+                className="text-amber-600 hover:text-amber-700 font-medium"
+                onClick={() => {
+                  if (email) {
+                    alert(`Password reset instructions would be sent to ${email}`)
+                  } else {
+                    alert('Enter your email address above, then click Forgot password.')
+                  }
+                }}
+              >
+                Forgot password?
+              </button>
+            </p>
+          )}
         </form>
       </CardBody>
     </Card>

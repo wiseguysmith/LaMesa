@@ -74,6 +74,38 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-20 px-4 bg-slate-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-10 text-center">Common Questions</h2>
+          <div className="space-y-6">
+            {[
+              {
+                q: 'Is La Mesa free to use?',
+                a: 'La Mesa is an ISD pilot platform. Access is managed by ISD coordinators. Reach out to your ISD program contact to get access.',
+              },
+              {
+                q: 'How long does the AI analysis take?',
+                a: 'After submitting your project, the AI analysis — readiness score, role map, and 30-day roadmap — is generated within seconds.',
+              },
+              {
+                q: 'Can I apply as both a founder and a builder?',
+                a: 'Not in the same account. You can create separate accounts if you want to participate in both roles, but most people find one role fits better.',
+              },
+              {
+                q: 'Does the admin see my profile before it\'s public?',
+                a: 'Yes. All profiles and projects are reviewed and approved by ISD admin before they appear in matching. Nothing is automatic.',
+              },
+            ].map((item) => (
+              <div key={item.q} className="bg-white rounded-xl p-6 border border-slate-100">
+                <h3 className="font-semibold text-slate-800 mb-2">{item.q}</h3>
+                <p className="text-slate-500 text-sm">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-amber-50">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Ready to get started?</h2>
