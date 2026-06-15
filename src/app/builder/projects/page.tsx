@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import DashboardNav from '@/components/layout/DashboardNav'
 import Card, { CardBody } from '@/components/ui/Card'
 import { StatusBadge } from '@/components/ui/Badge'
+import Link from 'next/link'
 
 export default async function BuilderProjectsPage() {
   const supabase = createClient()
@@ -65,6 +66,12 @@ export default async function BuilderProjectsPage() {
                           <span>{project.stage as string}</span>
                         </div>
                       </div>
+                      <Link
+                        href={`/founder/projects/${project.id as string}`}
+                        className="text-sm font-medium text-amber-600 hover:text-amber-700 ml-4 shrink-0"
+                      >
+                        View →
+                      </Link>
                     </div>
                   </CardBody>
                 </Card>

@@ -27,8 +27,6 @@ export default async function AdminBuilderDetailPage({ params }: { params: { id:
     .eq('user_id', params.id)
     .single()
 
-  if (!profile) notFound()
-
   return (
     <div className="min-h-screen bg-slate-50">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
@@ -42,6 +40,15 @@ export default async function AdminBuilderDetailPage({ params }: { params: { id:
           <p className="text-slate-500">{builderUser.email}</p>
         </div>
 
+        {!profile && (
+          <Card>
+            <CardBody>
+              <p className="text-slate-500 text-sm">This builder has not yet submitted a profile.</p>
+            </CardBody>
+          </Card>
+        )}
+
+        {profile && (
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-6">
             <AdminBuilderActions builderId={params.id} currentApproval={profile.approval_status} />
@@ -134,6 +141,7 @@ export default async function AdminBuilderDetailPage({ params }: { params: { id:
             )}
           </div>
         </div>
+        )}
       </main>
     </div>
   )
