@@ -104,20 +104,24 @@ export default function LoginForm() {
   return (
     <Card>
       <CardBody className="p-8">
-        {/* Mode toggle */}
-        <div className="flex bg-slate-100 rounded-lg p-1 mb-6">
+        {/* Mode toggle — pill style */}
+        <div className="flex bg-sand rounded-full p-1 mb-6">
           <button
             onClick={() => { setMode('signin'); setError(null) }}
-            className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-              mode === 'signin' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
+              mode === 'signin'
+                ? 'bg-terracotta text-white shadow-sm'
+                : 'text-warm-muted hover:text-brown-dark'
             }`}
           >
             Sign In
           </button>
           <button
             onClick={() => { setMode('signup'); setError(null) }}
-            className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${
-              mode === 'signup' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
+              mode === 'signup'
+                ? 'bg-terracotta text-white shadow-sm'
+                : 'text-warm-muted hover:text-brown-dark'
             }`}
           >
             Sign Up
@@ -168,47 +172,54 @@ export default function LoginForm() {
 
           {mode === 'signup' && (
             <div>
-              <p className="block text-sm font-medium text-slate-700 mb-2">
+              <p className="block text-sm font-medium text-brown-dark mb-3">
                 I am joining as... <span className="text-red-500">*</span>
               </p>
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="founder"
-                    checked={role === 'founder'}
-                    onChange={() => setRole('founder')}
-                    className="w-4 h-4 text-amber-600"
-                  />
-                  <span className="text-sm text-slate-700 font-medium">Founder</span>
-                  <span className="text-xs text-slate-400">— I have an idea</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="builder"
-                    checked={role === 'builder'}
-                    onChange={() => setRole('builder')}
-                    className="w-4 h-4 text-amber-600"
-                  />
-                  <span className="text-sm text-slate-700 font-medium">Builder</span>
-                  <span className="text-xs text-slate-400">— I have skills</span>
-                </label>
+              {/* Role selector cards */}
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setRole('founder')}
+                  className={`flex-1 flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                    role === 'founder'
+                      ? 'border-terracotta bg-sand shadow-sm'
+                      : 'border-[#E8D8C8] bg-white hover:border-terracotta/40'
+                  }`}
+                >
+                  <span className="text-2xl">🚀</span>
+                  <span className={`text-sm font-semibold ${role === 'founder' ? 'text-terracotta' : 'text-brown-dark'}`}>
+                    Founder
+                  </span>
+                  <span className="text-xs text-warm-muted">I have an idea</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRole('builder')}
+                  className={`flex-1 flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                    role === 'builder'
+                      ? 'border-terracotta bg-sand shadow-sm'
+                      : 'border-[#E8D8C8] bg-white hover:border-terracotta/40'
+                  }`}
+                >
+                  <span className="text-2xl">🛠️</span>
+                  <span className={`text-sm font-semibold ${role === 'builder' ? 'text-terracotta' : 'text-brown-dark'}`}>
+                    Builder
+                  </span>
+                  <span className="text-xs text-warm-muted">I have skills</span>
+                </button>
               </div>
             </div>
           )}
 
-          <Button type="submit" loading={loading} className="w-full" size="lg">
+          <Button type="submit" loading={loading} className="w-full !rounded-xl" size="lg">
             {mode === 'signin' ? 'Sign In' : 'Create Account'}
           </Button>
 
           {mode === 'signin' && (
-            <p className="text-center text-sm text-slate-500 mt-2">
+            <p className="text-center text-sm text-warm-muted mt-2">
               <button
                 type="button"
-                className="text-amber-600 hover:text-amber-700 font-medium"
+                className="text-terracotta hover:text-terracotta-light font-medium transition-colors"
                 onClick={() => {
                   if (email) {
                     alert(`Password reset instructions would be sent to ${email}`)

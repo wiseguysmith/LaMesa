@@ -32,19 +32,20 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="text-2xl font-bold text-terracotta tracking-tight">
+            <Link href="/" className="text-2xl font-bold text-terracotta tracking-tight group">
               La Mesa
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-terracotta ml-0.5 mb-1 align-bottom opacity-60 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
             </Link>
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/how-it-works" className="text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
+              <Link href="/how-it-works" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
                 How It Works
               </Link>
-              <Link href="/apply" className="text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
+              <Link href="/apply" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
                 Apply
               </Link>
-              <Link href="/join" className="text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
+              <Link href="/join" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
                 Join
               </Link>
             </div>
