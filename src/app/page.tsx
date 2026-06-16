@@ -82,13 +82,21 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Stats row */}
-          <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 text-sm text-warm-muted tracking-wide">
-            <span className="font-semibold text-brown-mid">12+ Projects</span>
-            <span className="text-terracotta opacity-50">·</span>
-            <span className="font-semibold text-brown-mid">40+ Builders</span>
-            <span className="text-terracotta opacity-50">·</span>
-            <span className="font-semibold text-brown-mid">ISD Powered</span>
+          {/* Stats row — pill style */}
+          <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 flex-wrap">
+            {[
+              '12+ Projects',
+              '40+ Builders',
+              'ISD Powered',
+            ].map((stat) => (
+              <span
+                key={stat}
+                className="bg-white/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-semibold text-brown-dark border border-brown-dark/10"
+                style={{ boxShadow: '0 2px 8px rgba(45,27,14,0.08)' }}
+              >
+                {stat}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -125,10 +133,25 @@ export default function LandingPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="glass-card rounded-2xl p-7 border-l-4 border-terracotta hover:-translate-y-1 transition-transform duration-300 group"
-                style={{ boxShadow: '0 8px 32px rgba(45,27,14,0.08)' }}
+                className="rounded-2xl p-7 border-l-4 border-terracotta transition-all duration-300 group hover:-translate-y-1"
+                style={{
+                  background: 'rgba(255,255,255,0.75)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(194,98,45,0.15)',
+                  borderLeft: '4px solid #C2622D',
+                  boxShadow: '0 4px 24px rgba(45,27,14,0.08), 0 1px 4px rgba(45,27,14,0.04)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 40px rgba(45,27,14,0.14), 0 2px 8px rgba(45,27,14,0.06)'
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 24px rgba(45,27,14,0.08), 0 1px 4px rgba(45,27,14,0.04)'
+                }}
               >
-                <div className="text-3xl mb-4">{item.icon}</div>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 text-lg" style={{ background: 'rgba(194,98,45,0.10)' }}>
+                  {item.icon}
+                </div>
                 <h3 className="font-bold text-brown-dark text-lg mb-2 relative">
                   {item.title}
                 </h3>
@@ -140,7 +163,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Solution ── */}
-      <section className="py-24 px-4 bg-cream relative overflow-hidden">
+      <section className="py-16 px-4 bg-cream relative overflow-hidden">
         {/* Decorative blurred circle */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-20"
@@ -154,10 +177,19 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
             AI-powered team formation.
           </h2>
-          <p className="text-warm-muted text-lg leading-relaxed mb-14 max-w-2xl mx-auto">
+          <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
             La Mesa uses AI to map the roles your project needs, score your readiness, and help ISD coordinators assemble aligned, capable teams — fast.
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 relative">
+            {/* Connecting arrows between cards — desktop only */}
+            <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-0 right-0 items-center justify-around pointer-events-none px-[33%] z-10" aria-hidden="true">
+              <span className="text-terracotta/40 text-2xl font-bold select-none">→</span>
+            </div>
+            <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-0 right-0 items-center justify-around pointer-events-none px-[0%] z-10" aria-hidden="true">
+              <span className="text-transparent select-none">→</span>
+              <span className="text-terracotta/40 text-2xl font-bold select-none">→</span>
+              <span className="text-transparent select-none">→</span>
+            </div>
             {[
               {
                 icon: '🧭',
@@ -177,14 +209,14 @@ export default function LandingPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 group"
-                style={{ boxShadow: '0 4px 20px rgba(45,27,14,0.07)' }}
+                className="rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 group border-t-[3px] border-terracotta"
+                style={{ background: '#F5E6D0', boxShadow: '0 4px 20px rgba(45,27,14,0.07)' }}
               >
-                <div className="w-14 h-14 bg-terracotta rounded-full flex items-center justify-center text-2xl mb-5 mx-auto group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 bg-terracotta rounded-full flex items-center justify-center text-2xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
                 <h3 className="font-bold text-brown-dark text-lg mb-2">{item.title}</h3>
-                <p className="text-warm-muted leading-relaxed">{item.desc}</p>
+                <p className="text-warm-muted leading-relaxed text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -209,8 +241,9 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-6 relative">
             {/* Connecting line — desktop only */}
             <div
-              className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-terracotta opacity-20 hidden md:block"
+              className="absolute top-8 left-[12%] right-[12%] h-px hidden md:block"
               aria-hidden="true"
+              style={{ background: 'linear-gradient(to right, transparent, rgba(194,98,45,0.4), transparent)' }}
             />
             {[
               {
@@ -266,9 +299,12 @@ export default function LandingPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {/* Founders */}
-            <div className="bg-sand rounded-3xl p-10 border-t-4 border-terracotta md:col-span-1 hover:-translate-y-1 transition-transform duration-300"
-              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)' }}
+            <div
+              className="rounded-3xl p-10 border-t-4 border-terracotta md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
+              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)', minHeight: '380px' }}
             >
+              {/* Watermark emoji */}
+              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🚀</div>
               <div className="text-4xl mb-4">🚀</div>
               <h3 className="font-bold text-brown-dark text-xl mb-3">Founders with Ideas</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
@@ -286,11 +322,14 @@ export default function LandingPage() {
             </div>
 
             {/* Builders */}
-            <div className="bg-sand rounded-3xl p-10 border-t-4 border-amber-500 md:col-span-1 hover:-translate-y-1 transition-transform duration-300"
-              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)' }}
+            <div
+              className="rounded-3xl p-10 border-t-4 border-amber-500 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
+              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)', minHeight: '380px' }}
             >
+              {/* Watermark emoji */}
+              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🔧</div>
               <div className="text-4xl mb-4">🛠️</div>
-              <h3 className="font-bold text-brown-dark text-xl mb-3">Students & Builders</h3>
+              <h3 className="font-bold text-brown-dark text-xl mb-3">Students &amp; Builders</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
                 You have skills — design, code, marketing, research — and want to put them to work on real projects.
               </p>
@@ -306,7 +345,12 @@ export default function LandingPage() {
             </div>
 
             {/* ISD */}
-            <div className="bg-brown-dark rounded-3xl p-10 md:col-span-1 hover:-translate-y-1 transition-transform duration-300">
+            <div
+              className="bg-brown-dark rounded-3xl p-10 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
+              style={{ minHeight: '380px' }}
+            >
+              {/* Watermark emoji */}
+              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🌎</div>
               <div className="text-4xl mb-4">🌎</div>
               <h3 className="font-bold text-cream text-xl mb-3">ISD Communities</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
@@ -321,19 +365,35 @@ export default function LandingPage() {
       </section>
 
       {/* ── Founder CTA ── */}
-      <section className="py-28 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #C2622D 0%, #B05525 60%, #8B3E18 100%)' }}>
-        {/* Decorative background pattern */}
+      <section
+        className="py-28 px-4 relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #C2622D 0%, #B05525 60%, #8B3E18 100%)' }}
+      >
+        {/* Radial gradient overlay */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-10"
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%)' }}
+        />
+        {/* Dot pattern overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
           }}
         />
+        {/* Decorative large circles */}
         <div
-          className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
+          className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'white', filter: 'blur(40px)' }}
+        />
+        <div
+          className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
+          aria-hidden="true"
+          style={{ background: 'white', filter: 'blur(50px)' }}
         />
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -345,27 +405,44 @@ export default function LandingPage() {
           <p className="text-[#E8D0B8] text-sm mb-10 opacity-80">No experience required. Just a real idea.</p>
           <Link
             href="/apply"
-            className="border-2 border-white text-white hover:bg-white hover:text-terracotta font-semibold px-8 py-4 rounded-full text-lg transition-colors inline-block"
+            className="bg-white text-terracotta hover:bg-[#FDF6EC] font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block shadow-lg"
           >
             Apply as Founder
           </Link>
+          <p className="text-white/60 text-sm mt-4">Takes less than 5 minutes</p>
         </div>
       </section>
 
       {/* ── Builder CTA ── */}
-      <section className="py-28 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #3D2510 60%, #5C3A1E 100%)' }}>
-        {/* Decorative background pattern */}
+      <section
+        className="py-28 px-4 relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #3D2510 60%, #5C3A1E 100%)' }}
+      >
+        {/* Amber radial glow from center */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-5"
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(217,119,6,0.18) 0%, transparent 65%)' }}
+        />
+        {/* Dot pattern overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C2622D' fill-opacity='1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: 'radial-gradient(rgba(194,98,45,0.2) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
           }}
         />
+        {/* Decorative large circles */}
         <div
-          className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
+          className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: '#C2622D', filter: 'blur(60px)' }}
+        />
+        <div
+          className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
+          aria-hidden="true"
+          style={{ background: '#F59E0B', filter: 'blur(50px)' }}
         />
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-cream mb-4">
@@ -377,26 +454,40 @@ export default function LandingPage() {
           <p className="text-warm-muted text-sm mb-10 opacity-70">Any skill level welcome. Developers, designers, marketers, researchers.</p>
           <Link
             href="/join"
-            className="border-2 border-[#D97706] text-[#F59E0B] hover:bg-[#D97706] hover:text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors inline-block"
+            className="border-2 border-[#D97706] text-[#F59E0B] hover:bg-[#D97706] hover:text-white font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
           >
             Join as Builder
           </Link>
+          <p className="text-warm-muted/60 text-sm mt-4">Any skill level welcome</p>
         </div>
       </section>
 
       {/* ── About This Pilot ── */}
-      <section className="py-20 px-4 bg-sand">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
-            About This Pilot
-          </p>
-          <h2 className="text-2xl font-bold text-brown-dark mb-5">
-            An early experiment in community-powered innovation.
-          </h2>
-          <p className="text-warm-muted text-lg leading-relaxed">
-            La Mesa is an ISD-powered pilot platform designed to test whether structured team formation can help founders, students, and builders move faster from idea to prototype.
-            This is an early-stage pilot. Features and access are managed by ISD coordinators.
-          </p>
+      <section className="py-14 px-4" style={{ background: '#F5E6D0' }}>
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-sm px-10 py-10" style={{ boxShadow: '0 4px 24px rgba(45,27,14,0.08)' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3 text-center">
+              About This Pilot
+            </p>
+            <h2 className="text-2xl font-bold text-brown-dark mb-4 text-center">
+              An early experiment in community-powered innovation.
+            </h2>
+            <p className="text-warm-muted text-base leading-relaxed text-center mb-8">
+              La Mesa is an ISD-powered pilot platform designed to test whether structured team formation can help founders, students, and builders move faster from idea to prototype.
+              This is an early-stage pilot. Features and access are managed by ISD coordinators.
+            </p>
+            {/* Stat blocks */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {['ISD Powered', 'Early-Stage Pilot', 'Costa Rica'].map((label) => (
+                <span
+                  key={label}
+                  className="px-4 py-1.5 rounded-full text-sm font-semibold text-brown-mid border border-terracotta/20 bg-sand"
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

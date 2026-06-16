@@ -54,24 +54,32 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <ul className="space-y-4">
+          <ul className="space-y-5">
             {[
-              { icon: '🧭', text: 'AI maps the roles your project needs' },
-              { icon: '📊', text: 'Get a readiness score and 30-day roadmap' },
-              { icon: '🤝', text: 'ISD coordinators assemble your team' },
+              { num: '1', text: 'AI maps the roles your project needs' },
+              { num: '2', text: 'Get a readiness score and 30-day roadmap' },
+              { num: '3', text: 'ISD coordinators assemble your team' },
             ].map((item) => (
-              <li key={item.text} className="flex items-center gap-3">
-                <span className="w-8 h-8 rounded-full bg-terracotta/20 flex items-center justify-center text-sm flex-shrink-0">
-                  {item.icon}
+              <li key={item.text} className="flex items-center gap-4">
+                <span
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 text-white"
+                  style={{ background: '#C2622D' }}
+                >
+                  {item.num}
                 </span>
-                <span className="text-warm-muted text-sm">{item.text}</span>
+                <span className="text-warm-muted text-base">{item.text}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <div className="relative">
-          <p className="text-warm-muted text-xs tracking-widest uppercase">An ISD Pilot Platform</p>
+          <span
+            className="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full border text-cream/70"
+            style={{ borderColor: 'rgba(194,98,45,0.5)' }}
+          >
+            An ISD Pilot Platform
+          </span>
         </div>
       </div>
 
