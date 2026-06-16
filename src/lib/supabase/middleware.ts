@@ -41,19 +41,24 @@ export async function updateSession(request: NextRequest) {
   const url = request.nextUrl.clone()
   const pathname = url.pathname
 
-  // Redirect logged-in users away from /login
-  if (pathname === '/login' && user) {
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+  // Redirect while preserving any refreshed auth cookies set on supabaseResponse.
+  // Without this, the rotated Supabase cookies are dropped on redirect and the
+  // next request looks logged-out, causing an infinite redirect loop.
+  const redirectTo = (targetPath: string) => {
+    url.pathname = targetPath
+    const redirectResponse = NextResponse.redirect(url)
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie)
+    })
+    return redirectResponse
   }
 
   const protectedPaths = ['/dashboard', '/founder', '/builder', '/admin']
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p))
 
   if (isProtected && !user) {
-    url.pathname = '/login'
     url.searchParams.set('redirect', pathname)
-    return NextResponse.redirect(url)
+    return redirectTo('/login')
   }
 
   if (pathname.startsWith('/admin') && user) {
@@ -64,9 +69,8 @@ export async function updateSession(request: NextRequest) {
       .single()
 
     if (!userData || userData.role !== 'admin') {
-      url.pathname = '/dashboard'
       url.searchParams.delete('redirect')
-      return NextResponse.redirect(url)
+      return redirectTo('/dashboard')
     }
   }
 
