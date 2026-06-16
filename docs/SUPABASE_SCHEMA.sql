@@ -202,78 +202,69 @@ alter table public.match_suggestions enable row level security;
 alter table public.admin_notes enable row level security;
 alter table public.project_updates enable row level security;
 
+-- SECURITY DEFINER helpers. These bypass RLS, so policies can check
+-- admin/ownership/membership WITHOUT querying the same (or a mutually
+-- referencing) table under RLS, which would cause infinite recursion.
+create or replace function public.is_admin()
+returns boolean language sql security definer stable set search_path = public as $$
+  select exists (select 1 from public.users where id = auth.uid() and role = 'admin');
+$$;
+
+create or replace function public.is_project_founder(p_project_id uuid)
+returns boolean language sql security definer stable set search_path = public as $$
+  select exists (select 1 from public.projects where id = p_project_id and founder_id = auth.uid());
+$$;
+
+create or replace function public.is_project_member(p_project_id uuid)
+returns boolean language sql security definer stable set search_path = public as $$
+  select exists (select 1 from public.project_members where project_id = p_project_id and user_id = auth.uid());
+$$;
+
+revoke all on function public.is_admin() from public;
+revoke all on function public.is_project_founder(uuid) from public;
+revoke all on function public.is_project_member(uuid) from public;
+grant execute on function public.is_admin() to authenticated, anon, service_role;
+grant execute on function public.is_project_founder(uuid) to authenticated, anon, service_role;
+grant execute on function public.is_project_member(uuid) to authenticated, anon, service_role;
+
 -- Users: own row + admin read all
 create policy "users_own" on public.users for all using (auth.uid() = id);
-create policy "users_admin_read" on public.users for select using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "users_admin_read" on public.users for select using (public.is_admin());
 
 -- Projects: founder owns, admin can all, assigned members can read
 create policy "projects_founder" on public.projects for all using (founder_id = auth.uid());
-create policy "projects_admin" on public.projects for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
-create policy "projects_member_read" on public.projects for select using (
-  exists (select 1 from public.project_members where project_id = projects.id and user_id = auth.uid())
-);
+create policy "projects_admin" on public.projects for all using (public.is_admin());
+create policy "projects_member_read" on public.projects for select using (public.is_project_member(id));
 
 -- Builder profiles: own + admin
 create policy "builder_profiles_own" on public.builder_profiles for all using (user_id = auth.uid());
-create policy "builder_profiles_admin" on public.builder_profiles for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "builder_profiles_admin" on public.builder_profiles for all using (public.is_admin());
 
 -- Project role recommendations: founder + admin + members read
-create policy "role_recs_founder" on public.project_role_recommendations for select using (
-  exists (select 1 from public.projects where id = project_id and founder_id = auth.uid())
-);
-create policy "role_recs_admin" on public.project_role_recommendations for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "role_recs_founder" on public.project_role_recommendations for select using (public.is_project_founder(project_id));
+create policy "role_recs_admin" on public.project_role_recommendations for all using (public.is_admin());
 
 -- Roadmaps
-create policy "roadmaps_founder" on public.project_roadmaps for select using (
-  exists (select 1 from public.projects where id = project_id and founder_id = auth.uid())
-);
-create policy "roadmaps_admin" on public.project_roadmaps for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
-create policy "roadmaps_member" on public.project_roadmaps for select using (
-  exists (select 1 from public.project_members where project_id = project_roadmaps.project_id and user_id = auth.uid())
-);
+create policy "roadmaps_founder" on public.project_roadmaps for select using (public.is_project_founder(project_id));
+create policy "roadmaps_admin" on public.project_roadmaps for all using (public.is_admin());
+create policy "roadmaps_member" on public.project_roadmaps for select using (public.is_project_member(project_id));
 
 -- Project members
-create policy "members_founder" on public.project_members for select using (
-  exists (select 1 from public.projects where id = project_id and founder_id = auth.uid())
-);
-create policy "members_admin" on public.project_members for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "members_founder" on public.project_members for select using (public.is_project_founder(project_id));
+create policy "members_admin" on public.project_members for all using (public.is_admin());
 create policy "members_self" on public.project_members for select using (user_id = auth.uid());
 
 -- Admin notes: admin only + founder read
-create policy "admin_notes_admin" on public.admin_notes for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
-create policy "admin_notes_founder_read" on public.admin_notes for select using (
-  exists (select 1 from public.projects where id = project_id and founder_id = auth.uid())
-);
+create policy "admin_notes_admin" on public.admin_notes for all using (public.is_admin());
+create policy "admin_notes_founder_read" on public.admin_notes for select using (public.is_project_founder(project_id));
 
 -- Match suggestions: admin only
-create policy "match_suggestions_admin" on public.match_suggestions for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "match_suggestions_admin" on public.match_suggestions for all using (public.is_admin());
 
 -- Project updates
-create policy "updates_admin" on public.project_updates for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
-create policy "updates_founder" on public.project_updates for all using (
-  exists (select 1 from public.projects where id = project_id and founder_id = auth.uid())
-);
-create policy "updates_member" on public.project_updates for select using (
-  exists (select 1 from public.project_members where project_id = project_updates.project_id and user_id = auth.uid())
-);
+create policy "updates_admin" on public.project_updates for all using (public.is_admin());
+create policy "updates_founder" on public.project_updates for all using (public.is_project_founder(project_id));
+create policy "updates_member" on public.project_updates for select using (public.is_project_member(project_id));
 
 -- Batch 01 Schema Extensions
 
@@ -329,10 +320,6 @@ alter table public.batches enable row level security;
 alter table public.demo_day_outcomes enable row level security;
 
 create policy "batches_read_all" on public.batches for select using (true);
-create policy "batches_admin" on public.batches for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "batches_admin" on public.batches for all using (public.is_admin());
 
-create policy "demo_day_admin" on public.demo_day_outcomes for all using (
-  exists (select 1 from public.users where id = auth.uid() and role = 'admin')
-);
+create policy "demo_day_admin" on public.demo_day_outcomes for all using (public.is_admin());
