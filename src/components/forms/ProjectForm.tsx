@@ -8,6 +8,7 @@ import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
 import Textarea from '@/components/ui/Textarea'
 import Card, { CardBody } from '@/components/ui/Card'
+import { Track } from '@/types/database'
 
 const CATEGORIES = [
   { value: 'AI', label: 'AI' },
@@ -39,6 +40,17 @@ const COLLABORATION = [
   { value: 'To be discussed', label: 'To Be Discussed' },
 ]
 
+const TRACKS: { value: Track; label: string; description: string }[] = [
+  { value: 'AI', label: 'AI', description: 'Intelligent software, agents, ML, data products' },
+  { value: 'Web3', label: 'Web3', description: 'Blockchain, smart contracts, decentralized apps' },
+  { value: 'Robotics', label: 'Robotics', description: 'Hardware, automation, physical-world systems' },
+  { value: 'Climate', label: 'Climate', description: 'Sustainability, energy, circular economy, environment' },
+  { value: 'Community Impact', label: 'Community Impact', description: 'Civic tech, education, health access, equity' },
+  { value: 'Student Founder', label: 'Student Founder', description: 'First-time founders from schools or youth programs' },
+  { value: 'Technical Founder', label: 'Technical Founder', description: 'Builders turning technical insight into startups' },
+  { value: 'Nontechnical Founder', label: 'Nontechnical Founder', description: 'Domain experts and operators who need technical collaborators' },
+]
+
 interface ProjectFormProps {
   userId: string
 }
@@ -63,6 +75,8 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
     founder_goals: '',
     additional_notes: '',
   })
+  const [primaryTrack, setPrimaryTrack] = useState<Track | ''>('')
+  const [secondaryTrack, setSecondaryTrack] = useState<Track | ''>('')
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -78,6 +92,10 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
 
     if (!form.project_name || !form.one_sentence_idea || !form.problem || !form.category || !form.stage) {
       setError('Please fill in all required fields.')
+      return
+    }
+    if (!primaryTrack) {
+      setError('Please select a track for your project.')
       return
     }
 
@@ -103,6 +121,9 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
         additional_notes: form.additional_notes || null,
         status: 'submitted',
         approval_status: 'pending',
+        track: primaryTrack || null,
+        secondary_track: secondaryTrack || null,
+        founder_status: 'pending_consideration',
       }
 
       // Insert project
@@ -187,10 +208,11 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Analyzing your project...</h2>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">Submitting your application...</h2>
           <p className="text-slate-500">
-            Our AI is scoring your readiness, mapping roles, and generating your 30-day roadmap. This takes about 15 seconds.
+            Our AI is reviewing your project, mapping roles, and generating your 30-day roadmap. This takes about 15 seconds.
           </p>
+          <p className="text-sm text-amber-700 font-medium mt-3">La Mesa Summer 2026 Table · Table 01</p>
         </CardBody>
       </Card>
     )
@@ -336,9 +358,63 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
         </CardBody>
       </Card>
 
+      {/* Track Selection */}
+      <Card>
+        <CardBody className="space-y-4">
+          <div>
+            <h2 className="font-semibold text-slate-800 text-lg mb-1">Which track best fits your project?</h2>
+            <p className="text-slate-500 text-sm">Select your primary track. You may also choose an optional secondary track.</p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Primary Track <span className="text-red-500">*</span></p>
+            <div className="grid grid-cols-2 gap-3">
+              {TRACKS.map((track) => (
+                <button
+                  key={track.value}
+                  type="button"
+                  onClick={() => setPrimaryTrack(track.value)}
+                  className={`text-left p-3 rounded-lg border-2 transition-all ${
+                    primaryTrack === track.value
+                      ? 'border-amber-500 bg-amber-50'
+                      : 'border-slate-200 bg-white hover:border-amber-300 hover:bg-amber-50/30'
+                  }`}
+                >
+                  <p className={`font-semibold text-sm ${primaryTrack === track.value ? 'text-amber-800' : 'text-slate-800'}`}>
+                    {track.label}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-0.5">{track.description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Secondary Track <span className="text-slate-400">(optional)</span></p>
+            <div className="grid grid-cols-2 gap-3">
+              {TRACKS.filter((t) => t.value !== primaryTrack).map((track) => (
+                <button
+                  key={track.value}
+                  type="button"
+                  onClick={() => setSecondaryTrack(secondaryTrack === track.value ? '' : track.value)}
+                  className={`text-left p-3 rounded-lg border-2 transition-all ${
+                    secondaryTrack === track.value
+                      ? 'border-slate-400 bg-slate-50'
+                      : 'border-slate-200 bg-white hover:border-slate-300'
+                  }`}
+                >
+                  <p className={`font-semibold text-sm ${secondaryTrack === track.value ? 'text-slate-800' : 'text-slate-600'}`}>
+                    {track.label}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-0.5">{track.description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+        </CardBody>
+      </Card>
+
       <div className="flex justify-end">
         <Button type="submit" loading={loading} size="lg">
-          Submit Project & Run AI Analysis
+          Apply for a seat at La Mesa
         </Button>
       </div>
     </form>

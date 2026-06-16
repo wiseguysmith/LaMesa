@@ -50,9 +50,12 @@ export default function LandingPage() {
 
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Eyebrow */}
-          <div className="animate-fade-up inline-block bg-sand text-terracotta text-sm font-semibold px-4 py-1.5 rounded-full mb-8 tracking-wide">
-            ISD Pilot Platform
-          </div>
+          <a
+            href="/apply"
+            className="animate-fade-up inline-block bg-terracotta text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-8 tracking-wide hover:bg-[#B05525] transition-colors"
+          >
+            La Mesa Summer 2026 Table — Now accepting applications →
+          </a>
 
           {/* H1 */}
           <h1 className="animate-fade-up-delay-1 text-7xl md:text-8xl font-bold leading-tight mb-6">
@@ -85,8 +88,8 @@ export default function LandingPage() {
           {/* Stats row — pill style */}
           <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 flex-wrap">
             {[
-              '12+ Projects',
-              '40+ Builders',
+              'Batch 01',
+              '30-Day Build Cycle',
               'ISD Powered',
             ].map((stat) => (
               <span
@@ -141,12 +144,6 @@ export default function LandingPage() {
                   border: '1px solid rgba(194,98,45,0.15)',
                   borderLeft: '4px solid #C2622D',
                   boxShadow: '0 4px 24px rgba(45,27,14,0.08), 0 1px 4px rgba(45,27,14,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 40px rgba(45,27,14,0.14), 0 2px 8px rgba(45,27,14,0.06)'
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 24px rgba(45,27,14,0.08), 0 1px 4px rgba(45,27,14,0.04)'
                 }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 text-lg" style={{ background: 'rgba(194,98,45,0.10)' }}>
@@ -258,8 +255,8 @@ export default function LandingPage() {
               },
               {
                 step: '03',
-                title: 'Admin Matches Team',
-                desc: 'ISD coordinators review AI suggestions and assign compatible builders to your project.',
+                title: 'ISD Forms Your Table Team',
+                desc: 'ISD coordinators review AI suggestions and assemble your Table 01 team with care.',
               },
               {
                 step: '04',
@@ -361,6 +358,39 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── The Table ── */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
+            The Table
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
+            Join the La Mesa Summer 2026 Table.
+          </h2>
+          <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+            30 days. Real teams. Real prototypes. One Demo Day.
+          </p>
+          <div className="flex items-center justify-center gap-8 mb-10 flex-wrap">
+            {[
+              { stat: '30 Days', desc: 'Build cycle' },
+              { stat: '20 Projects', desc: 'Selected ideas' },
+              { stat: '1 Demo Day', desc: 'Final showcase' },
+            ].map((item) => (
+              <div key={item.stat} className="text-center">
+                <p className="text-3xl font-bold text-terracotta">{item.stat}</p>
+                <p className="text-sm text-warm-muted mt-1">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/apply"
+            className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-10 py-4 rounded-full text-lg transition-colors"
+          >
+            Apply for a Seat
+          </Link>
         </div>
       </section>
 

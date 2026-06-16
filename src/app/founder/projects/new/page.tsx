@@ -24,9 +24,12 @@ export default async function NewProjectPage() {
       <DashboardNav role={userData.role} fullName={userData.full_name} />
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Submit Your Project</h1>
+          <div className="inline-block bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+            La Mesa Summer 2026 Table · Table 01
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900">Apply for a seat at La Mesa.</h1>
           <p className="text-slate-500 mt-1">
-            Tell us about your idea. Our AI will analyze it, map the roles you need, and generate a 30-day roadmap.
+            Tell us about your idea. Our AI will analyze it, map the roles you need, and generate a 30-day roadmap. Your application will be under consideration for the La Mesa Summer 2026 Table.
           </p>
         </div>
         <ProjectForm userId={user.id} />

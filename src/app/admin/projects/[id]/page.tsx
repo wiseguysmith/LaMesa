@@ -25,16 +25,20 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
 
   if (!project) notFound()
 
-  const [{ data: roles }, { data: roadmapData }, { data: members }, { data: adminNotes }] = await Promise.all([
+  const [{ data: roles }, { data: roadmapData }, { data: members }, { data: adminNotes }, { data: batch }] = await Promise.all([
     supabase.from('project_role_recommendations').select('*').eq('project_id', project.id).order('priority'),
     supabase.from('project_roadmaps').select('*').eq('project_id', project.id).single(),
     supabase.from('project_members').select('*, users(full_name, email)').eq('project_id', project.id),
     supabase.from('admin_notes').select('*, users(full_name)').eq('project_id', project.id).order('created_at', { ascending: false }),
+    project.batch_id
+      ? supabase.from('batches').select('public_name, participant_identity').eq('id', project.batch_id).single()
+      : Promise.resolve({ data: null }),
   ])
 
   const analysis = project.ai_analysis_json as AIAnalysis | null
   const roadmap = roadmapData?.roadmap_json?.weeks || []
   const founder = project.users as { full_name: string; email: string } | null
+  const batchLabel = batch ? `${(batch as { public_name: string; participant_identity: string }).public_name} — ${(batch as { public_name: string; participant_identity: string }).participant_identity}` : null
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -43,10 +47,28 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
       <main className="max-w-6xl mx-auto px-4 py-10">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2 flex-wrap">
             <StatusBadge status={project.status} />
             <ApprovalBadge status={project.approval_status} />
             <span className="text-xs text-slate-400">{project.category} · {project.stage}</span>
+            {project.track && (
+              <span className="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">
+                {project.track}
+              </span>
+            )}
+            {project.secondary_track && (
+              <span className="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-full">
+                {project.secondary_track}
+              </span>
+            )}
+            {project.founder_status && (
+              <span className="text-xs bg-blue-100 text-blue-700 font-medium px-2 py-0.5 rounded-full capitalize">
+                {String(project.founder_status).replace(/_/g, ' ')}
+              </span>
+            )}
+            {batchLabel && (
+              <span className="text-xs text-slate-400 font-medium">{batchLabel}</span>
+            )}
           </div>
           <div className="flex items-start justify-between">
             <div>
@@ -67,6 +89,9 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
               projectId={project.id}
               currentStatus={project.status}
               currentApproval={project.approval_status}
+              currentFounderStatus={project.founder_status}
+              track={project.track}
+              batchName={batchLabel}
             />
 
             {/* AI Analysis */}

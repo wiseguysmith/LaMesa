@@ -1,5 +1,65 @@
 export type UserRole = 'founder' | 'builder' | 'admin'
 export type ApprovalStatus = 'pending' | 'approved' | 'rejected'
+
+export type FounderStatus =
+  | 'submitted'
+  | 'pending_consideration'
+  | 'selected'
+  | 'not_selected'
+  | 'matched'
+  | 'building'
+  | 'demo_ready'
+  | 'alumni'
+  | 'archived'
+
+export type BuilderStatus =
+  | 'profile_submitted'
+  | 'pending_review'
+  | 'approved'
+  | 'not_approved'
+  | 'eligible_for_matching'
+  | 'assigned'
+  | 'active_builder'
+  | 'alumni_builder'
+
+export type Track =
+  | 'AI'
+  | 'Web3'
+  | 'Robotics'
+  | 'Climate'
+  | 'Community Impact'
+  | 'Student Founder'
+  | 'Technical Founder'
+  | 'Nontechnical Founder'
+
+export type DemoDayOutcome =
+  | 'prototype_ready'
+  | 'needs_validation'
+  | 'needs_team_support'
+  | 'continue_after_table'
+  | 'archived'
+
+export interface Batch {
+  id: string
+  system_name: string
+  public_name: string
+  participant_identity: string
+  status: string
+  starts_at: string | null
+  ends_at: string | null
+  created_at: string
+}
+
+export interface DemoDayOutcomeRecord {
+  id: string
+  project_id: string
+  batch_id: string | null
+  outcome: DemoDayOutcome
+  presentation_notes: string | null
+  admin_notes: string | null
+  created_at: string
+}
+
 export type ProjectStatus =
   | 'submitted'
   | 'under_review'
@@ -51,6 +111,9 @@ export interface BuilderProfile {
   project_goals: string | null
   bio: string | null
   approval_status: ApprovalStatus
+  preferred_tracks: Track[] | null
+  reliability_score: number | null
+  builder_status: BuilderStatus
   created_at: string
   updated_at: string
 }
@@ -77,6 +140,11 @@ export interface Project {
   readiness_score: number | null
   ai_summary: string | null
   ai_analysis_json: AIAnalysis | null
+  batch_id: string | null
+  track: Track | null
+  secondary_track: Track | null
+  founder_status: FounderStatus
+  demo_day_outcome: DemoDayOutcome | null
   created_at: string
   updated_at: string
 }
@@ -175,6 +243,8 @@ export interface ProjectUpdate {
   author_id: string
   update_text: string
   status_snapshot: ProjectStatus | null
+  week_number: number | null
+  blockers: string | null
   created_at: string
   users?: User
 }

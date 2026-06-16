@@ -32,12 +32,14 @@ interface Suggestion {
     skills: string[]
     experience_level: string
     availability_hours_per_week: number
+    preferred_tracks?: string[]
   } | null
 }
 
 interface MatchCardProps {
   projectId: string
   projectName: string
+  projectTrack?: string | null
   roles: Role[]
   members: Member[]
   suggestions: Suggestion[]
@@ -46,6 +48,7 @@ interface MatchCardProps {
 
 export default function MatchCard({
   projectId,
+  projectTrack,
   roles,
   members,
   suggestions: initialSuggestions,
@@ -207,7 +210,7 @@ export default function MatchCard({
                 <div key={suggestion.id} className="p-4 bg-white border border-slate-200 rounded-xl">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <span className="font-medium text-slate-800 text-sm">
                           {suggestion.users?.full_name || 'Unknown'}
                         </span>
@@ -216,6 +219,11 @@ export default function MatchCard({
                           <Badge variant={suggestion.match_score >= 75 ? 'success' : suggestion.match_score >= 60 ? 'warning' : 'default'}>
                             {suggestion.match_score}% match
                           </Badge>
+                        )}
+                        {projectTrack && suggestion.builder_profiles?.preferred_tracks?.includes(projectTrack) && (
+                          <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded-full">
+                            Track match: {projectTrack}
+                          </span>
                         )}
                       </div>
                       <p className="text-xs text-amber-700 font-medium mb-1">Suggested for: {suggestion.recommended_role}</p>

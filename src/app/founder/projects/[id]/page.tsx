@@ -6,7 +6,34 @@ import { StatusBadge, ApprovalBadge } from '@/components/ui/Badge'
 import ReadinessScore from '@/components/projects/ReadinessScore'
 import RoleRecommendations from '@/components/projects/RoleRecommendations'
 import RoadmapDisplay from '@/components/projects/RoadmapDisplay'
-import { AIAnalysis } from '@/types/database'
+import WeeklyUpdateForm from '@/components/projects/WeeklyUpdateForm'
+import { AIAnalysis, ProjectUpdate, RoadmapWeek } from '@/types/database'
+
+const TRACK_COLORS: Record<string, string> = {
+  AI: 'bg-violet-100 text-violet-700 border-violet-200',
+  Web3: 'bg-blue-100 text-blue-700 border-blue-200',
+  Robotics: 'bg-cyan-100 text-cyan-700 border-cyan-200',
+  Climate: 'bg-green-100 text-green-700 border-green-200',
+  'Community Impact': 'bg-orange-100 text-orange-700 border-orange-200',
+  'Student Founder': 'bg-pink-100 text-pink-700 border-pink-200',
+  'Technical Founder': 'bg-indigo-100 text-indigo-700 border-indigo-200',
+  'Nontechnical Founder': 'bg-amber-100 text-amber-700 border-amber-200',
+}
+
+const WEEK_OBJECTIVES = [
+  'Clarify problem, define MVP, validate assumptions',
+  'Build prototype foundation',
+  'Test with users, refine product',
+  'Prepare demo, pitch, and next-step plan',
+]
+
+function getCurrentWeek(batchStartAt: string | null): number {
+  if (!batchStartAt) return 1
+  const start = new Date(batchStartAt)
+  const now = new Date()
+  const days = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+  return Math.min(Math.max(Math.floor(days / 7) + 1, 1), 4)
+}
 
 export default async function FounderProjectPage({ params }: { params: { id: string } }) {
   const supabase = createClient()
@@ -32,22 +59,69 @@ export default async function FounderProjectPage({ params }: { params: { id: str
   if (!project) notFound()
 
   // Fetch related data
-  const [{ data: roles }, { data: roadmapData }, { data: members }, { data: adminNotes }] = await Promise.all([
+  const [{ data: roles }, { data: roadmapData }, { data: members }, { data: adminNotes }, { data: updates }, { data: batch }] = await Promise.all([
     supabase.from('project_role_recommendations').select('*').eq('project_id', project.id).order('priority'),
     supabase.from('project_roadmaps').select('*').eq('project_id', project.id).single(),
     supabase.from('project_members').select('*, users(full_name, email)').eq('project_id', project.id),
     supabase.from('admin_notes').select('*, users(full_name)').eq('project_id', project.id).order('created_at', { ascending: false }),
+    supabase.from('project_updates').select('*').eq('project_id', project.id).order('created_at', { ascending: false }),
+    project.batch_id
+      ? supabase.from('batches').select('*').eq('id', project.batch_id).single()
+      : Promise.resolve({ data: null }),
   ])
 
   const analysis = project.ai_analysis_json as AIAnalysis | null
-  const roadmap = roadmapData?.roadmap_json?.weeks || []
+  const roadmap = (roadmapData?.roadmap_json?.weeks || []) as RoadmapWeek[]
   const unfilledRoles = (roles || []).filter((r) => !r.is_filled)
+  const currentWeek = getCurrentWeek(batch?.starts_at || null)
+  const trackColor = project.track ? (TRACK_COLORS[project.track] || 'bg-slate-100 text-slate-600 border-slate-200') : null
+
+  const updatesByWeek = (updates || []).reduce<Record<number, ProjectUpdate[]>>((acc, u) => {
+    const w = (u as ProjectUpdate).week_number || 0
+    acc[w] = acc[w] || []
+    acc[w].push(u as ProjectUpdate)
+    return acc
+  }, {})
+
+  const founderStatusLabel = (() => {
+    switch (project.founder_status) {
+      case 'submitted': return 'Submitted'
+      case 'pending_consideration': return 'Pending consideration for La Mesa Summer 2026 Table'
+      case 'selected': return 'Selected for Table 01'
+      case 'not_selected': return 'Not selected for this Table'
+      case 'matched': return 'Team formation in progress'
+      case 'building': return 'In the 30-day build cycle'
+      case 'demo_ready': return 'Preparing for Demo Day'
+      case 'alumni': return 'Alumni'
+      default: return project.founder_status
+    }
+  })()
 
   return (
     <div className="min-h-screen bg-slate-50">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
 
       <main className="max-w-5xl mx-auto px-4 py-10">
+        {/* Table & Track badges */}
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="text-xs font-semibold bg-amber-900 text-white px-3 py-1 rounded-full">
+            Table 01 · La Mesa Summer 2026 Table
+          </span>
+          {project.track && trackColor && (
+            <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${trackColor}`}>
+              {project.track}
+            </span>
+          )}
+          {project.secondary_track && (
+            <span className="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+              {project.secondary_track}
+            </span>
+          )}
+          <span className="text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full">
+            {founderStatusLabel}
+          </span>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-start justify-between">
@@ -147,11 +221,72 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                   </div>
                 ) : (
                   <p className="text-slate-400 text-sm">
-                    No team members assigned yet. Admin will match builders to your project after review.
+                    No team members assigned yet. ISD will form your Table team after review.
                   </p>
                 )}
               </CardBody>
             </Card>
+
+            {/* Weekly Progress */}
+            <Card>
+              <CardHeader>
+                <h2 className="font-semibold text-slate-800">30-Day Build Cycle — Week Progress</h2>
+              </CardHeader>
+              <CardBody>
+                <div className="grid md:grid-cols-2 gap-3 mb-4">
+                  {WEEK_OBJECTIVES.map((objective, i) => {
+                    const weekNum = i + 1
+                    const isCurrent = project.status === 'building' && weekNum === currentWeek
+                    const weekUpdates = updatesByWeek[weekNum] || []
+                    return (
+                      <div
+                        key={weekNum}
+                        className={`p-4 rounded-xl border ${isCurrent ? 'border-amber-500 bg-amber-50' : 'border-slate-200 bg-white'}`}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${isCurrent ? 'bg-amber-500 text-white' : 'bg-slate-100 text-slate-500'}`}>
+                            Week {weekNum}
+                          </span>
+                          {isCurrent && (
+                            <span className="text-xs text-amber-700 font-semibold">Current</span>
+                          )}
+                        </div>
+                        <p className="text-sm text-slate-700 font-medium">{objective}</p>
+                        {weekUpdates.length > 0 && (
+                          <p className="text-xs text-green-600 mt-1">✓ {weekUpdates.length} update{weekUpdates.length > 1 ? 's' : ''} posted</p>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {/* Recent updates */}
+                {updates && updates.length > 0 && (
+                  <div className="space-y-2 mt-4">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Recent Updates</p>
+                    {(updates as ProjectUpdate[]).slice(0, 3).map((u) => (
+                      <div key={u.id} className="p-3 bg-slate-50 rounded-lg">
+                        <p className="text-sm text-slate-700">{u.update_text}</p>
+                        {u.blockers && (
+                          <p className="text-xs text-red-600 mt-1">Blocker: {u.blockers}</p>
+                        )}
+                        <p className="text-xs text-slate-400 mt-1">
+                          {u.week_number ? `Week ${u.week_number} · ` : ''}{new Date(u.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardBody>
+            </Card>
+
+            {/* Weekly Update Form — only when building */}
+            {project.status === 'building' && (
+              <WeeklyUpdateForm
+                projectId={project.id}
+                currentWeek={currentWeek}
+              />
+            )}
 
             {/* 30-Day Roadmap */}
             <Card>
@@ -167,14 +302,13 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {adminNotes && adminNotes.length > 0 && (
               <Card>
                 <CardHeader>
-                  <h2 className="font-semibold text-slate-800">Admin Notes</h2>
+                  <h2 className="font-semibold text-slate-800">Notes from ISD</h2>
                 </CardHeader>
                 <CardBody className="space-y-3">
                   {adminNotes.map((note) => (
                     <div key={note.id} className="p-3 bg-amber-50 border border-amber-100 rounded-lg">
                       <p className="text-sm text-slate-700">{note.note}</p>
                       <p className="text-xs text-slate-400 mt-1">
-                        {(note.users as { full_name: string } | null)?.full_name || 'Admin'} ·{' '}
                         {new Date(note.created_at).toLocaleDateString()}
                       </p>
                     </div>

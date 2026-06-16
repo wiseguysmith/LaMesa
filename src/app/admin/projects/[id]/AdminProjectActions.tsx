@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Button from '@/components/ui/Button'
 import Select from '@/components/ui/Select'
 import Card, { CardBody } from '@/components/ui/Card'
-import { ProjectStatus, ApprovalStatus } from '@/types/database'
+import { ProjectStatus, ApprovalStatus, FounderStatus } from '@/types/database'
 
 const PROJECT_STATUSES: { value: string; label: string }[] = [
   { value: 'submitted', label: 'Submitted' },
@@ -19,20 +19,39 @@ const PROJECT_STATUSES: { value: string; label: string }[] = [
   { value: 'archived', label: 'Archived' },
 ]
 
+const FOUNDER_STATUSES: { value: string; label: string }[] = [
+  { value: 'submitted', label: 'Submitted' },
+  { value: 'pending_consideration', label: 'Pending Consideration' },
+  { value: 'selected', label: 'Selected' },
+  { value: 'not_selected', label: 'Not Selected' },
+  { value: 'matched', label: 'Matched' },
+  { value: 'building', label: 'Building' },
+  { value: 'demo_ready', label: 'Demo Ready' },
+  { value: 'alumni', label: 'Alumni' },
+  { value: 'archived', label: 'Archived' },
+]
+
 interface AdminProjectActionsProps {
   projectId: string
   currentStatus: ProjectStatus
   currentApproval: ApprovalStatus
+  currentFounderStatus?: FounderStatus
+  track?: string | null
+  batchName?: string | null
 }
 
 export default function AdminProjectActions({
   projectId,
   currentStatus,
   currentApproval,
+  currentFounderStatus,
+  track,
+  batchName,
 }: AdminProjectActionsProps) {
   const router = useRouter()
   const [loading, setLoading] = useState<string | null>(null)
   const [status, setStatus] = useState(currentStatus)
+  const [founderStatus, setFounderStatus] = useState<string>(currentFounderStatus || 'submitted')
   const [error, setError] = useState<string | null>(null)
 
   const doAction = async (endpoint: string, body: Record<string, unknown>) => {
@@ -60,16 +79,24 @@ export default function AdminProjectActions({
     await doAction('/api/admin/update-project-status', { project_id: projectId, status })
   }
 
+  const handleFounderStatusUpdate = async () => {
+    await doAction('/api/admin/update-founder-status', { project_id: projectId, founder_status: founderStatus })
+  }
+
   return (
     <Card className="border-amber-200 bg-amber-50">
       <CardBody>
-        <h2 className="font-semibold text-amber-900 mb-4">Admin Actions</h2>
+        <h2 className="font-semibold text-amber-900 mb-1">Admin Actions</h2>
+        {batchName && (
+          <p className="text-xs text-amber-700 mb-4">{batchName} · {track || 'No track'}</p>
+        )}
 
         {error && (
           <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">{error}</div>
         )}
 
-        <div className="flex flex-wrap gap-3 mb-4">
+        {/* Quick Actions */}
+        <div className="flex flex-wrap gap-3 mb-5">
           {currentApproval === 'pending' && (
             <>
               <Button
@@ -102,10 +129,51 @@ export default function AdminProjectActions({
           )}
         </div>
 
-        <div className="flex items-end gap-3">
+        {/* Table 01 Quick Actions */}
+        <div className="flex flex-wrap gap-3 mb-5 pb-5 border-b border-amber-200">
+          <Button
+            size="sm"
+            variant="primary"
+            loading={loading === 'select-table01'}
+            onClick={async () => {
+              setLoading('select-table01')
+              setError(null)
+              try {
+                const r1 = await fetch('/api/admin/update-founder-status', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ project_id: projectId, founder_status: 'selected' }),
+                })
+                const r2 = await fetch('/api/admin/update-project-status', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ project_id: projectId, status: 'roles_mapped' }),
+                })
+                if (!r1.ok || !r2.ok) setError('Failed to select for Table 01')
+                else router.refresh()
+              } catch {
+                setError('Request failed')
+              }
+              setLoading(null)
+            }}
+          >
+            Mark as Selected for Table 01
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            loading={loading === 'not-selected'}
+            onClick={() => doAction('/api/admin/update-founder-status', { project_id: projectId, founder_status: 'not_selected' })}
+          >
+            Not Selected
+          </Button>
+        </div>
+
+        {/* Project Status */}
+        <div className="flex items-end gap-3 mb-4">
           <div className="flex-1">
             <Select
-              label="Update Status"
+              label="Update Project Status"
               options={PROJECT_STATUSES}
               value={status}
               onChange={(e) => setStatus(e.target.value as ProjectStatus)}
@@ -121,12 +189,32 @@ export default function AdminProjectActions({
           </Button>
         </div>
 
+        {/* Founder Status */}
+        <div className="flex items-end gap-3 mb-4">
+          <div className="flex-1">
+            <Select
+              label="Update Founder Status"
+              options={FOUNDER_STATUSES}
+              value={founderStatus}
+              onChange={(e) => setFounderStatus(e.target.value)}
+            />
+          </div>
+          <Button
+            size="md"
+            variant="secondary"
+            loading={loading === '/api/admin/update-founder-status'}
+            onClick={handleFounderStatusUpdate}
+          >
+            Update
+          </Button>
+        </div>
+
         <div className="mt-4 pt-3 border-t border-amber-200">
           <a
             href="/admin/matches"
             className="text-sm text-amber-700 font-medium hover:text-amber-800"
           >
-            Go to Matching for this project →
+            Go to Team Formation — Table 01 →
           </a>
         </div>
       </CardBody>

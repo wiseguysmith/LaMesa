@@ -51,7 +51,12 @@ export default async function AdminBuilderDetailPage({ params }: { params: { id:
         {profile && (
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-6">
-            <AdminBuilderActions builderId={params.id} currentApproval={profile.approval_status} />
+            <AdminBuilderActions
+              builderId={params.id}
+              currentApproval={profile.approval_status}
+              currentBuilderStatus={profile.builder_status}
+              preferredTracks={profile.preferred_tracks}
+            />
 
             <Card>
               <CardHeader><h2 className="font-semibold text-slate-800">About</h2></CardHeader>

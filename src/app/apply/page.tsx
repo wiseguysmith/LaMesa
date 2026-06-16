@@ -34,10 +34,12 @@ export default function ApplyPage() {
           <div className="inline-block bg-terracotta/20 text-terracotta-light text-sm font-semibold px-3 py-1 rounded-full mb-6 border border-terracotta/30">
             Founder Application
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Bring your idea<br />
-            <span className="gradient-text">to the table.</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            Apply for a seat at La Mesa.
           </h1>
+          <p className="text-base text-amber-300 font-semibold mb-6">
+            La Mesa Summer 2026 Table · Table 01 · 30-Day Build Cycle
+          </p>
           <p className="text-lg text-warm-muted mb-10 max-w-2xl mx-auto">
             Submit your project and our AI will map the roles you need, score your readiness, and generate a 30-day roadmap — all before you even have a team.
           </p>
@@ -45,7 +47,7 @@ export default function ApplyPage() {
             href="/login?mode=signup&redirect=/founder/projects/new"
             className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
           >
-            Apply as Founder
+            Apply for a Seat
           </Link>
           <p className="mt-4 text-sm text-warm-muted">
             Already have an account?{' '}
@@ -154,7 +156,7 @@ export default function ApplyPage() {
             href="/login?mode=signup&redirect=/founder/projects/new"
             className="inline-block bg-white text-terracotta hover:bg-[#FDF6EC] font-semibold px-8 py-3 rounded-full transition-colors"
           >
-            Apply as Founder
+            Apply for a Seat
           </Link>
         </div>
       </section>

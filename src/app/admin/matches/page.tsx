@@ -33,9 +33,9 @@ export default async function AdminMatchesPage() {
 
       <main className="max-w-6xl mx-auto px-4 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Matching</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Team Formation — Table 01</h1>
           <p className="text-slate-500 mt-1">
-            Run AI match suggestions and assign builders to approved projects.
+            Run AI match suggestions and assign builders to selected projects.
           </p>
         </div>
 
@@ -64,8 +64,11 @@ export default async function AdminMatchesPage() {
                           <StatusBadge status={project.status} />
                         </div>
                         <p className="text-slate-500 text-sm">{project.one_sentence_idea}</p>
-                        <p className="text-xs text-slate-400 mt-0.5">
-                          {project.category} · by {(project.users as { full_name: string } | null)?.full_name}
+                        <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
+                          <span>{project.category} · by {(project.users as { full_name: string } | null)?.full_name}</span>
+                          {project.track && (
+                            <span className="bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">{project.track}</span>
+                          )}
                         </p>
                       </div>
                     </div>
@@ -74,6 +77,7 @@ export default async function AdminMatchesPage() {
                     <MatchCard
                       projectId={project.id}
                       projectName={project.project_name}
+                      projectTrack={project.track}
                       roles={roles}
                       members={members}
                       suggestions={suggestions}
