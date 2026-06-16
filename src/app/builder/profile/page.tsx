@@ -4,7 +4,7 @@ import DashboardNav from '@/components/layout/DashboardNav'
 import BuilderProfileForm from '@/components/forms/BuilderProfileForm'
 
 export default async function BuilderProfilePage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

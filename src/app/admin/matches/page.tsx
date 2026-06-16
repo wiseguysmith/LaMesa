@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/ui/Badge'
 import MatchCard from '@/components/admin/MatchCard'
 
 export default async function AdminMatchesPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

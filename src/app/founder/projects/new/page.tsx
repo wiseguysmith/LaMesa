@@ -4,7 +4,7 @@ import DashboardNav from '@/components/layout/DashboardNav'
 import ProjectForm from '@/components/forms/ProjectForm'
 
 export default async function NewProjectPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')
