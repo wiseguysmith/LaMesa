@@ -119,7 +119,7 @@ function WeekIndicator({ project, batchStartDate }: { project: Project; batchSta
 }
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

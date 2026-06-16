@@ -36,7 +36,7 @@ function getCurrentWeek(batchStartAt: string | null): number {
 }
 
 export default async function FounderProjectPage({ params }: { params: { id: string } }) {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

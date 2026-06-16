@@ -25,7 +25,7 @@ function getBatchPhase(batch: Batch | null): string {
 }
 
 export default async function AdminPage() {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

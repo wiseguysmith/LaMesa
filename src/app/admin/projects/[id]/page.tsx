@@ -10,7 +10,7 @@ import AdminProjectActions from './AdminProjectActions'
 import { AIAnalysis } from '@/types/database'
 
 export default async function AdminProjectDetailPage({ params }: { params: { id: string } }) {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

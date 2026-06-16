@@ -10,7 +10,7 @@ export default async function AdminProjectsPage({
 }: {
   searchParams: { filter?: string }
 }) {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

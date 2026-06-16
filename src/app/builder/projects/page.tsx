@@ -6,7 +6,7 @@ import { StatusBadge } from '@/components/ui/Badge'
 import Link from 'next/link'
 
 export default async function BuilderProjectsPage() {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

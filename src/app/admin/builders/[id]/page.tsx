@@ -6,7 +6,7 @@ import { ApprovalBadge } from '@/components/ui/Badge'
 import AdminBuilderActions from './AdminBuilderActions'
 
 export default async function AdminBuilderDetailPage({ params }: { params: { id: string } }) {
-  const supabase = await createClient()
+  const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
