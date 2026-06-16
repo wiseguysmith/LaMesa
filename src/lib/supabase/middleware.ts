@@ -36,10 +36,16 @@ export async function updateSession(request: NextRequest) {
 
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser().catch(() => ({ data: { user: null } }))
 
   const url = request.nextUrl.clone()
   const pathname = url.pathname
+
+  // Redirect logged-in users away from /login
+  if (pathname === '/login' && user) {
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
+  }
 
   const protectedPaths = ['/dashboard', '/founder', '/builder', '/admin']
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p))
