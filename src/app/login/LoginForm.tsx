@@ -47,11 +47,10 @@ export default function LoginForm() {
         .single()
 
       if (userData?.role === 'admin') {
-        router.push('/admin')
+        window.location.href = '/admin'
       } else {
-        router.push(redirect)
+        window.location.href = redirect
       }
-      router.refresh()
     }
   }
 
