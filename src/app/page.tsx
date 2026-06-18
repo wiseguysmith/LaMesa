@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { getServerDictionary } from '@/lib/i18n/server'
 
 export default function LandingPage() {
+  const { dict } = getServerDictionary()
+  const t = dict
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -23,7 +27,7 @@ export default function LandingPage() {
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           aria-hidden="true"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232D1B0E' fill-opacity='1'%3E%3Cpath d='M0 0h40v1H0zm0 39h40v1H0zM0 0v40H1V0zM39 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230A1A3A' fill-opacity='1'%3E%3Cpath d='M0 0h40v1H0zm0 39h40v1H0zM0 0v40H1V0zM39 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
         {/* Decorative floating circles */}
@@ -53,26 +57,26 @@ export default function LandingPage() {
           <div className="animate-fade-up flex flex-col items-center gap-3 mb-8">
             <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-warm-muted">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan" aria-hidden="true" />
-              An Innovation Smart District Initiative
+              {t.hero.initiative}
             </span>
             <a
               href="/apply"
               className="inline-block bg-terracotta text-white text-sm font-semibold px-4 py-1.5 rounded-full tracking-wide hover:bg-[#0A6E8F] transition-colors"
             >
-              La Mesa Summer 2026 Table — Now accepting applications →
+              {t.hero.banner} →
             </a>
           </div>
 
           {/* H1 */}
           <h1 className="animate-fade-up-delay-1 text-7xl md:text-8xl font-bold leading-tight mb-6">
-            <span className="text-brown-dark">Bring your idea</span>
+            <span className="text-brown-dark">{t.hero.titleLine1}</span>
             <br />
-            <span className="gradient-text">to the table.</span>
+            <span className="gradient-text">{t.hero.titleLine2}</span>
           </h1>
 
           {/* Subheadline */}
           <p className="animate-fade-up-delay-2 text-lg leading-relaxed text-warm-muted max-w-lg mx-auto mb-10">
-            La Mesa helps founders, students, and builders form teams, map the roles they need, and move from idea to prototype.
+            {t.hero.subtitle}
           </p>
 
           {/* CTAs */}
@@ -81,23 +85,19 @@ export default function LandingPage() {
               href="/apply"
               className="bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors warm-glow"
             >
-              Apply as Founder
+              {t.hero.applyFounder}
             </Link>
             <Link
               href="/join"
               className="border-2 border-terracotta text-terracotta hover:bg-terracotta hover:text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
             >
-              Join as Builder
+              {t.hero.joinBuilder}
             </Link>
           </div>
 
           {/* Stats row — pill style */}
           <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 flex-wrap">
-            {[
-              'Batch 01',
-              '30-Day Build Cycle',
-              'ISD Powered',
-            ].map((stat) => (
+            {t.hero.stats.map((stat) => (
               <span
                 key={stat}
                 className="bg-white/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-semibold text-brown-dark border border-brown-dark/10"
@@ -114,32 +114,16 @@ export default function LandingPage() {
       <section className="py-24 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta text-center mb-4">
-            The Problem
+            {t.problem.eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4 text-center">
-            Great ideas die alone.
+            {t.problem.title}
           </h2>
           <p className="text-center text-warm-muted text-lg leading-relaxed mb-14 max-w-xl mx-auto">
-            Finding the right people to build with is one of the hardest parts of turning an idea into something real.
+            {t.problem.subtitle}
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: '💡',
-                title: 'Ideas stall without teams',
-                desc: 'Most early-stage founders have the vision but not the builders. Ideas die in isolation.',
-              },
-              {
-                icon: '🎯',
-                title: 'Skills go unmatched',
-                desc: "Talented students and builders want to contribute but can't find the right projects to join.",
-              },
-              {
-                icon: '🗺️',
-                title: 'No structured path',
-                desc: 'Without a clear process, early teams waste weeks figuring out who should do what.',
-              },
-            ].map((item) => (
+            {t.problem.cards.map((item) => (
               <div
                 key={item.title}
                 className="rounded-2xl p-7 border-l-4 border-terracotta transition-all duration-300 group hover:-translate-y-1"
@@ -167,7 +151,6 @@ export default function LandingPage() {
 
       {/* ── Solution ── */}
       <section className="py-16 px-4 bg-cream relative overflow-hidden">
-        {/* Decorative blurred circle */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-20"
           aria-hidden="true"
@@ -175,41 +158,16 @@ export default function LandingPage() {
         />
         <div className="max-w-4xl mx-auto text-center relative">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
-            The Solution
+            {t.solution.eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
-            AI-powered team formation.
+            {t.solution.title}
           </h2>
           <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            La Mesa uses AI to map the roles your project needs, score your readiness, and help ISD coordinators assemble aligned, capable teams — fast.
+            {t.solution.subtitle}
           </p>
           <div className="grid md:grid-cols-3 gap-6 relative">
-            {/* Connecting arrows between cards — desktop only */}
-            <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-0 right-0 items-center justify-around pointer-events-none px-[33%] z-10" aria-hidden="true">
-              <span className="text-terracotta/40 text-2xl font-bold select-none">→</span>
-            </div>
-            <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-0 right-0 items-center justify-around pointer-events-none px-[0%] z-10" aria-hidden="true">
-              <span className="text-transparent select-none">→</span>
-              <span className="text-terracotta/40 text-2xl font-bold select-none">→</span>
-              <span className="text-transparent select-none">→</span>
-            </div>
-            {[
-              {
-                icon: '🧭',
-                title: 'AI Role Mapping',
-                desc: 'Submit your idea and get an instant breakdown of what roles and skills your project needs.',
-              },
-              {
-                icon: '📊',
-                title: 'Readiness Score',
-                desc: "Get a clear picture of your project's strengths, gaps, and what to tackle first.",
-              },
-              {
-                icon: '🤝',
-                title: 'Admin-Guided Matching',
-                desc: 'ISD coordinators review AI suggestions and assemble your team with care.',
-              },
-            ].map((item) => (
+            {t.solution.cards.map((item) => (
               <div
                 key={item.title}
                 className="rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 group border-t-[3px] border-terracotta"
@@ -228,7 +186,6 @@ export default function LandingPage() {
 
       {/* ── How It Works ── */}
       <section className="py-24 px-4 bg-brown-dark relative overflow-hidden">
-        {/* Background glow */}
         <div
           className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-10"
           aria-hidden="true"
@@ -236,42 +193,19 @@ export default function LandingPage() {
         />
         <div className="max-w-4xl mx-auto relative">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta-light text-center mb-4">
-            How It Works
+            {t.how.eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-cream text-center mb-16">
-            Four steps to your team.
+            {t.how.title}
           </h2>
           <div className="grid md:grid-cols-4 gap-6 relative">
-            {/* Connecting line — desktop only */}
             <div
               className="absolute top-8 left-[12%] right-[12%] h-px hidden md:block"
               aria-hidden="true"
               style={{ background: 'linear-gradient(to right, transparent, rgba(8,131,168,0.4), transparent)' }}
             />
-            {[
-              {
-                step: '01',
-                title: 'Submit Your Idea',
-                desc: 'Fill out the founder application with your project details, goals, and what you need.',
-              },
-              {
-                step: '02',
-                title: 'AI Analysis',
-                desc: 'Our AI scores your project, maps recommended roles, and generates a 30-day roadmap.',
-              },
-              {
-                step: '03',
-                title: 'ISD Forms Your Table Team',
-                desc: 'ISD coordinators review AI suggestions and assemble your Table 01 team with care.',
-              },
-              {
-                step: '04',
-                title: 'Build Together',
-                desc: 'Your team forms, aligned on the roadmap. Track progress and move toward prototype.',
-              },
-            ].map((item) => (
+            {t.how.steps.map((item) => (
               <div key={item.step} className="glass-card-dark rounded-2xl p-6 text-center relative">
-                {/* Large decorative number behind content */}
                 <div
                   className="absolute -top-4 left-1/2 -translate-x-1/2 text-8xl font-bold text-terracotta opacity-10 leading-none pointer-events-none select-none"
                   aria-hidden="true"
@@ -295,10 +229,10 @@ export default function LandingPage() {
       <section className="py-24 px-4 bg-cream">
         <div className="max-w-5xl mx-auto">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta text-center mb-4">
-            Who It&apos;s For
+            {t.who.eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-14 text-center">
-            Built for builders and dreamers.
+            {t.who.title}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {/* Founders */}
@@ -306,21 +240,19 @@ export default function LandingPage() {
               className="rounded-3xl p-10 border-t-4 border-terracotta md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
               style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
             >
-              {/* Watermark emoji */}
               <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🚀</div>
               <div className="text-4xl mb-4">🚀</div>
-              <h3 className="font-bold text-brown-dark text-xl mb-3">Founders with Ideas</h3>
+              <h3 className="font-bold text-brown-dark text-xl mb-3">{t.who.founders.title}</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
-                You have a startup idea, a product vision, or a project you want to bring to life — but you need a team.
+                {t.who.founders.desc}
               </p>
               <ul className="space-y-2 text-sm text-brown-mid mb-6">
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> AI role mapping for your project</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> Readiness score & gap analysis</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> 30-day prototype roadmap</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> Admin-curated team matching</li>
+                {t.who.founders.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> {b}</li>
+                ))}
               </ul>
               <Link href="/apply" className="text-terracotta font-semibold text-sm hover:underline">
-                Apply as Founder →
+                {t.who.founders.cta} →
               </Link>
             </div>
 
@@ -329,21 +261,19 @@ export default function LandingPage() {
               className="rounded-3xl p-10 border-t-4 border-amber-500 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
               style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
             >
-              {/* Watermark emoji */}
               <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🔧</div>
               <div className="text-4xl mb-4">🛠️</div>
-              <h3 className="font-bold text-brown-dark text-xl mb-3">Students &amp; Builders</h3>
+              <h3 className="font-bold text-brown-dark text-xl mb-3">{t.who.builders.title}</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
-                You have skills — design, code, marketing, research — and want to put them to work on real projects.
+                {t.who.builders.desc}
               </p>
               <ul className="space-y-2 text-sm text-brown-mid mb-6">
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> Matched to relevant projects</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> Build real portfolio work</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> Flexible availability options</li>
-                <li className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> ISD community network</li>
+                {t.who.builders.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> {b}</li>
+                ))}
               </ul>
               <Link href="/join" className="text-terracotta font-semibold text-sm hover:underline">
-                Join as Builder →
+                {t.who.builders.cta} →
               </Link>
             </div>
 
@@ -352,15 +282,14 @@ export default function LandingPage() {
               className="bg-brown-dark rounded-3xl p-10 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
               style={{ minHeight: '380px' }}
             >
-              {/* Watermark emoji */}
               <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🌎</div>
               <div className="text-4xl mb-4">🌎</div>
-              <h3 className="font-bold text-cream text-xl mb-3">ISD Communities</h3>
+              <h3 className="font-bold text-cream text-xl mb-3">{t.who.isd.title}</h3>
               <p className="text-warm-muted leading-relaxed mb-5">
-                Programs, cohorts, and innovation communities looking for a structured team formation platform.
+                {t.who.isd.desc}
               </p>
               <Link href="/how-it-works" className="text-terracotta-light font-semibold text-sm hover:underline">
-                Learn More →
+                {t.who.isd.cta} →
               </Link>
             </div>
           </div>
@@ -371,20 +300,16 @@ export default function LandingPage() {
       <section className="py-24 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
-            The Table
+            {t.table.eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
-            Join the La Mesa Summer 2026 Table.
+            {t.table.title}
           </h2>
           <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            30 days. Real teams. Real prototypes. One Demo Day.
+            {t.table.subtitle}
           </p>
           <div className="flex items-center justify-center gap-8 mb-10 flex-wrap">
-            {[
-              { stat: '30 Days', desc: 'Build cycle' },
-              { stat: '20 Projects', desc: 'Selected ideas' },
-              { stat: '1 Demo Day', desc: 'Final showcase' },
-            ].map((item) => (
+            {t.table.stats.map((item) => (
               <div key={item.stat} className="text-center">
                 <p className="text-3xl font-bold text-terracotta">{item.stat}</p>
                 <p className="text-sm text-warm-muted mt-1">{item.desc}</p>
@@ -395,7 +320,7 @@ export default function LandingPage() {
             href="/apply"
             className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-10 py-4 rounded-full text-lg transition-colors"
           >
-            Apply for a Seat
+            {t.table.cta}
           </Link>
         </div>
       </section>
@@ -405,13 +330,11 @@ export default function LandingPage() {
         className="py-28 px-4 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0883A8 0%, #0A6E8F 60%, #055A77 100%)' }}
       >
-        {/* Radial gradient overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%)' }}
         />
-        {/* Dot pattern overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
@@ -420,7 +343,6 @@ export default function LandingPage() {
             backgroundSize: '20px 20px',
           }}
         />
-        {/* Decorative large circles */}
         <div
           className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
@@ -433,19 +355,19 @@ export default function LandingPage() {
         />
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Ready to bring your idea to the table?
+            {t.founderCta.title}
           </h2>
           <p className="text-[#E6EEF7] text-lg leading-relaxed mb-3">
-            Submit your project application and get AI-powered role mapping, readiness scoring, and a 30-day roadmap in minutes.
+            {t.founderCta.desc}
           </p>
-          <p className="text-[#E8D0B8] text-sm mb-10 opacity-80">No experience required. Just a real idea.</p>
+          <p className="text-white/70 text-sm mb-10 opacity-80">{t.founderCta.note}</p>
           <Link
             href="/apply"
             className="bg-white text-terracotta hover:bg-[#F4F7FB] font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block shadow-lg"
           >
-            Apply as Founder
+            {t.founderCta.cta}
           </Link>
-          <p className="text-white/60 text-sm mt-4">Takes less than 5 minutes</p>
+          <p className="text-white/60 text-sm mt-4">{t.founderCta.time}</p>
         </div>
       </section>
 
@@ -454,13 +376,11 @@ export default function LandingPage() {
         className="py-28 px-4 relative overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 60%, #16315E 100%)' }}
       >
-        {/* Amber radial glow from center */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(217,119,6,0.18) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.18) 0%, transparent 65%)' }}
         />
-        {/* Dot pattern overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
@@ -469,7 +389,6 @@ export default function LandingPage() {
             backgroundSize: '20px 20px',
           }}
         />
-        {/* Decorative large circles */}
         <div
           className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
@@ -478,23 +397,23 @@ export default function LandingPage() {
         <div
           className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
-          style={{ background: '#FBA94C', filter: 'blur(50px)' }}
+          style={{ background: '#3B82F6', filter: 'blur(50px)' }}
         />
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-cream mb-4">
-            Have skills? Find a project.
+            {t.builderCta.title}
           </h2>
           <p className="text-warm-muted text-lg leading-relaxed mb-3">
-            Create your builder profile, share your skills and availability, and get matched to projects where you can make a real impact.
+            {t.builderCta.desc}
           </p>
-          <p className="text-warm-muted text-sm mb-10 opacity-70">Any skill level welcome. Developers, designers, marketers, researchers.</p>
+          <p className="text-warm-muted text-sm mb-10 opacity-70">{t.builderCta.note}</p>
           <Link
             href="/join"
-            className="border-2 border-[#F5841F] text-[#FBA94C] hover:bg-[#F5841F] hover:text-white font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
+            className="border-2 border-cyan text-cyan hover:bg-cyan hover:text-brown-dark font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
           >
-            Join as Builder
+            {t.builderCta.cta}
           </Link>
-          <p className="text-warm-muted/60 text-sm mt-4">Any skill level welcome</p>
+          <p className="text-warm-muted/60 text-sm mt-4">{t.builderCta.time}</p>
         </div>
       </section>
 
@@ -503,18 +422,16 @@ export default function LandingPage() {
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-3xl shadow-sm px-10 py-10" style={{ boxShadow: '0 4px 24px rgba(10,26,58,0.08)' }}>
             <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3 text-center">
-              About This Pilot
+              {t.about.eyebrow}
             </p>
             <h2 className="text-2xl font-bold text-brown-dark mb-4 text-center">
-              An early experiment in community-powered innovation.
+              {t.about.title}
             </h2>
             <p className="text-warm-muted text-base leading-relaxed text-center mb-8">
-              La Mesa is an ISD-powered pilot platform designed to test whether structured team formation can help founders, students, and builders move faster from idea to prototype.
-              This is an early-stage pilot. Features and access are managed by ISD coordinators.
+              {t.about.desc}
             </p>
-            {/* Stat blocks */}
             <div className="flex flex-wrap justify-center gap-3">
-              {['ISD Powered', 'Early-Stage Pilot', 'Costa Rica'].map((label) => (
+              {t.about.tags.map((label) => (
                 <span
                   key={label}
                   className="px-4 py-1.5 rounded-full text-sm font-semibold text-brown-mid border border-terracotta/20 bg-sand"

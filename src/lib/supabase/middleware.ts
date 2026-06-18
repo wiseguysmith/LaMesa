@@ -1,10 +1,23 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { LOCALE_COOKIE, detectLocale, isLocale } from '@/lib/i18n/config'
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   })
+
+  // On first visit, pin a locale from the browser's Accept-Language (Spanish-first)
+  // so server-rendered content and <html lang> are correct without a flash.
+  if (!isLocale(request.cookies.get(LOCALE_COOKIE)?.value)) {
+    const detected = detectLocale(request.headers.get('accept-language'))
+    request.cookies.set(LOCALE_COOKIE, detected)
+    supabaseResponse.cookies.set(LOCALE_COOKIE, detected, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: 'lax',
+    })
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

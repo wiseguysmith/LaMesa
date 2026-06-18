@@ -1,6 +1,12 @@
+'use client'
+
 import Link from 'next/link'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 
 export default function Footer() {
+  const { dict } = useLocale()
+  const t = dict.footer
+
   return (
     <footer className="bg-brown-dark text-warm-muted">
       {/* Wave divider */}
@@ -16,10 +22,10 @@ export default function Footer() {
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xl font-bold text-terracotta">La Mesa</span>
               <span className="text-warm-muted text-sm">·</span>
-              <span className="text-[11px] font-semibold tracking-widest uppercase text-cyan">An ISD Initiative</span>
+              <span className="text-[11px] font-semibold tracking-widest uppercase text-cyan">{t.initiative}</span>
             </div>
             <p className="mt-2 text-sm max-w-xs leading-relaxed">
-              Part of the Innovation Smart District ecosystem — where ideas take shape and the future is built. La Mesa is the table where founders and builders form teams.
+              {t.tagline}
             </p>
             {/* Social placeholder icons */}
             <div className="flex gap-3 mt-4">
@@ -42,25 +48,25 @@ export default function Footer() {
           </div>
           <div className="flex gap-8 text-sm">
             <div>
-              <p className="font-medium text-cream mb-2">Platform</p>
+              <p className="font-medium text-cream mb-2">{t.platform}</p>
               <ul className="space-y-1">
-                <li><Link href="/how-it-works" className="hover:text-cream transition-colors">How It Works</Link></li>
-                <li><Link href="/apply" className="hover:text-cream transition-colors">Apply as Founder</Link></li>
-                <li><Link href="/join" className="hover:text-cream transition-colors">Join as Builder</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-cream transition-colors">{t.howItWorks}</Link></li>
+                <li><Link href="/apply" className="hover:text-cream transition-colors">{t.applyFounder}</Link></li>
+                <li><Link href="/join" className="hover:text-cream transition-colors">{t.joinBuilder}</Link></li>
               </ul>
             </div>
             <div>
-              <p className="font-medium text-cream mb-2">Account</p>
+              <p className="font-medium text-cream mb-2">{t.account}</p>
               <ul className="space-y-1">
-                <li><Link href="/login" className="hover:text-cream transition-colors">Sign In</Link></li>
-                <li><Link href="/login?mode=signup" className="hover:text-cream transition-colors">Sign Up</Link></li>
+                <li><Link href="/login" className="hover:text-cream transition-colors">{t.signIn}</Link></li>
+                <li><Link href="/login?mode=signup" className="hover:text-cream transition-colors">{t.signUp}</Link></li>
               </ul>
             </div>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-[#16315E] text-xs flex flex-col sm:flex-row justify-between items-center gap-2">
-          <p>© 2026 La Mesa. Powered by ISD. All rights reserved.</p>
-          <p className="text-warm-muted opacity-60">Built with ❤️ for ISD communities</p>
+          <p>{t.rights}</p>
+          <p className="text-warm-muted opacity-60">{t.builtWith}</p>
         </div>
       </div>
     </footer>

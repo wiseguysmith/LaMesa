@@ -2,10 +2,14 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
+import LanguageToggle from '@/components/i18n/LanguageToggle'
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { dict } = useLocale()
+  const t = dict.nav
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 8)
@@ -15,11 +19,11 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Warm announcement banner */}
+      {/* Announcement banner */}
       <div className="bg-terracotta text-white text-xs font-medium text-center py-2 px-4 tracking-wide">
-        ISD Pilot — Now accepting founders and builders&nbsp;
+        {t.banner}&nbsp;
         <Link href="/apply" className="underline underline-offset-2 hover:opacity-80 transition-opacity">
-          Apply now →
+          {t.applyNow} →
         </Link>
       </div>
 
@@ -40,48 +44,52 @@ export default function Navbar() {
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-6">
               <Link href="/how-it-works" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
-                How It Works
+                {t.howItWorks}
               </Link>
               <Link href="/apply" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
-                Apply
+                {t.apply}
               </Link>
               <Link href="/join" className="nav-link-underline text-sm font-medium text-brown-mid hover:text-terracotta transition-colors">
-                Join
+                {t.join}
               </Link>
             </div>
 
             {/* Desktop right */}
             <div className="hidden md:flex items-center gap-3">
+              <LanguageToggle />
               <Link
                 href="/login"
                 className="text-sm font-medium text-terracotta border border-terracotta hover:bg-terracotta hover:text-white px-4 py-2 rounded-full transition-colors"
               >
-                Log In
+                {t.logIn}
               </Link>
               <Link
                 href="/apply"
                 className="bg-terracotta hover:bg-[#0A6E8F] text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
               >
-                Apply as Founder
+                {t.applyFounder}
               </Link>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              className="md:hidden p-2 rounded-lg text-brown-mid hover:bg-sand transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+            {/* Mobile hamburger + toggle */}
+            <div className="md:hidden flex items-center gap-2">
+              <LanguageToggle />
+              <button
+                className="p-2 rounded-lg text-brown-mid hover:bg-sand transition-colors"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -93,28 +101,28 @@ export default function Navbar() {
               className="block px-3 py-2 rounded-lg text-sm font-medium text-brown-mid hover:bg-sand"
               onClick={() => setMobileOpen(false)}
             >
-              How It Works
+              {t.howItWorks}
             </Link>
             <Link
               href="/apply"
               className="block px-3 py-2 rounded-lg text-sm font-medium text-brown-mid hover:bg-sand"
               onClick={() => setMobileOpen(false)}
             >
-              Apply as Founder
+              {t.applyFounder}
             </Link>
             <Link
               href="/join"
               className="block px-3 py-2 rounded-lg text-sm font-medium text-brown-mid hover:bg-sand"
               onClick={() => setMobileOpen(false)}
             >
-              Join as Builder
+              {t.joinBuilder}
             </Link>
             <Link
               href="/login"
               className="block px-3 py-2 rounded-lg text-sm font-medium text-terracotta hover:bg-sand"
               onClick={() => setMobileOpen(false)}
             >
-              Log In
+              {t.logIn}
             </Link>
           </div>
         )}

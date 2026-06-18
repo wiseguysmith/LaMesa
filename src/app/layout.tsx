@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { getLocale } from '@/lib/i18n/server'
+import { LocaleProvider } from '@/lib/i18n/LocaleProvider'
 
 export const metadata: Metadata = {
   title: 'La Mesa — Build Together',
@@ -11,10 +13,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const locale = getLocale()
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="antialiased">
-        {children}
+        <LocaleProvider initialLocale={locale}>
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   )
