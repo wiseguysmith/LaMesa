@@ -1,3 +1,7 @@
+'use client'
+
+import { useLocale } from '@/lib/i18n/LocaleProvider'
+
 interface CategoryScores {
   problem_clarity: number
   user_clarity: number
@@ -59,37 +63,26 @@ function CategoryBar({ label, score }: { label: string; score: number }) {
   )
 }
 
-const CATEGORY_LABELS: Record<keyof CategoryScores, string> = {
-  problem_clarity: 'Problem Clarity',
-  user_clarity: 'User / Customer Clarity',
-  technical_feasibility: 'Technical Feasibility',
-  team_readiness: 'Team Readiness',
-  timeline_realism: 'Timeline Realism',
-  prototype_potential: 'Prototype Potential',
-  market_impact: 'Market / Impact Potential',
-}
-
 export default function ReadinessScore({ score, categoryScores }: ReadinessScoreProps) {
+  const { dict } = useLocale()
+  const t = dict.projectDetail
+  const categoryKeys: Array<keyof CategoryScores> = ['problem_clarity', 'user_clarity', 'technical_feasibility', 'team_readiness', 'timeline_realism', 'prototype_potential', 'market_impact']
   return (
     <div>
       <div className="flex items-center gap-8 mb-6">
         <ScoreRing score={score} />
         <div>
-          <p className="text-sm font-medium text-slate-500 mb-1">Readiness Score</p>
+          <p className="text-sm font-medium text-slate-500 mb-1">{t.readinessScore}</p>
           <p className="text-slate-600 text-sm">
-            {score >= 75
-              ? 'Strong project with clear direction.'
-              : score >= 50
-              ? 'Solid foundation with areas to strengthen.'
-              : 'Early-stage — needs more clarity before team formation.'}
+            {score >= 75 ? t.readinessStrong : score >= 50 ? t.readinessSolid : t.readinessEarly}
           </p>
         </div>
       </div>
 
       {categoryScores && (
         <div className="space-y-3">
-          {(Object.keys(CATEGORY_LABELS) as Array<keyof CategoryScores>).map((key) => (
-            <CategoryBar key={key} label={CATEGORY_LABELS[key]} score={categoryScores[key]} />
+          {categoryKeys.map((key) => (
+            <CategoryBar key={key} label={t.categories[key]} score={categoryScores[key]} />
           ))}
         </div>
       )}

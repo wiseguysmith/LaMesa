@@ -6,6 +6,7 @@ import Card, { CardBody, CardHeader } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Textarea from '@/components/ui/Textarea'
 import { createClient } from '@/lib/supabase/client'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 
 interface WeeklyUpdateFormProps {
   projectId: string
@@ -15,6 +16,8 @@ interface WeeklyUpdateFormProps {
 export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdateFormProps) {
   const router = useRouter()
   const supabase = createClient()
+  const { dict } = useLocale()
+  const t = dict.projectDetail
   const [updateText, setUpdateText] = useState('')
   const [blockers, setBlockers] = useState('')
   const [loading, setLoading] = useState(false)
@@ -24,7 +27,7 @@ export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdat
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!updateText.trim()) {
-      setError('Please describe what your team accomplished this week.')
+      setError(t.errDescribe)
       return
     }
     setLoading(true)
@@ -33,7 +36,7 @@ export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdat
 
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      setError('You must be logged in to submit an update.')
+      setError(t.errLoggedIn)
       setLoading(false)
       return
     }
@@ -60,12 +63,12 @@ export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdat
   return (
     <Card className="border-blue-200 bg-blue-50">
       <CardHeader>
-        <h2 className="font-semibold text-blue-900">Week {currentWeek} Update</h2>
+        <h2 className="font-semibold text-blue-900">{t.weekUpdate.replace('{n}', String(currentWeek))}</h2>
       </CardHeader>
       <CardBody>
         {success && (
           <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-700">
-            Update submitted successfully.
+            {t.updateSuccess}
           </div>
         )}
         {error && (
@@ -75,23 +78,23 @@ export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdat
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <Textarea
-            label="What did your team accomplish this week?"
+            label={t.accomplishLabel}
             value={updateText}
             onChange={(e) => setUpdateText(e.target.value)}
-            placeholder="Describe the progress your team made this week..."
+            placeholder={t.accomplishPh}
             rows={4}
             required
           />
           <Textarea
-            label="Any blockers? (optional)"
+            label={t.blockersLabel}
             value={blockers}
             onChange={(e) => setBlockers(e.target.value)}
-            placeholder="Describe any blockers or challenges your team is facing..."
+            placeholder={t.blockersPh}
             rows={2}
           />
           <div className="flex justify-end">
             <Button type="submit" loading={loading} size="md">
-              Submit Week {currentWeek} Update
+              {t.submitUpdate.replace('{n}', String(currentWeek))}
             </Button>
           </div>
         </form>

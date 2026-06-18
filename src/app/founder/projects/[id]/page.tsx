@@ -1,5 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getServerDictionary } from '@/lib/i18n/server'
 import DashboardNav from '@/components/layout/DashboardNav'
 import Card, { CardBody, CardHeader } from '@/components/ui/Card'
 import { StatusBadge, ApprovalBadge } from '@/components/ui/Badge'
@@ -20,13 +21,6 @@ const TRACK_COLORS: Record<string, string> = {
   'Nontechnical Founder': 'bg-amber-100 text-amber-700 border-amber-200',
 }
 
-const WEEK_OBJECTIVES = [
-  'Clarify problem, define MVP, validate assumptions',
-  'Build prototype foundation',
-  'Test with users, refine product',
-  'Prepare demo, pitch, and next-step plan',
-]
-
 function getCurrentWeek(batchStartAt: string | null): number {
   if (!batchStartAt) return 1
   const start = new Date(batchStartAt)
@@ -36,6 +30,9 @@ function getCurrentWeek(batchStartAt: string | null): number {
 }
 
 export default async function FounderProjectPage({ params }: { params: { id: string } }) {
+  const { dict } = getServerDictionary()
+  const t = dict.projectDetail
+  const WEEK_OBJECTIVES = t.weekObjectives
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -83,19 +80,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
     return acc
   }, {})
 
-  const founderStatusLabel = (() => {
-    switch (project.founder_status) {
-      case 'submitted': return 'Submitted'
-      case 'pending_consideration': return 'Pending consideration for La Mesa Summer 2026 Table'
-      case 'selected': return 'Selected for Table 01'
-      case 'not_selected': return 'Not selected for this Table'
-      case 'matched': return 'Team formation in progress'
-      case 'building': return 'In the 30-day build cycle'
-      case 'demo_ready': return 'Preparing for Demo Day'
-      case 'alumni': return 'Alumni'
-      default: return project.founder_status
-    }
-  })()
+  const founderStatusLabel = (t.founderStatus as Record<string, string>)[project.founder_status as string] || project.founder_status
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -105,7 +90,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
         {/* Table & Track badges */}
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span className="text-xs font-semibold bg-amber-900 text-white px-3 py-1 rounded-full">
-            Table 01 · La Mesa Summer 2026 Table
+            {t.tableBadge}
           </span>
           {project.track && trackColor && (
             <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${trackColor}`}>
@@ -144,7 +129,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {project.ai_summary && (
               <Card>
                 <CardHeader>
-                  <h2 className="font-semibold text-slate-800">AI Summary</h2>
+                  <h2 className="font-semibold text-slate-800">{t.aiSummary}</h2>
                 </CardHeader>
                 <CardBody>
                   <p className="text-slate-600">{project.ai_summary}</p>
@@ -153,7 +138,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                     <div className="mt-4 grid md:grid-cols-3 gap-4">
                       {analysis.strengths?.length > 0 && (
                         <div>
-                          <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Strengths</p>
+                          <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">{t.strengths}</p>
                           <ul className="space-y-1">
                             {analysis.strengths.map((s, i) => (
                               <li key={i} className="text-xs text-slate-600">• {s}</li>
@@ -163,7 +148,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                       )}
                       {analysis.risks?.length > 0 && (
                         <div>
-                          <p className="text-xs font-semibold text-red-700 uppercase tracking-wide mb-2">Risks</p>
+                          <p className="text-xs font-semibold text-red-700 uppercase tracking-wide mb-2">{t.risks}</p>
                           <ul className="space-y-1">
                             {analysis.risks.map((r, i) => (
                               <li key={i} className="text-xs text-slate-600">• {r}</li>
@@ -173,7 +158,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                       )}
                       {analysis.next_steps?.length > 0 && (
                         <div>
-                          <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-2">Next Steps</p>
+                          <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-2">{t.nextSteps}</p>
                           <ul className="space-y-1">
                             {analysis.next_steps.map((s, i) => (
                               <li key={i} className="text-xs text-slate-600">• {s}</li>
@@ -190,7 +175,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {/* Team Members */}
             <Card>
               <CardHeader>
-                <h2 className="font-semibold text-slate-800">Team Members</h2>
+                <h2 className="font-semibold text-slate-800">{t.teamMembers}</h2>
               </CardHeader>
               <CardBody>
                 {members && members.length > 0 ? (
@@ -202,7 +187,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                         </div>
                         <div>
                           <p className="text-sm font-medium text-slate-800">
-                            {(m.users as { full_name: string } | null)?.full_name || 'Unknown'}
+                            {(m.users as { full_name: string } | null)?.full_name || t.unknown}
                           </p>
                           <p className="text-xs text-slate-400">{m.assigned_role}</p>
                         </div>
@@ -210,7 +195,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                     ))}
                     {unfilledRoles.length > 0 && (
                       <div className="pt-2 border-t border-slate-100">
-                        <p className="text-xs text-slate-400 mb-2">Still needed:</p>
+                        <p className="text-xs text-slate-400 mb-2">{t.stillNeeded}</p>
                         {unfilledRoles.map((r) => (
                           <span key={r.id} className="inline-block text-xs bg-red-50 text-red-600 px-2 py-0.5 rounded-full mr-1 mb-1">
                             {r.role}
@@ -221,7 +206,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                   </div>
                 ) : (
                   <p className="text-slate-400 text-sm">
-                    No team members assigned yet. ISD will form your Table team after review.
+                    {t.noMembers}
                   </p>
                 )}
               </CardBody>
@@ -230,7 +215,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {/* Weekly Progress */}
             <Card>
               <CardHeader>
-                <h2 className="font-semibold text-slate-800">30-Day Build Cycle — Week Progress</h2>
+                <h2 className="font-semibold text-slate-800">{t.buildCycle}</h2>
               </CardHeader>
               <CardBody>
                 <div className="grid md:grid-cols-2 gap-3 mb-4">
@@ -245,15 +230,15 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${isCurrent ? 'bg-amber-500 text-white' : 'bg-slate-100 text-slate-500'}`}>
-                            Week {weekNum}
+                            {t.week} {weekNum}
                           </span>
                           {isCurrent && (
-                            <span className="text-xs text-amber-700 font-semibold">Current</span>
+                            <span className="text-xs text-amber-700 font-semibold">{t.current}</span>
                           )}
                         </div>
                         <p className="text-sm text-slate-700 font-medium">{objective}</p>
                         {weekUpdates.length > 0 && (
-                          <p className="text-xs text-green-600 mt-1">✓ {weekUpdates.length} update{weekUpdates.length > 1 ? 's' : ''} posted</p>
+                          <p className="text-xs text-green-600 mt-1">✓ {weekUpdates.length} {t.updatesPosted}</p>
                         )}
                       </div>
                     )
@@ -263,15 +248,15 @@ export default async function FounderProjectPage({ params }: { params: { id: str
                 {/* Recent updates */}
                 {updates && updates.length > 0 && (
                   <div className="space-y-2 mt-4">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Recent Updates</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{t.recentUpdates}</p>
                     {(updates as ProjectUpdate[]).slice(0, 3).map((u) => (
                       <div key={u.id} className="p-3 bg-slate-50 rounded-lg">
                         <p className="text-sm text-slate-700">{u.update_text}</p>
                         {u.blockers && (
-                          <p className="text-xs text-red-600 mt-1">Blocker: {u.blockers}</p>
+                          <p className="text-xs text-red-600 mt-1">{t.blocker} {u.blockers}</p>
                         )}
                         <p className="text-xs text-slate-400 mt-1">
-                          {u.week_number ? `Week ${u.week_number} · ` : ''}{new Date(u.created_at).toLocaleDateString()}
+                          {u.week_number ? `${t.week} ${u.week_number} · ` : ''}{new Date(u.created_at).toLocaleDateString()}
                         </p>
                       </div>
                     ))}
@@ -291,7 +276,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {/* 30-Day Roadmap */}
             <Card>
               <CardHeader>
-                <h2 className="font-semibold text-slate-800">30-Day Roadmap</h2>
+                <h2 className="font-semibold text-slate-800">{t.roadmapTitle}</h2>
               </CardHeader>
               <CardBody>
                 <RoadmapDisplay weeks={roadmap} />
@@ -302,7 +287,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {adminNotes && adminNotes.length > 0 && (
               <Card>
                 <CardHeader>
-                  <h2 className="font-semibold text-slate-800">Notes from ISD</h2>
+                  <h2 className="font-semibold text-slate-800">{t.notesFromISD}</h2>
                 </CardHeader>
                 <CardBody className="space-y-3">
                   {adminNotes.map((note) => (
@@ -324,7 +309,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {project.readiness_score !== null && (
               <Card>
                 <CardHeader>
-                  <h2 className="font-semibold text-slate-800 text-sm">Readiness Score</h2>
+                  <h2 className="font-semibold text-slate-800 text-sm">{t.readinessScore}</h2>
                 </CardHeader>
                 <CardBody>
                   <ReadinessScore
@@ -338,7 +323,7 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {/* Role Recommendations */}
             <Card>
               <CardHeader>
-                <h2 className="font-semibold text-slate-800 text-sm">Recommended Roles</h2>
+                <h2 className="font-semibold text-slate-800 text-sm">{t.recommendedRoles}</h2>
               </CardHeader>
               <CardBody>
                 <RoleRecommendations recommendations={roles || []} />
@@ -348,16 +333,16 @@ export default async function FounderProjectPage({ params }: { params: { id: str
             {/* Project Info */}
             <Card>
               <CardHeader>
-                <h2 className="font-semibold text-slate-800 text-sm">Project Info</h2>
+                <h2 className="font-semibold text-slate-800 text-sm">{t.projectInfo}</h2>
               </CardHeader>
               <CardBody className="space-y-2 text-sm">
                 {[
-                  { label: 'Problem', value: project.problem },
-                  { label: 'Target Users', value: project.target_users },
-                  { label: 'Timeline', value: project.timeline },
-                  { label: 'Team Size', value: project.desired_team_size?.toString() },
-                  { label: 'Collaboration', value: project.collaboration_expectation },
-                  { label: 'Location', value: project.location_preference },
+                  { label: t.info.problem, value: project.problem },
+                  { label: t.info.targetUsers, value: project.target_users },
+                  { label: t.info.timeline, value: project.timeline },
+                  { label: t.info.teamSize, value: project.desired_team_size?.toString() },
+                  { label: t.info.collaboration, value: project.collaboration_expectation },
+                  { label: t.info.location, value: project.location_preference },
                 ].filter((item) => item.value).map((item) => (
                   <div key={item.label}>
                     <span className="text-slate-400 text-xs">{item.label}</span>
