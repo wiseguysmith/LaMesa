@@ -3,27 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
 import Textarea from '@/components/ui/Textarea'
 import Card, { CardBody } from '@/components/ui/Card'
 import { BuilderProfile } from '@/types/database'
-
-const EXPERIENCE_LEVELS = [
-  { value: 'Junior', label: 'Junior' },
-  { value: 'Mid', label: 'Mid-Level' },
-  { value: 'Senior', label: 'Senior' },
-  { value: 'Lead', label: 'Lead / Principal' },
-]
-
-const COLLABORATION_OPTIONS = [
-  { value: 'Portfolio/experience', label: 'Portfolio / Experience' },
-  { value: 'Paid', label: 'Paid' },
-  { value: 'Equity', label: 'Equity' },
-  { value: 'Volunteer/community', label: 'Volunteer / Community' },
-  { value: 'To be discussed', label: 'To Be Discussed' },
-]
 
 const ALL_ROLES = [
   'Founder / Project Lead',
@@ -51,6 +37,11 @@ interface BuilderProfileFormProps {
 export default function BuilderProfileForm({ userId, existingProfile }: BuilderProfileFormProps) {
   const router = useRouter()
   const supabase = createClient()
+  const { dict } = useLocale()
+  const t = dict.builderForm
+
+  const EXPERIENCE_LEVELS = (['Junior', 'Mid', 'Senior', 'Lead'] as const).map((v) => ({ value: v, label: t.experienceLevels[v] }))
+  const COLLABORATION_OPTIONS = (['Portfolio/experience', 'Paid', 'Equity', 'Volunteer/community', 'To be discussed'] as const).map((v) => ({ value: v, label: t.collaboration[v] }))
 
   const [form, setForm] = useState({
     location: existingProfile?.location || '',
@@ -87,7 +78,7 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
     setError(null)
 
     if (!form.skills || selectedRoles.length === 0) {
-      setError('Please fill in your skills and select at least one preferred role.')
+      setError(t.errRequired)
       return
     }
 
@@ -140,14 +131,12 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
       <Card>
         <CardBody className="text-center py-12">
           <div className="text-4xl mb-4">✓</div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Profile {existingProfile ? 'Updated' : 'Submitted'}</h2>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">{existingProfile ? t.successUpdatedTitle : t.successSubmittedTitle}</h2>
           <p className="text-slate-500 mb-6">
-            {existingProfile
-              ? 'Your profile has been updated.'
-              : 'Your builder profile is pending admin review. You\'ll be notified when approved.'}
+            {existingProfile ? t.successUpdatedDesc : t.successSubmittedDesc}
           </p>
           <Button onClick={() => router.push('/dashboard')} variant="secondary">
-            Back to Dashboard
+            {t.backToDashboard}
           </Button>
         </CardBody>
       </Card>
@@ -165,27 +154,27 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
       {/* Basic Info */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">About You</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.aboutSection}</h2>
           <Textarea
-            label="Short Bio"
+            label={t.bio}
             value={form.bio}
             onChange={set('bio')}
-            placeholder="Tell founders and the ISD team about yourself..."
+            placeholder={t.bioPh}
             rows={3}
           />
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Location"
+              label={t.location}
               value={form.location}
               onChange={set('location')}
-              placeholder="e.g., Austin, TX / Remote"
+              placeholder={t.locationPh}
             />
             <Input
-              label="Languages"
+              label={t.languages}
               value={form.languages}
               onChange={set('languages')}
-              placeholder="e.g., English, Spanish"
-              hint="Comma-separated"
+              placeholder={t.languagesPh}
+              hint={t.comma}
             />
           </div>
         </CardBody>
@@ -194,25 +183,25 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
       {/* Skills & Experience */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Skills & Experience</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.skillsSection}</h2>
           <Input
-            label="Skills"
+            label={t.skills}
             value={form.skills}
             onChange={set('skills')}
-            placeholder="e.g., React, Python, Figma, SEO, SQL"
-            hint="Comma-separated"
+            placeholder={t.skillsPh}
+            hint={t.comma}
             required
           />
           <Select
-            label="Experience Level"
+            label={t.experienceLevel}
             options={EXPERIENCE_LEVELS}
             value={form.experience_level}
             onChange={set('experience_level')}
-            placeholder="Select your level"
+            placeholder={t.experiencePh}
           />
           <div>
             <p className="block text-sm font-medium text-slate-700 mb-2">
-              Preferred Roles <span className="text-red-500">*</span>
+              {t.preferredRoles} <span className="text-red-500">*</span>
             </p>
             <div className="flex flex-wrap gap-2">
               {ALL_ROLES.map((role) => (
@@ -237,28 +226,28 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
       {/* Links */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Portfolio & Links</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.linksSection}</h2>
           <Input
-            label="Portfolio URL"
+            label={t.portfolio}
             type="url"
             value={form.portfolio_url}
             onChange={set('portfolio_url')}
-            placeholder="https://yourportfolio.com"
+            placeholder={t.portfolioPh}
           />
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="GitHub URL"
+              label={t.github}
               type="url"
               value={form.github_url}
               onChange={set('github_url')}
-              placeholder="https://github.com/username"
+              placeholder={t.githubPh}
             />
             <Input
-              label="LinkedIn URL"
+              label={t.linkedin}
               type="url"
               value={form.linkedin_url}
               onChange={set('linkedin_url')}
-              placeholder="https://linkedin.com/in/username"
+              placeholder={t.linkedinPh}
             />
           </div>
         </CardBody>
@@ -267,37 +256,37 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
       {/* Availability & Goals */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Availability & Goals</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.availSection}</h2>
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Availability (hours/week)"
+              label={t.availability}
               type="number"
               value={form.availability_hours_per_week}
               onChange={set('availability_hours_per_week')}
-              placeholder="e.g., 10"
+              placeholder={t.availabilityPh}
               min="1"
               max="60"
             />
             <Select
-              label="Collaboration Preference"
+              label={t.collab}
               options={COLLABORATION_OPTIONS}
               value={form.collaboration_preference}
               onChange={set('collaboration_preference')}
-              placeholder="Select preference"
+              placeholder={t.collabPh}
             />
           </div>
           <Input
-            label="Interests"
+            label={t.interests}
             value={form.interests}
             onChange={set('interests')}
-            placeholder="e.g., AI, Education, Sustainability, Healthcare"
-            hint="Helps match you to projects you care about. Comma-separated."
+            placeholder={t.interestsPh}
+            hint={t.interestsHint}
           />
           <Textarea
-            label="Project Goals"
+            label={t.projectGoals}
             value={form.project_goals}
             onChange={set('project_goals')}
-            placeholder="What are you hoping to get out of joining a project? Portfolio, experience, equity, learning?"
+            placeholder={t.projectGoalsPh}
             rows={3}
           />
         </CardBody>
@@ -305,7 +294,7 @@ export default function BuilderProfileForm({ userId, existingProfile }: BuilderP
 
       <div className="flex justify-end">
         <Button type="submit" loading={loading} size="lg">
-          {existingProfile ? 'Update Profile' : 'Submit Profile'}
+          {existingProfile ? t.update : t.submit}
         </Button>
       </div>
     </form>

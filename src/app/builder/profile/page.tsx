@@ -1,9 +1,12 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getServerDictionary } from '@/lib/i18n/server'
 import DashboardNav from '@/components/layout/DashboardNav'
 import BuilderProfileForm from '@/components/forms/BuilderProfileForm'
 
 export default async function BuilderProfilePage() {
+  const { dict } = getServerDictionary()
+  const t = dict.builderForm
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -29,12 +32,10 @@ export default async function BuilderProfilePage() {
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-900">
-            {existingProfile ? 'Edit Your Profile' : 'Create Your Builder Profile'}
+            {existingProfile ? t.editTitle : t.createTitle}
           </h1>
           <p className="text-slate-500 mt-1">
-            {existingProfile
-              ? 'Keep your profile up to date to improve your project matches.'
-              : 'Tell us about your skills and what you\'re looking for. An admin will review and approve your profile.'}
+            {existingProfile ? t.editSubtitle : t.createSubtitle}
           </p>
         </div>
         <BuilderProfileForm userId={user.id} existingProfile={existingProfile} />
