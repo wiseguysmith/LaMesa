@@ -8,7 +8,7 @@ export default function LoginPage() {
       {/* Left panel — desktop only */}
       <div
         className="hidden lg:flex lg:w-3/5 relative flex-col justify-between p-14 overflow-hidden"
-        style={{ background: '#2D1B0E' }}
+        style={{ background: '#0A1A3A' }}
       >
         {/* Radial glow */}
         <div
@@ -16,24 +16,24 @@ export default function LoginPage() {
           aria-hidden="true"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 20% 80%, rgba(194,98,45,0.35) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 80% 20%, rgba(245,158,11,0.12) 0%, transparent 55%)',
+              'radial-gradient(ellipse 70% 60% at 20% 80%, rgba(8,131,168,0.35) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 80% 20%, rgba(245,132,31,0.12) 0%, transparent 55%)',
           }}
         />
         {/* Decorative floating blobs */}
         <div
           className="absolute top-16 right-16 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
         <div
           className="absolute bottom-32 left-8 w-48 h-48 rounded-full blur-2xl opacity-15 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
         />
         <div
           className="absolute top-1/2 right-8 w-32 h-32 rounded-full blur-2xl opacity-10 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #E07848 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #06B6D4 0%, transparent 70%)' }}
         />
 
         {/* Content */}
@@ -63,7 +63,7 @@ export default function LoginPage() {
               <li key={item.text} className="flex items-center gap-4">
                 <span
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 text-white"
-                  style={{ background: '#C2622D' }}
+                  style={{ background: '#0883A8' }}
                 >
                   {item.num}
                 </span>
@@ -76,7 +76,7 @@ export default function LoginPage() {
         <div className="relative">
           <span
             className="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full border text-cream/70"
-            style={{ borderColor: 'rgba(194,98,45,0.5)' }}
+            style={{ borderColor: 'rgba(8,131,168,0.5)' }}
           >
             An ISD Pilot Platform
           </span>

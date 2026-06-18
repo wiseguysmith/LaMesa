@@ -35,26 +35,26 @@ export default function JoinPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative py-24 px-4 overflow-hidden" style={{ background: '#2D1B0E' }}>
+      <section className="relative py-24 px-4 overflow-hidden" style={{ background: '#0A1A3A' }}>
         {/* Layered gradients */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 80% 20%, rgba(194,98,45,0.3) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 80%, rgba(245,158,11,0.15) 0%, transparent 55%)',
+              'radial-gradient(ellipse 60% 50% at 80% 20%, rgba(8,131,168,0.3) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 80%, rgba(245,132,31,0.15) 0%, transparent 55%)',
           }}
         />
         {/* Decorative floating elements */}
         <div
           className="absolute top-12 right-16 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
         <div
           className="absolute bottom-12 left-8 w-32 h-32 rounded-full blur-2xl opacity-15 pointer-events-none hidden md:block"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
         />
 
         <div className="max-w-3xl mx-auto text-center relative">
@@ -70,7 +70,7 @@ export default function JoinPage() {
           </p>
           <Link
             href="/login?mode=signup&redirect=/builder/profile"
-            className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
+            className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
           >
             Join as Builder
           </Link>
@@ -159,12 +159,12 @@ export default function JoinPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 relative overflow-hidden" style={{ background: '#2D1B0E' }}>
+      <section className="py-20 px-4 relative overflow-hidden" style={{ background: '#0A1A3A' }}>
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
-            background: 'radial-gradient(ellipse 60% 60% at 50% 100%, rgba(194,98,45,0.25) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse 60% 60% at 50% 100%, rgba(8,131,168,0.25) 0%, transparent 60%)',
           }}
         />
         <div className="max-w-xl mx-auto text-center text-white relative">
@@ -174,7 +174,7 @@ export default function JoinPage() {
           </p>
           <Link
             href="/login?mode=signup&redirect=/builder/profile"
-            className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-8 py-3 rounded-full transition-colors"
+            className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-3 rounded-full transition-colors"
           >
             Join as Builder
           </Link>

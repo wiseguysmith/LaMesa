@@ -11,13 +11,35 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        cream: '#FDF6EC',
-        sand: '#F5E6D0',
-        terracotta: '#C2622D',
-        'terracotta-light': '#E07848',
-        'brown-dark': '#2D1B0E',
-        'brown-mid': '#5C3A1E',
-        'warm-muted': '#8C7B6B',
+
+        // ISD-aligned palette. Legacy names (cream/sand/terracotta/brown/warm)
+        // are kept so existing classes keep working, but remapped to ISD colors:
+        // deep navy + cyan tech-accent + white + orange highlight.
+
+        // Page + surface neutrals (cool, near-white)
+        cream: '#F4F7FB',          // main page background
+        sand: '#E6EEF7',           // secondary surfaces / cards
+
+        // Primary = ISD cyan / tech-blue
+        terracotta: '#0883A8',       // primary buttons / accents (deep cyan, white-text safe)
+        'terracotta-light': '#06B6D4', // bright cyan for hover / highlights
+
+        // Dark anchors = ISD deep navy
+        'brown-dark': '#0A1A3A',    // dark sections, headings, footer
+        'brown-mid': '#16315E',     // dark secondary
+
+        // Muted text = slate
+        'warm-muted': '#5B6B82',
+
+        // Explicit ISD semantic aliases for new code
+        navy: '#0A1A3A',
+        'navy-mid': '#16315E',
+        cyan: '#06B6D4',
+        'cyan-deep': '#0883A8',
+        'isd-orange': '#F5841F',
+        'isd-orange-light': '#FBA94C',
+        ink: '#0A1A3A',
+        'cool-border': '#DCE4ED',
       },
     },
   },

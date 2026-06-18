@@ -56,12 +56,12 @@ export default function HowItWorksPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #3D2510 100%)' }}>
+      <section className="relative py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 100%)' }}>
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
-            background: 'radial-gradient(ellipse 60% 50% at 70% 30%, rgba(194,98,45,0.25) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse 60% 50% at 70% 30%, rgba(8,131,168,0.25) 0%, transparent 60%)',
           }}
         />
         <div className="max-w-3xl mx-auto text-center relative">
@@ -160,7 +160,7 @@ export default function HowItWorksPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/apply"
-              className="bg-terracotta hover:bg-[#B05525] text-white font-semibold px-6 py-3 rounded-full transition-colors"
+              className="bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-6 py-3 rounded-full transition-colors"
             >
               Apply as Founder
             </Link>

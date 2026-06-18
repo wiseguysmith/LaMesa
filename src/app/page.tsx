@@ -15,7 +15,7 @@ export default function LandingPage() {
           aria-hidden="true"
           style={{
             background:
-              'radial-gradient(ellipse 70% 55% at 75% 15%, rgba(245,158,11,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 80%, rgba(194,98,45,0.15) 0%, transparent 55%), radial-gradient(ellipse 90% 80% at 50% 50%, #FDF6EC 30%, transparent 100%)',
+              'radial-gradient(ellipse 70% 55% at 75% 15%, rgba(245,132,31,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 80%, rgba(8,131,168,0.15) 0%, transparent 55%), radial-gradient(ellipse 90% 80% at 50% 50%, #F4F7FB 30%, transparent 100%)',
           }}
         />
         {/* Subtle grid pattern */}
@@ -30,32 +30,38 @@ export default function LandingPage() {
         <div
           className="absolute top-20 right-12 w-80 h-80 rounded-full opacity-20 pointer-events-none blur-3xl"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
         />
         <div
           className="absolute bottom-24 left-8 w-56 h-56 rounded-full opacity-15 pointer-events-none blur-2xl"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
         <div
           className="absolute top-1/2 right-4 w-32 h-32 rounded-full opacity-10 pointer-events-none blur-xl hidden md:block"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
         <div
           className="absolute top-32 left-1/4 w-20 h-20 rounded-full opacity-10 pointer-events-none blur-xl hidden md:block"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #D97706 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #F5841F 0%, transparent 70%)' }}
         />
 
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Eyebrow */}
-          <a
-            href="/apply"
-            className="animate-fade-up inline-block bg-terracotta text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-8 tracking-wide hover:bg-[#B05525] transition-colors"
-          >
-            La Mesa Summer 2026 Table — Now accepting applications →
-          </a>
+          <div className="animate-fade-up flex flex-col items-center gap-3 mb-8">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-warm-muted">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan" aria-hidden="true" />
+              An Innovation Smart District Initiative
+            </span>
+            <a
+              href="/apply"
+              className="inline-block bg-terracotta text-white text-sm font-semibold px-4 py-1.5 rounded-full tracking-wide hover:bg-[#0A6E8F] transition-colors"
+            >
+              La Mesa Summer 2026 Table — Now accepting applications →
+            </a>
+          </div>
 
           {/* H1 */}
           <h1 className="animate-fade-up-delay-1 text-7xl md:text-8xl font-bold leading-tight mb-6">
@@ -73,7 +79,7 @@ export default function LandingPage() {
           <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link
               href="/apply"
-              className="bg-terracotta hover:bg-[#B05525] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors warm-glow"
+              className="bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors warm-glow"
             >
               Apply as Founder
             </Link>
@@ -95,7 +101,7 @@ export default function LandingPage() {
               <span
                 key={stat}
                 className="bg-white/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-semibold text-brown-dark border border-brown-dark/10"
-                style={{ boxShadow: '0 2px 8px rgba(45,27,14,0.08)' }}
+                style={{ boxShadow: '0 2px 8px rgba(10,26,58,0.08)' }}
               >
                 {stat}
               </span>
@@ -141,12 +147,12 @@ export default function LandingPage() {
                   background: 'rgba(255,255,255,0.75)',
                   backdropFilter: 'blur(10px)',
                   WebkitBackdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(194,98,45,0.15)',
-                  borderLeft: '4px solid #C2622D',
-                  boxShadow: '0 4px 24px rgba(45,27,14,0.08), 0 1px 4px rgba(45,27,14,0.04)',
+                  border: '1px solid rgba(8,131,168,0.15)',
+                  borderLeft: '4px solid #0883A8',
+                  boxShadow: '0 4px 24px rgba(10,26,58,0.08), 0 1px 4px rgba(10,26,58,0.04)',
                 }}
               >
-                <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 text-lg" style={{ background: 'rgba(194,98,45,0.10)' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 text-lg" style={{ background: 'rgba(8,131,168,0.10)' }}>
                   {item.icon}
                 </div>
                 <h3 className="font-bold text-brown-dark text-lg mb-2 relative">
@@ -165,7 +171,7 @@ export default function LandingPage() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-20"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
         />
         <div className="max-w-4xl mx-auto text-center relative">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
@@ -207,7 +213,7 @@ export default function LandingPage() {
               <div
                 key={item.title}
                 className="rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 group border-t-[3px] border-terracotta"
-                style={{ background: '#F5E6D0', boxShadow: '0 4px 20px rgba(45,27,14,0.07)' }}
+                style={{ background: '#E6EEF7', boxShadow: '0 4px 20px rgba(10,26,58,0.07)' }}
               >
                 <div className="w-14 h-14 bg-terracotta rounded-full flex items-center justify-center text-2xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
@@ -226,7 +232,7 @@ export default function LandingPage() {
         <div
           className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-10"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
         <div className="max-w-4xl mx-auto relative">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta-light text-center mb-4">
@@ -240,7 +246,7 @@ export default function LandingPage() {
             <div
               className="absolute top-8 left-[12%] right-[12%] h-px hidden md:block"
               aria-hidden="true"
-              style={{ background: 'linear-gradient(to right, transparent, rgba(194,98,45,0.4), transparent)' }}
+              style={{ background: 'linear-gradient(to right, transparent, rgba(8,131,168,0.4), transparent)' }}
             />
             {[
               {
@@ -298,7 +304,7 @@ export default function LandingPage() {
             {/* Founders */}
             <div
               className="rounded-3xl p-10 border-t-4 border-terracotta md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)', minHeight: '380px' }}
+              style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
             >
               {/* Watermark emoji */}
               <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🚀</div>
@@ -321,7 +327,7 @@ export default function LandingPage() {
             {/* Builders */}
             <div
               className="rounded-3xl p-10 border-t-4 border-amber-500 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, #F5E6D0 0%, #FDF6EC 100%)', minHeight: '380px' }}
+              style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
             >
               {/* Watermark emoji */}
               <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🔧</div>
@@ -387,7 +393,7 @@ export default function LandingPage() {
           </div>
           <Link
             href="/apply"
-            className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-10 py-4 rounded-full text-lg transition-colors"
+            className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-10 py-4 rounded-full text-lg transition-colors"
           >
             Apply for a Seat
           </Link>
@@ -397,7 +403,7 @@ export default function LandingPage() {
       {/* ── Founder CTA ── */}
       <section
         className="py-28 px-4 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #C2622D 0%, #B05525 60%, #8B3E18 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #0883A8 0%, #0A6E8F 60%, #055A77 100%)' }}
       >
         {/* Radial gradient overlay */}
         <div
@@ -429,13 +435,13 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Ready to bring your idea to the table?
           </h2>
-          <p className="text-[#F5E6D0] text-lg leading-relaxed mb-3">
+          <p className="text-[#E6EEF7] text-lg leading-relaxed mb-3">
             Submit your project application and get AI-powered role mapping, readiness scoring, and a 30-day roadmap in minutes.
           </p>
           <p className="text-[#E8D0B8] text-sm mb-10 opacity-80">No experience required. Just a real idea.</p>
           <Link
             href="/apply"
-            className="bg-white text-terracotta hover:bg-[#FDF6EC] font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block shadow-lg"
+            className="bg-white text-terracotta hover:bg-[#F4F7FB] font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block shadow-lg"
           >
             Apply as Founder
           </Link>
@@ -446,7 +452,7 @@ export default function LandingPage() {
       {/* ── Builder CTA ── */}
       <section
         className="py-28 px-4 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #3D2510 60%, #5C3A1E 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 60%, #16315E 100%)' }}
       >
         {/* Amber radial glow from center */}
         <div
@@ -459,7 +465,7 @@ export default function LandingPage() {
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
-            backgroundImage: 'radial-gradient(rgba(194,98,45,0.2) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(rgba(8,131,168,0.2) 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }}
         />
@@ -467,12 +473,12 @@ export default function LandingPage() {
         <div
           className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
-          style={{ background: '#C2622D', filter: 'blur(60px)' }}
+          style={{ background: '#0883A8', filter: 'blur(60px)' }}
         />
         <div
           className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
           aria-hidden="true"
-          style={{ background: '#F59E0B', filter: 'blur(50px)' }}
+          style={{ background: '#FBA94C', filter: 'blur(50px)' }}
         />
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-cream mb-4">
@@ -484,7 +490,7 @@ export default function LandingPage() {
           <p className="text-warm-muted text-sm mb-10 opacity-70">Any skill level welcome. Developers, designers, marketers, researchers.</p>
           <Link
             href="/join"
-            className="border-2 border-[#D97706] text-[#F59E0B] hover:bg-[#D97706] hover:text-white font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
+            className="border-2 border-[#F5841F] text-[#FBA94C] hover:bg-[#F5841F] hover:text-white font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
           >
             Join as Builder
           </Link>
@@ -493,9 +499,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── About This Pilot ── */}
-      <section className="py-14 px-4" style={{ background: '#F5E6D0' }}>
+      <section className="py-14 px-4" style={{ background: '#E6EEF7' }}>
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-sm px-10 py-10" style={{ boxShadow: '0 4px 24px rgba(45,27,14,0.08)' }}>
+          <div className="bg-white rounded-3xl shadow-sm px-10 py-10" style={{ boxShadow: '0 4px 24px rgba(10,26,58,0.08)' }}>
             <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3 text-center">
               About This Pilot
             </p>

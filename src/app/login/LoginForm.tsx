@@ -181,7 +181,7 @@ export default function LoginForm() {
                   className={`flex-1 flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all cursor-pointer ${
                     role === 'founder'
                       ? 'border-terracotta bg-sand shadow-sm'
-                      : 'border-[#E8D8C8] bg-white hover:border-terracotta/40'
+                      : 'border-[#DCE4ED] bg-white hover:border-terracotta/40'
                   }`}
                 >
                   <span className="text-2xl">🚀</span>
@@ -196,7 +196,7 @@ export default function LoginForm() {
                   className={`flex-1 flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all cursor-pointer ${
                     role === 'builder'
                       ? 'border-terracotta bg-sand shadow-sm'
-                      : 'border-[#E8D8C8] bg-white hover:border-terracotta/40'
+                      : 'border-[#DCE4ED] bg-white hover:border-terracotta/40'
                   }`}
                 >
                   <span className="text-2xl">🛠️</span>

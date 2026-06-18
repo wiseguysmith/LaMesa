@@ -25,7 +25,7 @@ export default function Navbar() {
 
       {/* Main nav */}
       <nav
-        className={`bg-cream border-b border-[#F0DEC8] transition-shadow duration-200 ${
+        className={`bg-cream border-b border-[#DCE4ED] transition-shadow duration-200 ${
           scrolled ? 'shadow-md' : 'shadow-none'
         }`}
       >
@@ -60,7 +60,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/apply"
-                className="bg-terracotta hover:bg-[#B05525] text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
+                className="bg-terracotta hover:bg-[#0A6E8F] text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
               >
                 Apply as Founder
               </Link>
@@ -87,7 +87,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-cream border-t border-[#F0DEC8] px-4 py-4 space-y-2">
+          <div className="md:hidden bg-cream border-t border-[#DCE4ED] px-4 py-4 space-y-2">
             <Link
               href="/how-it-works"
               className="block px-3 py-2 rounded-lg text-sm font-medium text-brown-mid hover:bg-sand"

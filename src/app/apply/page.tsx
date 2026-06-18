@@ -8,26 +8,26 @@ export default function ApplyPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #2D1B0E 0%, #3D2510 50%, #5C3A1E 100%)' }}>
+      <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 50%, #16315E 100%)' }}>
         {/* Layered gradients */}
         <div
           className="absolute inset-0 pointer-events-none"
           aria-hidden="true"
           style={{
             background:
-              'radial-gradient(ellipse 60% 55% at 80% 20%, rgba(194,98,45,0.3) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 85%, rgba(245,158,11,0.15) 0%, transparent 55%)',
+              'radial-gradient(ellipse 60% 55% at 80% 20%, rgba(8,131,168,0.3) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 85%, rgba(245,132,31,0.15) 0%, transparent 55%)',
           }}
         />
         {/* Decorative floating elements */}
         <div
           className="absolute top-10 right-12 w-56 h-56 rounded-full blur-3xl opacity-20 pointer-events-none"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F59E0B 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
         />
         <div
           className="absolute bottom-8 left-8 w-40 h-40 rounded-full blur-2xl opacity-15 pointer-events-none hidden md:block"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #C2622D 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
         />
 
         <div className="max-w-3xl mx-auto text-center relative">
@@ -45,7 +45,7 @@ export default function ApplyPage() {
           </p>
           <Link
             href="/login?mode=signup&redirect=/founder/projects/new"
-            className="inline-block bg-terracotta hover:bg-[#B05525] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
+            className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
           >
             Apply for a Seat
           </Link>
@@ -96,10 +96,10 @@ export default function ApplyPage() {
               <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">Sample AI Output</p>
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <svg viewBox="0 0 36 36" className="w-32 h-32 -rotate-90">
-                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F5E6D0" strokeWidth="2.5" />
+                  <circle cx="18" cy="18" r="15.9" fill="none" stroke="#E6EEF7" strokeWidth="2.5" />
                   <circle
                     cx="18" cy="18" r="15.9" fill="none"
-                    stroke="#C2622D" strokeWidth="2.5"
+                    stroke="#0883A8" strokeWidth="2.5"
                     strokeDasharray="72 28"
                     strokeLinecap="round"
                   />
@@ -138,7 +138,7 @@ export default function ApplyPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #C2622D 0%, #B05525 100%)' }}>
+      <section className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0883A8 0%, #0A6E8F 100%)' }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-10"
           aria-hidden="true"
@@ -148,13 +148,13 @@ export default function ApplyPage() {
         />
         <div className="max-w-xl mx-auto text-center text-white relative">
           <h2 className="text-2xl font-bold mb-4">Ready to get started?</h2>
-          <p className="text-[#F5E6D0] mb-2">
+          <p className="text-[#E6EEF7] mb-2">
             Create an account and submit your first project — it takes less than 10 minutes.
           </p>
           <p className="text-[#E8D0B8] text-sm mb-8 opacity-80">No experience required. Just a real idea.</p>
           <Link
             href="/login?mode=signup&redirect=/founder/projects/new"
-            className="inline-block bg-white text-terracotta hover:bg-[#FDF6EC] font-semibold px-8 py-3 rounded-full transition-colors"
+            className="inline-block bg-white text-terracotta hover:bg-[#F4F7FB] font-semibold px-8 py-3 rounded-full transition-colors"
           >
             Apply for a Seat
           </Link>
