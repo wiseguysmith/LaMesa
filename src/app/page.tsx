@@ -15,7 +15,7 @@ export default function LandingPage() {
           aria-hidden="true"
           style={{
             background:
-              'radial-gradient(ellipse 70% 55% at 75% 15%, rgba(245,132,31,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 80%, rgba(8,131,168,0.15) 0%, transparent 55%), radial-gradient(ellipse 90% 80% at 50% 50%, #F4F7FB 30%, transparent 100%)',
+              'radial-gradient(ellipse 70% 55% at 75% 15%, rgba(6,182,212,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 80%, rgba(59,130,246,0.14) 0%, transparent 55%), radial-gradient(ellipse 90% 80% at 50% 50%, #F4F7FB 30%, transparent 100%)',
           }}
         />
         {/* Subtle grid pattern */}
@@ -30,7 +30,7 @@ export default function LandingPage() {
         <div
           className="absolute top-20 right-12 w-80 h-80 rounded-full opacity-20 pointer-events-none blur-3xl"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)' }}
         />
         <div
           className="absolute bottom-24 left-8 w-56 h-56 rounded-full opacity-15 pointer-events-none blur-2xl"
@@ -45,7 +45,7 @@ export default function LandingPage() {
         <div
           className="absolute top-32 left-1/4 w-20 h-20 rounded-full opacity-10 pointer-events-none blur-xl hidden md:block"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #F5841F 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #06B6D4 0%, transparent 70%)' }}
         />
 
         <div className="relative max-w-4xl mx-auto text-center">
@@ -171,7 +171,7 @@ export default function LandingPage() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-20"
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #FBA94C 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)' }}
         />
         <div className="max-w-4xl mx-auto text-center relative">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
