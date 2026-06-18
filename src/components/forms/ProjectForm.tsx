@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
@@ -24,32 +25,7 @@ const CATEGORIES = [
   { value: 'Other', label: 'Other' },
 ]
 
-const STAGES = [
-  { value: 'Idea', label: 'Idea' },
-  { value: 'Research', label: 'Research' },
-  { value: 'Prototype', label: 'Prototype' },
-  { value: 'MVP', label: 'MVP' },
-  { value: 'Launched', label: 'Launched' },
-]
-
-const COLLABORATION = [
-  { value: 'Portfolio/experience', label: 'Portfolio / Experience' },
-  { value: 'Paid', label: 'Paid' },
-  { value: 'Equity', label: 'Equity' },
-  { value: 'Volunteer/community', label: 'Volunteer / Community' },
-  { value: 'To be discussed', label: 'To Be Discussed' },
-]
-
-const TRACKS: { value: Track; label: string; description: string }[] = [
-  { value: 'AI', label: 'AI', description: 'Intelligent software, agents, ML, data products' },
-  { value: 'Web3', label: 'Web3', description: 'Blockchain, smart contracts, decentralized apps' },
-  { value: 'Robotics', label: 'Robotics', description: 'Hardware, automation, physical-world systems' },
-  { value: 'Climate', label: 'Climate', description: 'Sustainability, energy, circular economy, environment' },
-  { value: 'Community Impact', label: 'Community Impact', description: 'Civic tech, education, health access, equity' },
-  { value: 'Student Founder', label: 'Student Founder', description: 'First-time founders from schools or youth programs' },
-  { value: 'Technical Founder', label: 'Technical Founder', description: 'Builders turning technical insight into startups' },
-  { value: 'Nontechnical Founder', label: 'Nontechnical Founder', description: 'Domain experts and operators who need technical collaborators' },
-]
+const TRACK_VALUES: Track[] = ['AI', 'Web3', 'Robotics', 'Climate', 'Community Impact', 'Student Founder', 'Technical Founder', 'Nontechnical Founder']
 
 interface ProjectFormProps {
   userId: string
@@ -58,6 +34,12 @@ interface ProjectFormProps {
 export default function ProjectForm({ userId }: ProjectFormProps) {
   const router = useRouter()
   const supabase = createClient()
+  const { dict } = useLocale()
+  const t = dict.projectForm
+
+  const STAGES = (['Idea', 'Research', 'Prototype', 'MVP', 'Launched'] as const).map((v) => ({ value: v, label: t.stages[v] }))
+  const COLLABORATION = (['Portfolio/experience', 'Paid', 'Equity', 'Volunteer/community', 'To be discussed'] as const).map((v) => ({ value: v, label: t.collaboration[v] }))
+  const TRACKS = TRACK_VALUES.map((v) => ({ value: v, label: v, description: t.trackDesc[v] }))
 
   const [form, setForm] = useState({
     project_name: '',
@@ -91,11 +73,11 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
     setError(null)
 
     if (!form.project_name || !form.one_sentence_idea || !form.problem || !form.category || !form.stage) {
-      setError('Please fill in all required fields.')
+      setError(t.errRequired)
       return
     }
     if (!primaryTrack) {
-      setError('Please select a track for your project.')
+      setError(t.errTrack)
       return
     }
 
@@ -134,7 +116,7 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
         .single()
 
       if (projectError || !project) {
-        setError(projectError?.message || 'Failed to save project')
+        setError(projectError?.message || t.errSave)
         setLoading(false)
         setStep('form')
         return
@@ -192,7 +174,7 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       router.push(`/founder/projects/${project.id}`)
     } catch (err) {
       console.error(err)
-      setError('An unexpected error occurred. Please try again.')
+      setError(t.errUnexpected)
       setLoading(false)
       setStep('form')
     }
@@ -208,11 +190,11 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-2">Submitting your application...</h2>
+          <h2 className="text-xl font-bold text-slate-800 mb-2">{t.analyzingTitle}</h2>
           <p className="text-slate-500">
-            Our AI is reviewing your project, mapping roles, and generating your 30-day roadmap. This takes about 15 seconds.
+            {t.analyzingDesc}
           </p>
-          <p className="text-sm text-amber-700 font-medium mt-3">La Mesa Summer 2026 Table · Table 01</p>
+          <p className="text-sm text-amber-700 font-medium mt-3">{t.analyzingTable}</p>
         </CardBody>
       </Card>
     )
@@ -229,35 +211,35 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       {/* Basic Info */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Project Basics</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.basicsSection}</h2>
           <Input
-            label="Project Name"
+            label={t.name}
             value={form.project_name}
             onChange={set('project_name')}
-            placeholder="My Startup Name"
+            placeholder={t.namePh}
             required
           />
           <Input
-            label="One-Sentence Idea"
+            label={t.idea}
             value={form.one_sentence_idea}
             onChange={set('one_sentence_idea')}
-            placeholder="A platform that helps X do Y by doing Z"
+            placeholder={t.ideaPh}
             required
-            hint="Keep it clear and specific. This is your elevator pitch."
+            hint={t.ideaHint}
           />
           <Textarea
-            label="Problem Being Solved"
+            label={t.problem}
             value={form.problem}
             onChange={set('problem')}
-            placeholder="Describe the specific problem you're solving and why it matters..."
+            placeholder={t.problemPh}
             required
             rows={4}
           />
           <Input
-            label="Target Users"
+            label={t.targetUsers}
             value={form.target_users}
             onChange={set('target_users')}
-            placeholder="e.g., Small business owners, college students, healthcare workers"
+            placeholder={t.targetUsersPh}
           />
         </CardBody>
       </Card>
@@ -265,37 +247,37 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       {/* Project Details */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Project Details</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.detailsSection}</h2>
           <div className="grid grid-cols-2 gap-4">
             <Select
-              label="Category"
+              label={t.category}
               options={CATEGORIES}
               value={form.category}
               onChange={set('category')}
-              placeholder="Select a category"
+              placeholder={t.categoryPh}
               required
             />
             <Select
-              label="Current Stage"
+              label={t.stage}
               options={STAGES}
               value={form.stage}
               onChange={set('stage')}
-              placeholder="Select a stage"
+              placeholder={t.stagePh}
               required
             />
           </div>
           <Input
-            label="Skills Needed"
+            label={t.skills}
             value={form.skills_needed}
             onChange={set('skills_needed')}
-            placeholder="e.g., React, Python, UI Design, Marketing"
-            hint="Separate with commas"
+            placeholder={t.skillsPh}
+            hint={t.skillsHint}
           />
           <Input
-            label="Timeline"
+            label={t.timeline}
             value={form.timeline}
             onChange={set('timeline')}
-            placeholder="e.g., 30 days to prototype, 3 months to MVP"
+            placeholder={t.timelinePh}
           />
         </CardBody>
       </Card>
@@ -303,36 +285,36 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       {/* Team & Collaboration */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Team & Collaboration</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.teamSection}</h2>
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Desired Team Size"
+              label={t.teamSize}
               type="number"
               value={form.desired_team_size}
               onChange={set('desired_team_size')}
-              placeholder="e.g., 4"
+              placeholder={t.teamSizePh}
               min="1"
               max="20"
             />
             <Select
-              label="Collaboration Expectation"
+              label={t.collab}
               options={COLLABORATION}
               value={form.collaboration_expectation}
               onChange={set('collaboration_expectation')}
-              placeholder="Select expectation"
+              placeholder={t.collabPh}
             />
           </div>
           <Input
-            label="Availability Expectation"
+            label={t.availability}
             value={form.availability_expectation}
             onChange={set('availability_expectation')}
-            placeholder="e.g., 10 hours/week for 4 weeks"
+            placeholder={t.availabilityPh}
           />
           <Input
-            label="Location Preference"
+            label={t.location}
             value={form.location_preference}
             onChange={set('location_preference')}
-            placeholder="e.g., Remote, Austin TX, Hybrid"
+            placeholder={t.locationPh}
           />
         </CardBody>
       </Card>
@@ -340,19 +322,19 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       {/* Goals & Notes */}
       <Card>
         <CardBody className="space-y-4">
-          <h2 className="font-semibold text-slate-800 text-lg">Goals & Additional Info</h2>
+          <h2 className="font-semibold text-slate-800 text-lg">{t.goalsSection}</h2>
           <Textarea
-            label="Founder Goals"
+            label={t.founderGoals}
             value={form.founder_goals}
             onChange={set('founder_goals')}
-            placeholder="What do you want to achieve? What does success look like for you?"
+            placeholder={t.founderGoalsPh}
             rows={3}
           />
           <Textarea
-            label="Additional Notes"
+            label={t.notes}
             value={form.additional_notes}
             onChange={set('additional_notes')}
-            placeholder="Anything else we should know about your project..."
+            placeholder={t.notesPh}
             rows={3}
           />
         </CardBody>
@@ -362,11 +344,11 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
       <Card>
         <CardBody className="space-y-4">
           <div>
-            <h2 className="font-semibold text-slate-800 text-lg mb-1">Which track best fits your project?</h2>
-            <p className="text-slate-500 text-sm">Select your primary track. You may also choose an optional secondary track.</p>
+            <h2 className="font-semibold text-slate-800 text-lg mb-1">{t.trackQuestion}</h2>
+            <p className="text-slate-500 text-sm">{t.trackHelp}</p>
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Primary Track <span className="text-red-500">*</span></p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">{t.primaryTrack} <span className="text-red-500">*</span></p>
             <div className="grid grid-cols-2 gap-3">
               {TRACKS.map((track) => (
                 <button
@@ -388,9 +370,9 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
             </div>
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Secondary Track <span className="text-slate-400">(optional)</span></p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">{t.secondaryTrack} <span className="text-slate-400">{t.optional}</span></p>
             <div className="grid grid-cols-2 gap-3">
-              {TRACKS.filter((t) => t.value !== primaryTrack).map((track) => (
+              {TRACKS.filter((tr) => tr.value !== primaryTrack).map((track) => (
                 <button
                   key={track.value}
                   type="button"
@@ -414,7 +396,7 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
 
       <div className="flex justify-end">
         <Button type="submit" loading={loading} size="lg">
-          Apply for a seat at La Mesa
+          {t.submit}
         </Button>
       </div>
     </form>
