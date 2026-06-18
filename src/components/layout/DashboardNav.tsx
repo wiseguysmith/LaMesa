@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
+import LanguageToggle from '@/components/i18n/LanguageToggle'
 import { UserRole } from '@/types/database'
 
 interface DashboardNavProps {
@@ -14,6 +16,8 @@ export default function DashboardNav({ role, fullName }: DashboardNavProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const { dict } = useLocale()
+  const t = dict.app.nav
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -22,24 +26,25 @@ export default function DashboardNav({ role, fullName }: DashboardNavProps) {
   }
 
   const founderLinks = [
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/founder/projects/new', label: 'New Project' },
+    { href: '/dashboard', label: t.dashboard },
+    { href: '/founder/projects/new', label: t.newProject },
   ]
 
   const builderLinks = [
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/builder/profile', label: 'My Profile' },
-    { href: '/builder/projects', label: 'My Projects' },
+    { href: '/dashboard', label: t.dashboard },
+    { href: '/builder/profile', label: t.myProfile },
+    { href: '/builder/projects', label: t.myProjects },
   ]
 
   const adminLinks = [
-    { href: '/admin', label: 'Overview' },
-    { href: '/admin/projects', label: 'Projects' },
-    { href: '/admin/builders', label: 'Builders' },
-    { href: '/admin/matches', label: 'Matching' },
+    { href: '/admin', label: t.overview },
+    { href: '/admin/projects', label: t.projects },
+    { href: '/admin/builders', label: t.builders },
+    { href: '/admin/matches', label: t.matching },
   ]
 
   const links = role === 'admin' ? adminLinks : role === 'builder' ? builderLinks : founderLinks
+  const roleLabel = role === 'admin' ? t.roleAdmin : role === 'builder' ? t.roleBuilder : t.roleFounder
 
   return (
     <nav className="bg-white border-b border-slate-200">
@@ -66,13 +71,14 @@ export default function DashboardNav({ role, fullName }: DashboardNavProps) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-sm text-slate-500">{fullName || 'User'}</span>
-            <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full capitalize">{role}</span>
+            <LanguageToggle />
+            <span className="text-sm text-slate-500">{fullName || t.user}</span>
+            <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full capitalize">{roleLabel}</span>
             <button
               onClick={handleSignOut}
               className="text-sm text-slate-500 hover:text-slate-800"
             >
-              Sign Out
+              {t.signOut}
             </button>
           </div>
         </div>

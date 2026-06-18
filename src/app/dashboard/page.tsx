@@ -1,84 +1,46 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getServerDictionary } from '@/lib/i18n/server'
+import type { Dictionary } from '@/lib/i18n/dictionaries'
 import DashboardNav from '@/components/layout/DashboardNav'
 import Link from 'next/link'
 import Card, { CardBody } from '@/components/ui/Card'
 import { StatusBadge, ApprovalBadge } from '@/components/ui/Badge'
 import { Project, FounderStatus, BuilderStatus } from '@/types/database'
 
-function getFounderBanner(founderStatus: FounderStatus | null | undefined) {
+function getFounderBanner(founderStatus: FounderStatus | null | undefined, d: Dictionary['app']['dashboard']['founderBanner']) {
   switch (founderStatus) {
     case 'submitted':
     case 'pending_consideration':
-      return {
-        bg: 'bg-amber-50 border-amber-200',
-        text: 'text-amber-800',
-        message: 'Your application is pending consideration for the La Mesa Summer 2026 Table.',
-      }
+      return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800', message: d.pending }
     case 'selected':
-      return {
-        bg: 'bg-green-50 border-green-200',
-        text: 'text-green-800',
-        message: 'Congratulations — you\'ve been selected for Table 01.',
-      }
+      return { bg: 'bg-green-50 border-green-200', text: 'text-green-800', message: d.selected }
     case 'not_selected':
-      return {
-        bg: 'bg-slate-50 border-slate-200',
-        text: 'text-slate-700',
-        message: 'Thank you for applying. You were not selected for this Table.',
-      }
+      return { bg: 'bg-slate-50 border-slate-200', text: 'text-slate-700', message: d.notSelected }
     case 'matched':
-      return {
-        bg: 'bg-teal-50 border-teal-200',
-        text: 'text-teal-800',
-        message: 'Your team is being formed. Check your project for details.',
-      }
+      return { bg: 'bg-teal-50 border-teal-200', text: 'text-teal-800', message: d.matched }
     case 'building':
-      return {
-        bg: 'bg-blue-50 border-blue-200',
-        text: 'text-blue-800',
-        message: 'You\'re in the 30-day build cycle. Keep going.',
-      }
+      return { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800', message: d.building }
     case 'demo_ready':
-      return {
-        bg: 'bg-yellow-50 border-yellow-300',
-        text: 'text-yellow-800',
-        message: 'Demo Day is approaching. Prepare your presentation.',
-      }
+      return { bg: 'bg-yellow-50 border-yellow-300', text: 'text-yellow-800', message: d.demoReady }
     default:
       return null
   }
 }
 
-function getBuilderBanner(builderStatus: BuilderStatus | null | undefined) {
+function getBuilderBanner(builderStatus: BuilderStatus | null | undefined, d: Dictionary['app']['dashboard']['builderBanner']) {
   switch (builderStatus) {
     case 'profile_submitted':
     case 'pending_review':
-      return {
-        bg: 'bg-amber-50 border-amber-200',
-        text: 'text-amber-800',
-        message: 'Your La Mesa Builder Network application is under review.',
-      }
+      return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800', message: d.underReview }
     case 'approved':
     case 'eligible_for_matching':
-      return {
-        bg: 'bg-green-50 border-green-200',
-        text: 'text-green-800',
-        message: "You're approved for matching. Watch for project assignments.",
-      }
+      return { bg: 'bg-green-50 border-green-200', text: 'text-green-800', message: d.approved }
     case 'not_approved':
-      return {
-        bg: 'bg-slate-50 border-slate-200',
-        text: 'text-slate-700',
-        message: 'Your application was not approved for this Table.',
-      }
+      return { bg: 'bg-slate-50 border-slate-200', text: 'text-slate-700', message: d.notApproved }
     case 'assigned':
     case 'active_builder':
-      return {
-        bg: 'bg-blue-50 border-blue-200',
-        text: 'text-blue-800',
-        message: "You're assigned to a project. Check your projects below.",
-      }
+      return { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800', message: d.assigned }
     default:
       return null
   }
@@ -105,7 +67,7 @@ function TrackBadge({ track }: { track: string | null | undefined }) {
   )
 }
 
-function WeekIndicator({ project, batchStartDate }: { project: Project; batchStartDate: string | null }) {
+function WeekIndicator({ project, batchStartDate, label }: { project: Project; batchStartDate: string | null; label: string }) {
   if (project.status !== 'building' || !batchStartDate) return null
   const start = new Date(batchStartDate)
   const now = new Date()
@@ -113,12 +75,14 @@ function WeekIndicator({ project, batchStartDate }: { project: Project; batchSta
   const week = Math.min(Math.max(Math.floor(daysDiff / 7) + 1, 1), 4)
   return (
     <span className="text-xs bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">
-      Week {week} of 4
+      {label.replace('{n}', String(week))}
     </span>
   )
 }
 
 export default async function DashboardPage() {
+  const { dict } = getServerDictionary()
+  const t = dict.app.dashboard
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -183,8 +147,8 @@ export default async function DashboardPage() {
     }, statuses[0])
   })()
 
-  const founderBanner = userData.role === 'founder' && projects.length > 0 ? getFounderBanner(founderBannerStatus) : null
-  const builderBanner = userData.role === 'builder' ? getBuilderBanner((builderProfile as { builder_status?: BuilderStatus } | null)?.builder_status) : null
+  const founderBanner = userData.role === 'founder' && projects.length > 0 ? getFounderBanner(founderBannerStatus, t.founderBanner) : null
+  const builderBanner = userData.role === 'builder' ? getBuilderBanner((builderProfile as { builder_status?: BuilderStatus } | null)?.builder_status, t.builderBanner) : null
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -193,12 +157,10 @@ export default async function DashboardPage() {
       <main className="max-w-5xl mx-auto px-4 py-10">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-900">
-            Welcome back, {userData.full_name || 'there'}
+            {t.welcome} {userData.full_name || t.there}
           </h1>
           <p className="text-slate-500 mt-1">
-            {userData.role === 'founder'
-              ? 'Manage your projects and track your team formation progress.'
-              : 'View your La Mesa Builder Network status and assigned projects.'}
+            {userData.role === 'founder' ? t.founderSubtitle : t.builderSubtitle}
           </p>
         </div>
 
@@ -217,25 +179,25 @@ export default async function DashboardPage() {
         {userData.role === 'founder' && (
           <>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-slate-800">Your Projects</h2>
+              <h2 className="text-lg font-semibold text-slate-800">{t.yourProjects}</h2>
               <Link
                 href="/founder/projects/new"
                 className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
               >
-                + New Project
+                {t.newProjectBtn}
               </Link>
             </div>
 
             {projects.length === 0 ? (
               <Card>
                 <CardBody className="text-center py-16">
-                  <p className="text-slate-400 text-lg mb-2">No projects yet</p>
-                  <p className="text-slate-400 text-sm mb-6">Submit your application for the La Mesa Summer 2026 Table.</p>
+                  <p className="text-slate-400 text-lg mb-2">{t.noProjects}</p>
+                  <p className="text-slate-400 text-sm mb-6">{t.noProjectsSub}</p>
                   <Link
                     href="/founder/projects/new"
                     className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                   >
-                    Apply for a Seat
+                    {t.applyForSeat}
                   </Link>
                 </CardBody>
               </Card>
@@ -250,7 +212,7 @@ export default async function DashboardPage() {
                           <StatusBadge status={project.status} />
                           <ApprovalBadge status={project.approval_status} />
                           <TrackBadge track={project.track} />
-                          <WeekIndicator project={project} batchStartDate={batchStartDate} />
+                          <WeekIndicator project={project} batchStartDate={batchStartDate} label={t.weekOf} />
                         </div>
                         <p className="text-slate-500 text-sm">{project.one_sentence_idea}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-slate-400">
@@ -258,7 +220,7 @@ export default async function DashboardPage() {
                           <span>{project.stage}</span>
                           {project.readiness_score !== null && (
                             <span className="text-amber-600 font-medium">
-                              Readiness: {project.readiness_score}/100
+                              {t.readiness}: {project.readiness_score}/100
                             </span>
                           )}
                         </div>
@@ -267,7 +229,7 @@ export default async function DashboardPage() {
                         href={`/founder/projects/${project.id}`}
                         className="text-sm font-medium text-amber-600 hover:text-amber-700 ml-4"
                       >
-                        View →
+                        {t.view} →
                       </Link>
                     </CardBody>
                   </Card>
@@ -284,39 +246,39 @@ export default async function DashboardPage() {
               <CardBody>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="font-semibold text-slate-800 mb-1">La Mesa Builder Network</h2>
+                    <h2 className="font-semibold text-slate-800 mb-1">{t.builderNetwork}</h2>
                     {builderProfile ? (
                       <div className="flex items-center gap-2">
                         <ApprovalBadge status={builderProfile.approval_status as 'pending' | 'approved' | 'rejected'} />
                         <span className="text-sm text-slate-500">
                           {builderProfile.approval_status === 'pending'
-                            ? 'Your application is under review by ISD.'
+                            ? t.profilePending
                             : builderProfile.approval_status === 'approved'
-                            ? 'Your profile is active and you can be matched to projects.'
-                            : 'Your application was not approved. Contact ISD for more info.'}
+                            ? t.profileApproved
+                            : t.profileRejected}
                         </span>
                       </div>
                     ) : (
-                      <p className="text-sm text-slate-500">You haven&apos;t created a Builder Network profile yet.</p>
+                      <p className="text-sm text-slate-500">{t.noProfile}</p>
                     )}
                   </div>
                   <Link
                     href="/builder/profile"
                     className="text-sm font-medium text-amber-600 hover:text-amber-700"
                   >
-                    {builderProfile ? 'Edit Profile →' : 'Create Profile →'}
+                    {builderProfile ? `${t.editProfile} →` : `${t.createProfile} →`}
                   </Link>
                 </div>
               </CardBody>
             </Card>
 
-            <h2 className="text-lg font-semibold text-slate-800 mb-4">Assigned Projects</h2>
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">{t.assignedProjects}</h2>
             {projects.length === 0 ? (
               <Card>
                 <CardBody className="text-center py-12">
-                  <p className="text-slate-400">No project assignments yet.</p>
+                  <p className="text-slate-400">{t.noAssignments}</p>
                   <p className="text-slate-400 text-sm mt-1">
-                    Make sure your Builder Network profile is complete and approved to be considered for matches.
+                    {t.noAssignmentsSub}
                   </p>
                 </CardBody>
               </Card>

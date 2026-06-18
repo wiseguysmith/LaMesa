@@ -1,4 +1,7 @@
+'use client'
+
 import { ProjectStatus, ApprovalStatus } from '@/types/database'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 
 interface BadgeProps {
   children: React.ReactNode
@@ -24,29 +27,31 @@ export default function Badge({ children, variant = 'default', className = '' }:
 }
 
 export function StatusBadge({ status }: { status: ProjectStatus }) {
-  const map: Record<ProjectStatus, { label: string; variant: BadgeProps['variant'] }> = {
-    submitted: { label: 'Submitted', variant: 'muted' },
-    under_review: { label: 'Under Review', variant: 'info' },
-    roles_mapped: { label: 'Roles Mapped', variant: 'info' },
-    matching: { label: 'Matching', variant: 'warning' },
-    team_formed: { label: 'Team Formed', variant: 'warning' },
-    building: { label: 'Building', variant: 'success' },
-    prototype_ready: { label: 'Prototype Ready', variant: 'success' },
-    presented_demo_day: { label: 'Demo Day', variant: 'success' },
-    archived: { label: 'Archived', variant: 'muted' },
+  const { dict } = useLocale()
+  const variantMap: Record<ProjectStatus, BadgeProps['variant']> = {
+    submitted: 'muted',
+    under_review: 'info',
+    roles_mapped: 'info',
+    matching: 'warning',
+    team_formed: 'warning',
+    building: 'success',
+    prototype_ready: 'success',
+    presented_demo_day: 'success',
+    archived: 'muted',
   }
 
-  const { label, variant } = map[status] || { label: status, variant: 'default' as const }
-  return <Badge variant={variant}>{label}</Badge>
+  const label = dict.app.status[status] || status
+  return <Badge variant={variantMap[status] || 'default'}>{label}</Badge>
 }
 
 export function ApprovalBadge({ status }: { status: ApprovalStatus }) {
-  const map: Record<ApprovalStatus, { label: string; variant: BadgeProps['variant'] }> = {
-    pending: { label: 'Pending', variant: 'warning' },
-    approved: { label: 'Approved', variant: 'success' },
-    rejected: { label: 'Rejected', variant: 'danger' },
+  const { dict } = useLocale()
+  const variantMap: Record<ApprovalStatus, BadgeProps['variant']> = {
+    pending: 'warning',
+    approved: 'success',
+    rejected: 'danger',
   }
 
-  const { label, variant } = map[status]
-  return <Badge variant={variant}>{label}</Badge>
+  const label = dict.app.approval[status] || status
+  return <Badge variant={variantMap[status]}>{label}</Badge>
 }
