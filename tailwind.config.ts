@@ -40,6 +40,22 @@ const config: Config = {
         'isd-orange-light': '#FBA94C',
         ink: '#0A1A3A',
         'cool-border': '#DCE4ED',
+
+        // Override Tailwind's default `amber` scale with ISD cyan/tech-blue.
+        // The logged-in app uses amber-* utilities as the brand accent; remapping
+        // the scale recolors the whole authenticated UI to ISD in one place.
+        amber: {
+          50: '#ECFBFF',
+          100: '#D0F4FB',
+          200: '#A5E9F5',
+          300: '#6FD8EC',
+          400: '#38C3DE',
+          500: '#14A8C7',
+          600: '#0883A8',
+          700: '#0A6E8F',
+          800: '#0C586F',
+          900: '#0D4255',
+        },
       },
     },
   },
