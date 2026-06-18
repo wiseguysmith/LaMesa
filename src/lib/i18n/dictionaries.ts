@@ -399,6 +399,14 @@ export const dictionaries = {
         'Volunteer/community': 'Volunteer / Community', 'To be discussed': 'To Be Discussed',
       },
     },
+    builderProjects: {
+      title: 'My Projects',
+      subtitle: 'Projects you have been assigned to.',
+      noAssignments: 'No project assignments yet',
+      noAssignmentsSub: 'Make sure your builder profile is complete and approved. Admin will assign you to projects.',
+      yourRole: 'Your role:',
+      view: 'View',
+    },
   },
 
   es: {
@@ -795,6 +803,14 @@ export const dictionaries = {
         'Portfolio/experience': 'Portafolio / Experiencia', Paid: 'Pagado', Equity: 'Equity',
         'Volunteer/community': 'Voluntariado / Comunidad', 'To be discussed': 'Por Definir',
       },
+    },
+    builderProjects: {
+      title: 'Mis Proyectos',
+      subtitle: 'Proyectos a los que has sido asignad@.',
+      noAssignments: 'Aún no tienes asignaciones de proyectos',
+      noAssignmentsSub: 'Asegúrate de que tu perfil de builder esté completo y aprobado. El admin te asignará a proyectos.',
+      yourRole: 'Tu rol:',
+      view: 'Ver',
     },
   },
 } as const
