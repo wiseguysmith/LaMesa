@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useLocale } from '@/lib/i18n/LocaleProvider'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Card, { CardBody } from '@/components/ui/Card'
@@ -11,6 +12,8 @@ type Mode = 'signin' | 'signup'
 
 export default function LoginForm() {
   const searchParams = useSearchParams()
+  const { dict } = useLocale()
+  const t = dict.loginForm
   const redirect = searchParams.get('redirect') || '/dashboard'
   const initialMode = (searchParams.get('mode') as Mode) || 'signin'
 
@@ -55,7 +58,7 @@ export default function LoginForm() {
 
   const handleSignUp = async () => {
     if (!fullName.trim()) {
-      setError('Full name is required')
+      setError(t.fullNameRequired)
       return
     }
     setLoading(true)
@@ -79,12 +82,12 @@ export default function LoginForm() {
 
       if (!res.ok) {
         const { error: createError } = await res.json()
-        setError(createError || 'Failed to create user profile')
+        setError(createError || t.createFailed)
         setLoading(false)
         return
       }
 
-      setSuccess('Account created! Check your email to confirm, then sign in.')
+      setSuccess(t.accountCreated)
       setMode('signin')
     }
     setLoading(false)
@@ -112,7 +115,7 @@ export default function LoginForm() {
                 : 'text-warm-muted hover:text-brown-dark'
             }`}
           >
-            Sign In
+            {t.signIn}
           </button>
           <button
             onClick={() => { setMode('signup'); setError(null) }}
@@ -122,7 +125,7 @@ export default function LoginForm() {
                 : 'text-warm-muted hover:text-brown-dark'
             }`}
           >
-            Sign Up
+            {t.signUp}
           </button>
         </div>
 
@@ -141,37 +144,37 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'signup' && (
             <Input
-              label="Full Name"
+              label={t.fullName}
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Jane Smith"
+              placeholder={t.fullNamePlaceholder}
               required
             />
           )}
 
           <Input
-            label="Email"
+            label={t.email}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
+            placeholder={t.emailPlaceholder}
             required
           />
 
           <Input
-            label="Password"
+            label={t.password}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder={mode === 'signup' ? 'At least 6 characters' : '••••••••'}
+            placeholder={mode === 'signup' ? t.passwordSignup : '••••••••'}
             required
           />
 
           {mode === 'signup' && (
             <div>
               <p className="block text-sm font-medium text-brown-dark mb-3">
-                I am joining as... <span className="text-red-500">*</span>
+                {t.joiningAs} <span className="text-red-500">*</span>
               </p>
               {/* Role selector cards */}
               <div className="flex gap-3">
@@ -186,9 +189,9 @@ export default function LoginForm() {
                 >
                   <span className="text-2xl">🚀</span>
                   <span className={`text-sm font-semibold ${role === 'founder' ? 'text-terracotta' : 'text-brown-dark'}`}>
-                    Founder
+                    {t.founder}
                   </span>
-                  <span className="text-xs text-warm-muted">I have an idea</span>
+                  <span className="text-xs text-warm-muted">{t.founderSub}</span>
                 </button>
                 <button
                   type="button"
@@ -201,16 +204,16 @@ export default function LoginForm() {
                 >
                   <span className="text-2xl">🛠️</span>
                   <span className={`text-sm font-semibold ${role === 'builder' ? 'text-terracotta' : 'text-brown-dark'}`}>
-                    Builder
+                    {t.builder}
                   </span>
-                  <span className="text-xs text-warm-muted">I have skills</span>
+                  <span className="text-xs text-warm-muted">{t.builderSub}</span>
                 </button>
               </div>
             </div>
           )}
 
           <Button type="submit" loading={loading} className="w-full !rounded-xl" size="lg">
-            {mode === 'signin' ? 'Sign In' : 'Create Account'}
+            {mode === 'signin' ? t.signIn : t.createAccount}
           </Button>
 
           {mode === 'signin' && (
@@ -220,13 +223,13 @@ export default function LoginForm() {
                 className="text-terracotta hover:text-terracotta-light font-medium transition-colors"
                 onClick={() => {
                   if (email) {
-                    alert(`Password reset instructions would be sent to ${email}`)
+                    alert(`${t.resetSent} ${email}`)
                   } else {
-                    alert('Enter your email address above, then click Forgot password.')
+                    alert(t.enterEmail)
                   }
                 }}
               >
-                Forgot password?
+                {t.forgotPassword}
               </button>
             </p>
           )}

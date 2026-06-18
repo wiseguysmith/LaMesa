@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { getServerDictionary } from '@/lib/i18n/server'
 
 // Role tag color groups
 const roles = [
@@ -30,6 +31,8 @@ const pillStyles: Record<string, string> = {
 }
 
 export default function JoinPage() {
+  const { dict } = getServerDictionary()
+  const t = dict.join
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -59,25 +62,25 @@ export default function JoinPage() {
 
         <div className="max-w-3xl mx-auto text-center relative">
           <div className="inline-block bg-terracotta/20 text-terracotta-light text-sm font-semibold px-3 py-1 rounded-full mb-6 border border-terracotta/30">
-            Builder Profile
+            {t.badge}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Have skills?<br />
-            <span className="gradient-text">Find a project.</span>
+            {t.titleLine1}<br />
+            <span className="gradient-text">{t.titleLine2}</span>
           </h1>
           <p className="text-lg text-warm-muted mb-10 max-w-2xl mx-auto">
-            Create your builder profile, share your skills and availability, and get matched to early-stage projects where you can make a real impact.
+            {t.subtitle}
           </p>
           <Link
             href="/login?mode=signup&redirect=/builder/profile"
             className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
           >
-            Join as Builder
+            {t.cta}
           </Link>
           <p className="mt-4 text-sm text-warm-muted">
-            Already have an account?{' '}
+            {t.haveAccount}{' '}
             <Link href="/login?redirect=/builder/profile" className="text-terracotta-light hover:text-amber-400 font-medium transition-colors">
-              Sign in to update your profile
+              {t.signInLink}
             </Link>
           </p>
         </div>
@@ -86,25 +89,9 @@ export default function JoinPage() {
       {/* What builders do */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-brown-dark mb-10 text-center">How it works for builders</h2>
+          <h2 className="text-2xl font-bold text-brown-dark mb-10 text-center">{t.howTitle}</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                number: '01',
-                title: 'Create Your Profile',
-                desc: "Share your skills, experience level, availability, preferred roles, and what kind of project you're looking for.",
-              },
-              {
-                number: '02',
-                title: 'Get Reviewed',
-                desc: 'ISD admin reviews your profile and approves you for matching. This keeps the community quality high.',
-              },
-              {
-                number: '03',
-                title: 'Get Matched',
-                desc: 'AI suggests you to projects that fit your skills. Admin makes the final call and introduces you to the founder.',
-              },
-            ].map((item) => (
+            {t.steps.map((item) => (
               <div key={item.number} className="flex flex-col items-start">
                 <div className="w-10 h-10 bg-terracotta text-white rounded-xl flex items-center justify-center text-sm font-bold mb-4">
                   {item.number}
@@ -120,9 +107,9 @@ export default function JoinPage() {
       {/* Roles */}
       <section className="py-20 px-4 bg-sand">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-brown-dark mb-4 text-center">We need all kinds of builders</h2>
+          <h2 className="text-2xl font-bold text-brown-dark mb-4 text-center">{t.rolesTitle}</h2>
           <p className="text-center text-warm-muted mb-10 max-w-xl mx-auto">
-            You don&apos;t have to be a developer. Projects need designers, marketers, researchers, and operators too.
+            {t.rolesSubtitle}
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {roles.map((role) => (
@@ -140,15 +127,9 @@ export default function JoinPage() {
       {/* Who this is for */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-brown-dark mb-8 text-center">This is for you if...</h2>
+          <h2 className="text-2xl font-bold text-brown-dark mb-8 text-center">{t.forYouTitle}</h2>
           <ul className="space-y-4">
-            {[
-              'You have skills — code, design, marketing, research — and want real project experience.',
-              "You're a student looking to build your portfolio with meaningful work.",
-              "You're between projects and want to contribute to something early-stage.",
-              "You want to collaborate with founders, learn across functions, and ship a prototype.",
-              "You're looking for equity, paid work, or simply a great portfolio piece.",
-            ].map((item) => (
+            {t.forYou.map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span className="mt-0.5 w-5 h-5 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center flex-shrink-0 text-xs font-bold">✓</span>
                 <span className="text-brown-mid">{item}</span>
@@ -168,15 +149,15 @@ export default function JoinPage() {
           }}
         />
         <div className="max-w-xl mx-auto text-center text-white relative">
-          <h2 className="text-2xl font-bold mb-4">Ready to find your next project?</h2>
+          <h2 className="text-2xl font-bold mb-4">{t.ctaTitle}</h2>
           <p className="text-warm-muted mb-6">
-            Create your builder profile and get matched with projects that need your skills.
+            {t.ctaDesc}
           </p>
           <Link
             href="/login?mode=signup&redirect=/builder/profile"
             className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-3 rounded-full transition-colors"
           >
-            Join as Builder
+            {t.ctaButton}
           </Link>
         </div>
       </section>

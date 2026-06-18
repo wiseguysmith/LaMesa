@@ -1,8 +1,11 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import LoginForm from './LoginForm'
+import { getServerDictionary } from '@/lib/i18n/server'
 
 export default function LoginPage() {
+  const { dict } = getServerDictionary()
+  const t = dict.login
   return (
     <div className="min-h-screen flex">
       {/* Left panel — desktop only */}
@@ -46,28 +49,24 @@ export default function LoginPage() {
         <div className="relative space-y-8">
           <div>
             <h2 className="text-4xl font-bold text-cream leading-snug mb-4">
-              Bring your idea<br />
-              <span className="gradient-text">to the table.</span>
+              {t.leftTitle1}<br />
+              <span className="gradient-text">{t.leftTitle2}</span>
             </h2>
             <p className="text-warm-muted text-lg leading-relaxed max-w-sm">
-              The platform that connects founders with the builders, designers, and thinkers who make ideas real.
+              {t.leftDesc}
             </p>
           </div>
 
           <ul className="space-y-5">
-            {[
-              { num: '1', text: 'AI maps the roles your project needs' },
-              { num: '2', text: 'Get a readiness score and 30-day roadmap' },
-              { num: '3', text: 'ISD coordinators assemble your team' },
-            ].map((item) => (
-              <li key={item.text} className="flex items-center gap-4">
+            {t.bullets.map((text, i) => (
+              <li key={text} className="flex items-center gap-4">
                 <span
                   className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 text-white"
                   style={{ background: '#0883A8' }}
                 >
-                  {item.num}
+                  {i + 1}
                 </span>
-                <span className="text-warm-muted text-base">{item.text}</span>
+                <span className="text-warm-muted text-base">{text}</span>
               </li>
             ))}
           </ul>
@@ -78,7 +77,7 @@ export default function LoginPage() {
             className="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full border text-cream/70"
             style={{ borderColor: 'rgba(8,131,168,0.5)' }}
           >
-            An ISD Pilot Platform
+            {t.badge}
           </span>
         </div>
       </div>
@@ -87,7 +86,7 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col bg-white">
         <div className="p-6">
           <Link href="/" className="text-sm text-warm-muted hover:text-terracotta transition-colors inline-flex items-center gap-1">
-            ← Back to home
+            {t.backHome}
           </Link>
         </div>
 
@@ -95,13 +94,13 @@ export default function LoginPage() {
           <div className="w-full max-w-md">
             <div className="text-center mb-8 lg:hidden">
               <Link href="/" className="text-3xl font-bold text-terracotta">La Mesa</Link>
-              <p className="text-warm-muted mt-2 text-sm">Bring your idea to the table.</p>
+              <p className="text-warm-muted mt-2 text-sm">{t.tagline}</p>
             </div>
             <div className="mb-6 text-center hidden lg:block">
-              <h3 className="text-xl font-bold text-brown-dark">Welcome back</h3>
-              <p className="text-warm-muted text-sm mt-1">Sign in or create your account</p>
+              <h3 className="text-xl font-bold text-brown-dark">{t.welcomeBack}</h3>
+              <p className="text-warm-muted text-sm mt-1">{t.welcomeSub}</p>
             </div>
-            <Suspense fallback={<div className="bg-sand rounded-xl p-8 text-center text-warm-muted">Loading...</div>}>
+            <Suspense fallback={<div className="bg-sand rounded-xl p-8 text-center text-warm-muted">{t.loading}</div>}>
               <LoginForm />
             </Suspense>
           </div>
