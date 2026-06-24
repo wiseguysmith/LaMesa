@@ -63,6 +63,7 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [step, setStep] = useState<'form' | 'analyzing'>('form')
+  const [acknowledged, setAcknowledged] = useState(false)
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }))
@@ -78,6 +79,10 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
     }
     if (!primaryTrack) {
       setError(t.errTrack)
+      return
+    }
+    if (!acknowledged) {
+      setError(t.acknowledgmentRequired)
       return
     }
 
@@ -391,6 +396,23 @@ export default function ProjectForm({ userId }: ProjectFormProps) {
               ))}
             </div>
           </div>
+        </CardBody>
+      </Card>
+
+      {/* Acknowledgment */}
+      <Card>
+        <CardBody>
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={acknowledged}
+              onChange={(e) => setAcknowledged(e.target.checked)}
+              className="mt-1 w-4 h-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500 flex-shrink-0"
+            />
+            <span className="text-sm text-slate-700 group-hover:text-slate-900 leading-relaxed">
+              {t.acknowledgmentLabel}
+            </span>
+          </label>
         </CardBody>
       </Card>
 

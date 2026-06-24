@@ -110,6 +110,51 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Founder 12 Banner ── */}
+      <section
+        className="py-10 px-4 relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 60%, #16315E 100%)' }}
+      >
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(8,131,168,0.18) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }}
+        />
+        <div className="max-w-5xl mx-auto relative flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-center md:text-left">
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-amber-500/30 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true" />
+              Now Accepting Applications
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
+              Founder 12 — Begins <span className="text-amber-400">July 25</span>
+            </h2>
+            <p className="text-warm-muted text-sm max-w-lg">
+              A selective 90-day cohort from proof of concept to capital readiness. Only 12 founders will be selected.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 text-center">
+            <div className="flex gap-4 text-center mr-4">
+              {[{ val: '12', label: 'Founders' }, { val: '90', label: 'Days' }, { val: 'Free', label: 'To Apply' }].map((s) => (
+                <div key={s.label}>
+                  <p className="text-xl font-bold text-amber-400">{s.val}</p>
+                  <p className="text-xs text-warm-muted">{s.label}</p>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/apply"
+              className="bg-amber-500 hover:bg-amber-400 text-brown-dark font-bold px-6 py-3 rounded-full text-sm transition-colors whitespace-nowrap"
+            >
+              Apply Now →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Problem ── */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
