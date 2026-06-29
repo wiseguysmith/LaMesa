@@ -1,8 +1,7 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Card, { CardBody, CardHeader } from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Textarea from '@/components/ui/Textarea'
 import { createClient } from '@/lib/supabase/client'
@@ -61,44 +60,42 @@ export default function WeeklyUpdateForm({ projectId, currentWeek }: WeeklyUpdat
   }
 
   return (
-    <Card className="border-blue-200 bg-blue-50">
-      <CardHeader>
-        <h2 className="font-semibold text-blue-900">{t.weekUpdate.replace('{n}', String(currentWeek))}</h2>
-      </CardHeader>
-      <CardBody>
-        {success && (
-          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-700">
-            {t.updateSuccess}
-          </div>
-        )}
-        {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-            {error}
-          </div>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Textarea
-            label={t.accomplishLabel}
-            value={updateText}
-            onChange={(e) => setUpdateText(e.target.value)}
-            placeholder={t.accomplishPh}
-            rows={4}
-            required
-          />
-          <Textarea
-            label={t.blockersLabel}
-            value={blockers}
-            onChange={(e) => setBlockers(e.target.value)}
-            placeholder={t.blockersPh}
-            rows={2}
-          />
-          <div className="flex justify-end">
-            <Button type="submit" loading={loading} size="md">
-              {t.submitUpdate.replace('{n}', String(currentWeek))}
-            </Button>
-          </div>
-        </form>
-      </CardBody>
-    </Card>
+    <div className="bg-isd-teal/5 border border-isd-teal/20 rounded-xl p-6">
+      <h2 className="font-slab font-normal text-isd-dark text-lg mb-4">
+        {t.weekUpdate.replace('{n}', String(currentWeek))}
+      </h2>
+      {success && (
+        <div className="mb-4 p-3 bg-isd-mint/20 border border-isd-mint/40 rounded-lg text-sm text-isd-dark-green">
+          {t.updateSuccess}
+        </div>
+      )}
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+          {error}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Textarea
+          label={t.accomplishLabel}
+          value={updateText}
+          onChange={(e) => setUpdateText(e.target.value)}
+          placeholder={t.accomplishPh}
+          rows={4}
+          required
+        />
+        <Textarea
+          label={t.blockersLabel}
+          value={blockers}
+          onChange={(e) => setBlockers(e.target.value)}
+          placeholder={t.blockersPh}
+          rows={2}
+        />
+        <div className="flex justify-end">
+          <Button type="submit" loading={loading} size="md">
+            {t.submitUpdate.replace('{n}', String(currentWeek))}
+          </Button>
+        </div>
+      </form>
+    </div>
   )
 }

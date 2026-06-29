@@ -1,7 +1,6 @@
-import { redirect, notFound } from 'next/navigation'
+﻿import { redirect, notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import DashboardNav from '@/components/layout/DashboardNav'
-import Card, { CardBody, CardHeader } from '@/components/ui/Card'
 import { StatusBadge, ApprovalBadge } from '@/components/ui/Badge'
 import ReadinessScore from '@/components/projects/ReadinessScore'
 import RoleRecommendations from '@/components/projects/RoleRecommendations'
@@ -41,50 +40,45 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
   const batchLabel = batch ? `${(batch as { public_name: string; participant_identity: string }).public_name} — ${(batch as { public_name: string; participant_identity: string }).participant_identity}` : null
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-isd-light">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
 
       <main className="max-w-6xl mx-auto px-4 py-10">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
             <StatusBadge status={project.status} />
             <ApprovalBadge status={project.approval_status} />
-            <span className="text-xs text-slate-400">{project.category} · {project.stage}</span>
+            <span className="text-xs text-isd-gray">{project.category} · {project.stage}</span>
             {project.track && (
-              <span className="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">
+              <span className="text-xs bg-isd-navy/10 text-isd-navy font-mono px-2 py-0.5 rounded-full border border-isd-navy/20">
                 {project.track}
               </span>
             )}
             {project.secondary_track && (
-              <span className="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-full">
+              <span className="text-xs bg-isd-light text-isd-gray font-mono px-2 py-0.5 rounded-full border border-isd-gray-light">
                 {project.secondary_track}
               </span>
             )}
             {project.founder_status && (
-              <span className="text-xs bg-blue-100 text-blue-700 font-medium px-2 py-0.5 rounded-full capitalize">
+              <span className="text-xs bg-isd-teal/10 text-isd-teal font-mono px-2 py-0.5 rounded-full border border-isd-teal/20 capitalize">
                 {String(project.founder_status).replace(/_/g, ' ')}
               </span>
             )}
             {batchLabel && (
-              <span className="text-xs text-slate-400 font-medium">{batchLabel}</span>
+              <span className="text-xs text-isd-gray font-mono">{batchLabel}</span>
             )}
           </div>
-          <div className="flex items-start justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">{project.project_name}</h1>
-              <p className="text-slate-500 mt-1">{project.one_sentence_idea}</p>
-              <p className="text-xs text-slate-400 mt-1">
-                Submitted by {founder?.full_name || 'Unknown'} ({founder?.email})
-              </p>
-            </div>
-          </div>
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">{project.project_name}</h1>
+          <p className="text-isd-gray mt-1">{project.one_sentence_idea}</p>
+          <p className="text-xs text-isd-gray/70 mt-1 font-mono">
+            Submitted by {founder?.full_name || 'Unknown'} ({founder?.email})
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Admin Actions */}
             <AdminProjectActions
               projectId={project.id}
               currentStatus={project.status}
@@ -96,127 +90,102 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
 
             {/* AI Analysis */}
             {analysis && (
-              <Card>
-                <CardHeader>
-                  <h2 className="font-semibold text-slate-800">AI Analysis</h2>
-                </CardHeader>
-                <CardBody className="space-y-4">
-                  <p className="text-slate-600">{project.ai_summary}</p>
-
-                  <div className="grid md:grid-cols-3 gap-4">
-                    {analysis.strengths?.length > 0 && (
-                      <div>
-                        <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Strengths</p>
-                        <ul className="space-y-1">
-                          {analysis.strengths.map((s, i) => (
-                            <li key={i} className="text-xs text-slate-600">• {s}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {analysis.risks?.length > 0 && (
-                      <div>
-                        <p className="text-xs font-semibold text-red-700 uppercase tracking-wide mb-2">Risks</p>
-                        <ul className="space-y-1">
-                          {analysis.risks.map((r, i) => (
-                            <li key={i} className="text-xs text-slate-600">• {r}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {analysis.missing_info?.length > 0 && (
-                      <div>
-                        <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Missing Info</p>
-                        <ul className="space-y-1">
-                          {analysis.missing_info.map((m, i) => (
-                            <li key={i} className="text-xs text-slate-600">• {m}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
+              <div className="isd-card p-6">
+                <h2 className="font-slab font-normal text-isd-dark text-lg mb-4">AI Analysis</h2>
+                <p className="text-isd-gray leading-relaxed mb-4">{project.ai_summary}</p>
+                <div className="grid md:grid-cols-3 gap-4 pt-4 border-t border-isd-gray-light">
+                  {analysis.strengths?.length > 0 && (
+                    <div>
+                      <p className="text-xs font-mono text-isd-dark-green uppercase tracking-wide mb-2">Strengths</p>
+                      <ul className="space-y-1">
+                        {analysis.strengths.map((s, i) => (
+                          <li key={i} className="text-xs text-isd-gray">• {s}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {analysis.risks?.length > 0 && (
+                    <div>
+                      <p className="text-xs font-mono text-red-600 uppercase tracking-wide mb-2">Risks</p>
+                      <ul className="space-y-1">
+                        {analysis.risks.map((r, i) => (
+                          <li key={i} className="text-xs text-isd-gray">• {r}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {analysis.missing_info?.length > 0 && (
+                    <div>
+                      <p className="text-xs font-mono text-amber-600 uppercase tracking-wide mb-2">Missing Info</p>
+                      <ul className="space-y-1">
+                        {analysis.missing_info.map((m, i) => (
+                          <li key={i} className="text-xs text-isd-gray">• {m}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
 
             {/* Team Members */}
-            <Card>
-              <CardHeader className="flex items-center justify-between">
-                <h2 className="font-semibold text-slate-800">Team Members</h2>
-                <a href="/admin/matches" className="text-xs text-amber-600 hover:text-amber-700">Manage in Matching →</a>
-              </CardHeader>
-              <CardBody>
-                {members && members.length > 0 ? (
-                  <div className="space-y-2">
-                    {members.map((m) => (
-                      <div key={m.id} className="flex items-center gap-3 p-2 bg-slate-50 rounded-lg">
-                        <div className="w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-sm font-bold">
-                          {(m.users as { full_name: string } | null)?.full_name?.[0] || '?'}
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-slate-800">
-                            {(m.users as { full_name: string } | null)?.full_name}
-                          </p>
-                          <p className="text-xs text-slate-400">{m.assigned_role}</p>
-                        </div>
+            <div className="isd-card p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-slab font-normal text-isd-dark text-lg">Team Members</h2>
+                <a href="/admin/matches" className="text-xs text-isd-teal hover:text-isd-navy font-medium transition-colors">Manage in Matching →</a>
+              </div>
+              {members && members.length > 0 ? (
+                <div className="space-y-2">
+                  {members.map((m) => (
+                    <div key={m.id} className="flex items-center gap-3 p-3 bg-isd-light rounded-lg border border-isd-gray-light">
+                      <div className="w-8 h-8 bg-isd-navy text-white rounded-md flex items-center justify-center text-sm font-mono font-bold">
+                        {(m.users as { full_name: string } | null)?.full_name?.[0] || '?'}
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-slate-400 text-sm">No team members assigned yet.</p>
-                )}
-              </CardBody>
-            </Card>
+                      <div>
+                        <p className="text-sm font-medium text-isd-dark">
+                          {(m.users as { full_name: string } | null)?.full_name}
+                        </p>
+                        <p className="text-xs text-isd-gray">{m.assigned_role}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-isd-gray text-sm">No team members assigned yet.</p>
+              )}
+            </div>
 
             {/* Roadmap */}
-            <Card>
-              <CardHeader>
-                <h2 className="font-semibold text-slate-800">30-Day Roadmap</h2>
-              </CardHeader>
-              <CardBody>
-                <RoadmapDisplay weeks={roadmap} />
-              </CardBody>
-            </Card>
+            <div className="isd-card p-6">
+              <h2 className="font-slab font-normal text-isd-dark text-lg mb-4">30-Day Roadmap</h2>
+              <RoadmapDisplay weeks={roadmap} />
+            </div>
 
             {/* Admin Notes */}
-            <Card>
-              <CardHeader>
-                <h2 className="font-semibold text-slate-800">Admin Notes</h2>
-              </CardHeader>
-              <CardBody>
-                <AdminNotesList notes={adminNotes || []} />
-                <AddNoteForm projectId={project.id} />
-              </CardBody>
-            </Card>
+            <div className="isd-card p-6">
+              <h2 className="font-slab font-normal text-isd-dark text-lg mb-4">Admin Notes</h2>
+              <AdminNotesList notes={adminNotes || []} />
+              <AddNoteForm projectId={project.id} />
+            </div>
           </div>
 
           {/* Right column */}
           <div className="space-y-6">
             {project.readiness_score !== null && (
-              <Card>
-                <CardHeader>
-                  <h2 className="font-semibold text-slate-800 text-sm">Readiness Score</h2>
-                </CardHeader>
-                <CardBody>
-                  <ReadinessScore score={project.readiness_score} categoryScores={analysis?.category_scores} />
-                </CardBody>
-              </Card>
+              <div className="isd-card p-6">
+                <h2 className="font-slab font-normal text-isd-dark text-base mb-4">Readiness Score</h2>
+                <ReadinessScore score={project.readiness_score} categoryScores={analysis?.category_scores} />
+              </div>
             )}
 
-            <Card>
-              <CardHeader>
-                <h2 className="font-semibold text-slate-800 text-sm">Recommended Roles</h2>
-              </CardHeader>
-              <CardBody>
-                <RoleRecommendations recommendations={roles || []} />
-              </CardBody>
-            </Card>
+            <div className="isd-card p-6">
+              <h2 className="font-slab font-normal text-isd-dark text-base mb-4">Recommended Roles</h2>
+              <RoleRecommendations recommendations={roles || []} />
+            </div>
 
-            <Card>
-              <CardHeader>
-                <h2 className="font-semibold text-slate-800 text-sm">Project Details</h2>
-              </CardHeader>
-              <CardBody className="space-y-3 text-sm">
+            <div className="isd-card p-6">
+              <h2 className="font-slab font-normal text-isd-dark text-base mb-4">Project Details</h2>
+              <div className="space-y-3 text-sm">
                 {[
                   { label: 'Problem', value: project.problem },
                   { label: 'Target Users', value: project.target_users },
@@ -228,12 +197,12 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
                   { label: 'Notes', value: project.additional_notes },
                 ].filter((i) => i.value).map((item) => (
                   <div key={item.label}>
-                    <span className="text-xs text-slate-400">{item.label}</span>
-                    <p className="text-slate-700 text-sm">{item.value}</p>
+                    <span className="text-xs font-mono text-isd-gray">{item.label}</span>
+                    <p className="text-isd-dark mt-0.5">{item.value}</p>
                   </div>
                 ))}
-              </CardBody>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -242,15 +211,14 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
 }
 
 function AdminNotesList({ notes }: { notes: Array<{ id: string; note: string; created_at: string; users: unknown }> }) {
-  if (notes.length === 0) return <p className="text-slate-400 text-sm mb-4">No notes yet.</p>
+  if (notes.length === 0) return <p className="text-isd-gray text-sm mb-4">No notes yet.</p>
   return (
     <div className="space-y-2 mb-4">
       {notes.map((note) => (
-        <div key={note.id} className="p-3 bg-amber-50 border border-amber-100 rounded-lg">
-          <p className="text-sm text-slate-700">{note.note}</p>
-          <p className="text-xs text-slate-400 mt-1">
-            {(note.users as { full_name: string } | null)?.full_name || 'Admin'} ·{' '}
-            {new Date(note.created_at).toLocaleDateString()}
+        <div key={note.id} className="p-3 bg-isd-mint/10 border border-isd-mint/30 rounded-lg">
+          <p className="text-sm text-isd-dark">{note.note}</p>
+          <p className="text-xs text-isd-gray mt-1">
+            {(note.users as { full_name: string } | null)?.full_name || 'Admin'} · {new Date(note.created_at).toLocaleDateString()}
           </p>
         </div>
       ))}
@@ -284,11 +252,11 @@ function AddNoteForm({ projectId }: { projectId: string }) {
       <input
         name="note"
         placeholder="Add an internal note..."
-        className="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+        className="flex-1 px-3 py-2 text-sm border border-isd-gray-light rounded-lg focus:outline-none focus:ring-2 focus:ring-isd-teal focus:border-isd-teal bg-white text-isd-dark placeholder-isd-gray"
       />
       <button
         type="submit"
-        className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium px-4 py-2 rounded-lg"
+        className="isd-btn-primary text-sm px-4 py-2"
       >
         Add
       </button>
