@@ -112,7 +112,7 @@ export default function LandingPage() {
           {/* Visual accent */}
           <div className="isd-light-gradient rounded-2xl p-10 flex flex-col items-center justify-center min-h-[280px]">
             <p className="font-slab text-isd-dark text-3xl font-normal text-center leading-snug mb-4">
-              "The epicenter of startups in Latin America."
+              &quot;The epicenter of startups in Latin America.&quot;
             </p>
             <p className="text-xs font-mono text-isd-navy/60 tracking-widest uppercase">Innovation Smart District</p>
           </div>
