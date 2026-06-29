@@ -8,186 +8,137 @@ export default function LandingPage() {
   const t = dict
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-isd-light">
       <Navbar />
 
       {/* ── Hero ── */}
-      <section className="relative min-h-screen flex items-center justify-center bg-cream overflow-hidden px-4 py-24 texture-overlay">
-        {/* Layered radial gradients for depth */}
+      <section className="isd-hero-bg relative overflow-hidden">
+        {/* Subtle grid overlay */}
         <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
-            background:
-              'radial-gradient(ellipse 70% 55% at 75% 15%, rgba(6,182,212,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 15% 80%, rgba(59,130,246,0.14) 0%, transparent 55%), radial-gradient(ellipse 90% 80% at 50% 50%, #F4F7FB 30%, transparent 100%)',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h48v1H0zm0 47h48v1H0zM0 0v48H1V0zM47 0v48h1V0z' fill='%23ffffff'/%3E%3C/svg%3E")`,
           }}
-        />
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
           aria-hidden="true"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230A1A3A' fill-opacity='1'%3E%3Cpath d='M0 0h40v1H0zm0 39h40v1H0zM0 0v40H1V0zM39 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
         />
-        {/* Decorative floating circles */}
+        {/* Accent glow */}
         <div
-          className="absolute top-20 right-12 w-80 h-80 rounded-full opacity-20 pointer-events-none blur-3xl"
+          className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none opacity-10"
+          style={{ background: 'radial-gradient(circle at top right, #c4fddb, transparent 60%)' }}
           aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute bottom-24 left-8 w-56 h-56 rounded-full opacity-15 pointer-events-none blur-2xl"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute top-1/2 right-4 w-32 h-32 rounded-full opacity-10 pointer-events-none blur-xl hidden md:block"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute top-32 left-1/4 w-20 h-20 rounded-full opacity-10 pointer-events-none blur-xl hidden md:block"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #06B6D4 0%, transparent 70%)' }}
         />
 
-        <div className="relative max-w-4xl mx-auto text-center">
-          {/* Eyebrow */}
-          <div className="animate-fade-up flex flex-col items-center gap-3 mb-8">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-warm-muted">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan" aria-hidden="true" />
-              {t.hero.initiative}
-            </span>
-            <a
-              href="/apply"
-              className="inline-block bg-terracotta text-white text-sm font-semibold px-4 py-1.5 rounded-full tracking-wide hover:bg-[#0A6E8F] transition-colors"
-            >
-              {t.hero.banner} →
-            </a>
+        <div className="relative max-w-7xl mx-auto px-6 py-28 md:py-36 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="isd-eyebrow text-isd-mint mb-6">{t.hero.initiative}</p>
+            <h1 className="font-slab font-normal text-white leading-tight mb-6" style={{ fontSize: 'clamp(44px, 6vw, 72px)' }}>
+              {t.hero.titleLine1}{' '}
+              <span className="isd-gradient-text">{t.hero.titleLine2}</span>
+            </h1>
+            <p className="text-white/70 text-lg leading-relaxed mb-10 max-w-lg">
+              {t.hero.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/apply" className="isd-btn-mint text-base px-7 py-3">
+                {t.hero.applyFounder}
+              </Link>
+              <Link href="/how-it-works" className="isd-btn-outline text-base px-7 py-3">
+                {t.hero.exploreEcosystem}
+              </Link>
+            </div>
+
+            {/* Stats row */}
+            <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
+              {t.hero.stats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-slab text-isd-mint text-2xl font-normal">{stat.value}</p>
+                  <p className="text-white/50 text-xs mt-0.5 font-mono tracking-wide">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* H1 */}
-          <h1 className="animate-fade-up-delay-1 text-7xl md:text-8xl font-bold leading-tight mb-6">
-            <span className="text-brown-dark">{t.hero.titleLine1}</span>
-            <br />
-            <span className="gradient-text">{t.hero.titleLine2}</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="animate-fade-up-delay-2 text-lg leading-relaxed text-warm-muted max-w-lg mx-auto mb-10">
-            {t.hero.subtitle}
-          </p>
-
-          {/* CTAs */}
-          <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Link
-              href="/apply"
-              className="bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors warm-glow"
-            >
-              {t.hero.applyFounder}
-            </Link>
-            <Link
-              href="/join"
-              className="border-2 border-terracotta text-terracotta hover:bg-terracotta hover:text-white font-semibold px-8 py-4 rounded-full text-lg transition-colors"
-            >
-              {t.hero.joinBuilder}
-            </Link>
-          </div>
-
-          {/* Stats row — pill style */}
-          <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 flex-wrap">
-            {t.hero.stats.map((stat) => (
-              <span
-                key={stat}
-                className="bg-white/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-semibold text-brown-dark border border-brown-dark/10"
-                style={{ boxShadow: '0 2px 8px rgba(10,26,58,0.08)' }}
-              >
-                {stat}
-              </span>
-            ))}
+          {/* Hero visual — Founder 12 callout card */}
+          <div className="hidden md:block">
+            <div className="isd-card-dark p-8 rounded-2xl">
+              <p className="isd-eyebrow text-isd-mint mb-3">Now Accepting Applications</p>
+              <h2 className="font-slab text-white text-4xl font-normal mb-2">Founder 12</h2>
+              <p className="text-white/60 text-sm mb-6 leading-relaxed">
+                A selective 90-day cohort — from proof of concept to capital readiness. Beginning July 25.
+              </p>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {[
+                  { val: '12', label: 'Founders' },
+                  { val: '90', label: 'Days' },
+                  { val: 'Free', label: 'To Apply' },
+                ].map((s) => (
+                  <div key={s.label} className="text-center py-3 rounded-lg" style={{ background: 'rgba(196,253,219,0.08)' }}>
+                    <p className="font-slab text-isd-mint text-xl">{s.val}</p>
+                    <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+              <Link href="/apply" className="isd-btn-mint w-full justify-center text-sm py-2.5">
+                Apply at LaMesaCR.Mindfultech.Services →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Founder 12 Banner ── */}
-      <section
-        className="py-10 px-4 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 60%, #16315E 100%)' }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(8,131,168,0.18) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }}
-        />
-        <div className="max-w-5xl mx-auto relative flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-amber-500/30 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true" />
-              Now Accepting Applications
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">
-              Founder 12 — Begins <span className="text-amber-400">July 25</span>
+      {/* ── What is La Mesa ── */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="isd-eyebrow mb-3">{t.about.eyebrow}</p>
+            <div className="isd-section-divider" />
+            <h2 className="font-slab font-normal text-isd-dark text-4xl md:text-5xl leading-tight mb-6">
+              {t.about.title}
             </h2>
-            <p className="text-warm-muted text-sm max-w-lg">
-              A selective 90-day cohort from proof of concept to capital readiness. Only 12 founders will be selected.
+            <p className="text-isd-gray leading-relaxed mb-6">
+              {t.about.desc}
             </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 text-center">
-            <div className="flex gap-4 text-center mr-4">
-              {[{ val: '12', label: 'Founders' }, { val: '90', label: 'Days' }, { val: 'Free', label: 'To Apply' }].map((s) => (
-                <div key={s.label}>
-                  <p className="text-xl font-bold text-amber-400">{s.val}</p>
-                  <p className="text-xs text-warm-muted">{s.label}</p>
-                </div>
+            <div className="flex flex-wrap gap-2">
+              {t.about.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-mono px-3 py-1.5 rounded-full border border-isd-navy/20 text-isd-navy bg-isd-light"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
-            <Link
-              href="/apply"
-              className="bg-amber-500 hover:bg-amber-400 text-brown-dark font-bold px-6 py-3 rounded-full text-sm transition-colors whitespace-nowrap"
-            >
-              Apply Now →
-            </Link>
+          </div>
+          {/* Visual accent */}
+          <div className="isd-light-gradient rounded-2xl p-10 flex flex-col items-center justify-center min-h-[280px]">
+            <p className="font-slab text-isd-dark text-3xl font-normal text-center leading-snug mb-4">
+              "The epicenter of startups in Latin America."
+            </p>
+            <p className="text-xs font-mono text-isd-navy/60 tracking-widest uppercase">Innovation Smart District</p>
           </div>
         </div>
       </section>
 
       {/* ── Problem ── */}
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta text-center mb-4">
-            {t.problem.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4 text-center">
-            {t.problem.title}
-          </h2>
-          <p className="text-center text-warm-muted text-lg leading-relaxed mb-14 max-w-xl mx-auto">
-            {t.problem.subtitle}
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="py-24 px-6 bg-isd-light">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="isd-eyebrow mb-3">{t.problem.eyebrow}</p>
+            <div className="isd-section-divider mx-auto" />
+            <h2 className="font-slab font-normal text-isd-dark text-4xl md:text-5xl mt-2">{t.problem.title}</h2>
+            <p className="text-isd-gray mt-4 max-w-xl mx-auto leading-relaxed">{t.problem.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
             {t.problem.cards.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl p-7 border-l-4 border-terracotta transition-all duration-300 group hover:-translate-y-1"
-                style={{
-                  background: 'rgba(255,255,255,0.75)',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(8,131,168,0.15)',
-                  borderLeft: '4px solid #0883A8',
-                  boxShadow: '0 4px 24px rgba(10,26,58,0.08), 0 1px 4px rgba(10,26,58,0.04)',
-                }}
-              >
-                <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4 text-lg" style={{ background: 'rgba(8,131,168,0.10)' }}>
+              <div key={item.title} className="isd-card p-8 hover:-translate-y-1 transition-transform duration-300">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-xl mb-5"
+                  style={{ background: 'rgba(14,171,205,0.1)' }}
+                >
                   {item.icon}
                 </div>
-                <h3 className="font-bold text-brown-dark text-lg mb-2 relative">
-                  {item.title}
-                </h3>
-                <p className="text-warm-muted leading-relaxed">{item.desc}</p>
+                <h3 className="font-slab text-isd-dark text-xl font-normal mb-3">{item.title}</h3>
+                <p className="text-isd-gray text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -195,34 +146,29 @@ export default function LandingPage() {
       </section>
 
       {/* ── Solution ── */}
-      <section className="py-16 px-4 bg-cream relative overflow-hidden">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-20"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)' }}
-        />
-        <div className="max-w-4xl mx-auto text-center relative">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
-            {t.solution.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
-            {t.solution.title}
-          </h2>
-          <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            {t.solution.subtitle}
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 relative">
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="isd-eyebrow mb-3">{t.solution.eyebrow}</p>
+            <div className="isd-section-divider mx-auto" />
+            <h2 className="font-slab font-normal text-isd-dark text-4xl md:text-5xl mt-2">{t.solution.title}</h2>
+            <p className="text-isd-gray mt-4 max-w-2xl mx-auto leading-relaxed">{t.solution.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
             {t.solution.cards.map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 group border-t-[3px] border-terracotta"
-                style={{ background: '#E6EEF7', boxShadow: '0 4px 20px rgba(10,26,58,0.07)' }}
+                className="rounded-2xl p-8 border border-isd-gray-light hover:-translate-y-1 transition-transform duration-300"
+                style={{ background: 'linear-gradient(145deg, #ffffff 0%, #efefef 100%)' }}
               >
-                <div className="w-14 h-14 bg-terracotta rounded-full flex items-center justify-center text-2xl mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
+                  style={{ background: 'rgba(196,253,219,0.5)' }}
+                >
                   {item.icon}
                 </div>
-                <h3 className="font-bold text-brown-dark text-lg mb-2">{item.title}</h3>
-                <p className="text-warm-muted leading-relaxed text-sm">{item.desc}</p>
+                <h3 className="font-slab text-isd-dark text-xl font-normal mb-3">{item.title}</h3>
+                <p className="text-isd-gray text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -230,40 +176,24 @@ export default function LandingPage() {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="py-24 px-4 bg-brown-dark relative overflow-hidden">
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none blur-3xl opacity-10"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(circle, #0883A8 0%, transparent 70%)' }}
-        />
-        <div className="max-w-4xl mx-auto relative">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta-light text-center mb-4">
-            {t.how.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-cream text-center mb-16">
-            {t.how.title}
-          </h2>
-          <div className="grid md:grid-cols-4 gap-6 relative">
-            <div
-              className="absolute top-8 left-[12%] right-[12%] h-px hidden md:block"
-              aria-hidden="true"
-              style={{ background: 'linear-gradient(to right, transparent, rgba(8,131,168,0.4), transparent)' }}
-            />
-            {t.how.steps.map((item) => (
-              <div key={item.step} className="glass-card-dark rounded-2xl p-6 text-center relative">
+      <section className="isd-hero-bg py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="isd-eyebrow text-isd-mint mb-3">{t.how.eyebrow}</p>
+            <div className="isd-section-divider mx-auto" style={{ background: 'linear-gradient(90deg, #c4fddb, #8fcedc)' }} />
+            <h2 className="font-slab font-normal text-white text-4xl md:text-5xl mt-2">{t.how.title}</h2>
+          </div>
+          <div className="grid md:grid-cols-4 gap-6">
+            {t.how.steps.map((item, i) => (
+              <div key={item.step} className="isd-card-dark p-7 rounded-xl relative">
                 <div
-                  className="absolute -top-4 left-1/2 -translate-x-1/2 text-8xl font-bold text-terracotta opacity-10 leading-none pointer-events-none select-none"
-                  aria-hidden="true"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-mono font-normal mb-5"
+                  style={{ background: 'rgba(196,253,219,0.15)', color: '#c4fddb', border: '1px solid rgba(196,253,219,0.3)' }}
                 >
-                  {item.step}
+                  {String(i + 1).padStart(2, '0')}
                 </div>
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-full bg-terracotta text-white font-bold text-lg flex items-center justify-center mx-auto mb-4">
-                    {item.step}
-                  </div>
-                  <h3 className="font-bold text-cream text-base mb-3">{item.title}</h3>
-                  <p className="text-warm-muted leading-relaxed text-sm">{item.desc}</p>
-                </div>
+                <h3 className="font-slab text-white text-lg font-normal mb-3">{item.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -271,220 +201,124 @@ export default function LandingPage() {
       </section>
 
       {/* ── Who It's For ── */}
-      <section className="py-24 px-4 bg-cream">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta text-center mb-4">
-            {t.who.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-14 text-center">
-            {t.who.title}
-          </h2>
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="isd-eyebrow mb-3">{t.who.eyebrow}</p>
+            <div className="isd-section-divider mx-auto" />
+            <h2 className="font-slab font-normal text-isd-dark text-4xl md:text-5xl mt-2">{t.who.title}</h2>
+          </div>
           <div className="grid md:grid-cols-3 gap-6">
             {/* Founders */}
-            <div
-              className="rounded-3xl p-10 border-t-4 border-terracotta md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
-            >
-              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🚀</div>
-              <div className="text-4xl mb-4">🚀</div>
-              <h3 className="font-bold text-brown-dark text-xl mb-3">{t.who.founders.title}</h3>
-              <p className="text-warm-muted leading-relaxed mb-5">
-                {t.who.founders.desc}
-              </p>
-              <ul className="space-y-2 text-sm text-brown-mid mb-6">
+            <div className="isd-card p-10 border-t-4 border-isd-navy hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-3xl mb-4">🚀</div>
+              <h3 className="font-slab text-isd-dark text-xl font-normal mb-3">{t.who.founders.title}</h3>
+              <p className="text-isd-gray text-sm leading-relaxed mb-5">{t.who.founders.desc}</p>
+              <ul className="space-y-2 text-sm text-isd-dark/70 mb-6">
                 {t.who.founders.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> {b}</li>
+                  <li key={b} className="flex items-start gap-2">
+                    <span className="text-isd-teal font-bold mt-0.5 flex-shrink-0">✓</span> {b}
+                  </li>
                 ))}
               </ul>
-              <Link href="/apply" className="text-terracotta font-semibold text-sm hover:underline">
-                {t.who.founders.cta} →
+              <Link href="/apply" className="isd-btn-primary text-sm py-2 px-5">
+                {t.who.founders.cta}
               </Link>
             </div>
 
             {/* Builders */}
-            <div
-              className="rounded-3xl p-10 border-t-4 border-amber-500 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, #E6EEF7 0%, #F4F7FB 100%)', minHeight: '380px' }}
-            >
-              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🔧</div>
-              <div className="text-4xl mb-4">🛠️</div>
-              <h3 className="font-bold text-brown-dark text-xl mb-3">{t.who.builders.title}</h3>
-              <p className="text-warm-muted leading-relaxed mb-5">
-                {t.who.builders.desc}
-              </p>
-              <ul className="space-y-2 text-sm text-brown-mid mb-6">
+            <div className="isd-card p-10 border-t-4 border-isd-teal hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-3xl mb-4">🛠️</div>
+              <h3 className="font-slab text-isd-dark text-xl font-normal mb-3">{t.who.builders.title}</h3>
+              <p className="text-isd-gray text-sm leading-relaxed mb-5">{t.who.builders.desc}</p>
+              <ul className="space-y-2 text-sm text-isd-dark/70 mb-6">
                 {t.who.builders.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2"><span className="text-terracotta font-bold mt-0.5">✓</span> {b}</li>
+                  <li key={b} className="flex items-start gap-2">
+                    <span className="text-isd-teal font-bold mt-0.5 flex-shrink-0">✓</span> {b}
+                  </li>
                 ))}
               </ul>
-              <Link href="/join" className="text-terracotta font-semibold text-sm hover:underline">
-                {t.who.builders.cta} →
+              <Link href="/join" className="isd-btn-outline-navy text-sm py-2 px-5">
+                {t.who.builders.cta}
               </Link>
             </div>
 
             {/* ISD */}
-            <div
-              className="bg-brown-dark rounded-3xl p-10 md:col-span-1 hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden"
-              style={{ minHeight: '380px' }}
-            >
-              <div className="absolute bottom-4 right-4 text-8xl opacity-[0.07] pointer-events-none select-none" aria-hidden="true">🌎</div>
-              <div className="text-4xl mb-4">🌎</div>
-              <h3 className="font-bold text-cream text-xl mb-3">{t.who.isd.title}</h3>
-              <p className="text-warm-muted leading-relaxed mb-5">
-                {t.who.isd.desc}
-              </p>
-              <Link href="/how-it-works" className="text-terracotta-light font-semibold text-sm hover:underline">
-                {t.who.isd.cta} →
+            <div className="isd-hero-bg p-10 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
+              <div className="text-3xl mb-4">🌎</div>
+              <h3 className="font-slab text-white text-xl font-normal mb-3">{t.who.isd.title}</h3>
+              <p className="text-white/60 text-sm leading-relaxed mb-5">{t.who.isd.desc}</p>
+              <Link href="/how-it-works" className="isd-btn-mint text-sm py-2 px-5">
+                {t.who.isd.cta}
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── The Table ── */}
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-terracotta mb-4">
-            {t.table.eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-brown-dark mb-4">
-            {t.table.title}
-          </h2>
-          <p className="text-warm-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            {t.table.subtitle}
-          </p>
-          <div className="flex items-center justify-center gap-8 mb-10 flex-wrap">
-            {t.table.stats.map((item) => (
-              <div key={item.stat} className="text-center">
-                <p className="text-3xl font-bold text-terracotta">{item.stat}</p>
-                <p className="text-sm text-warm-muted mt-1">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-          <Link
-            href="/apply"
-            className="inline-block bg-terracotta hover:bg-[#0A6E8F] text-white font-semibold px-10 py-4 rounded-full text-lg transition-colors"
-          >
-            {t.table.cta}
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Founder CTA ── */}
+      {/* ── Founder 12 CTA ── */}
       <section
-        className="py-28 px-4 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0883A8 0%, #0A6E8F 60%, #055A77 100%)' }}
+        className="py-28 px-6 relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #efefef 0%, #c4fddb 60%, #ccf4f6 100%)' }}
       >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%)' }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }}
-        />
-        <div
-          className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
-          aria-hidden="true"
-          style={{ background: 'white', filter: 'blur(40px)' }}
-        />
-        <div
-          className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
-          aria-hidden="true"
-          style={{ background: 'white', filter: 'blur(50px)' }}
-        />
-        <div className="max-w-2xl mx-auto text-center relative">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <div className="max-w-4xl mx-auto text-center relative">
+          <p className="isd-eyebrow text-isd-navy mb-4">Founder 12</p>
+          <div className="isd-section-divider mx-auto" />
+          <h2 className="font-slab font-normal text-isd-dark text-4xl md:text-5xl mt-2 mb-5">
             {t.founderCta.title}
           </h2>
-          <p className="text-[#E6EEF7] text-lg leading-relaxed mb-3">
+          <p className="text-isd-dark/70 text-lg leading-relaxed mb-3 max-w-2xl mx-auto">
             {t.founderCta.desc}
           </p>
-          <p className="text-white/70 text-sm mb-10 opacity-80">{t.founderCta.note}</p>
-          <Link
-            href="/apply"
-            className="bg-white text-terracotta hover:bg-[#F4F7FB] font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block shadow-lg"
-          >
-            {t.founderCta.cta}
-          </Link>
-          <p className="text-white/60 text-sm mt-4">{t.founderCta.time}</p>
+          <p className="text-isd-navy/60 text-sm mb-10">{t.founderCta.note}</p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/apply" className="isd-btn-primary text-base px-8 py-3">
+              {t.founderCta.cta}
+            </Link>
+          </div>
+          <p className="text-isd-gray text-xs mt-5">{t.founderCta.time}</p>
         </div>
       </section>
 
       {/* ── Builder CTA ── */}
-      <section
-        className="py-28 px-4 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0A1A3A 0%, #10264C 60%, #16315E 100%)' }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.18) 0%, transparent 65%)' }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(8,131,168,0.2) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }}
-        />
-        <div
-          className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none opacity-5"
-          aria-hidden="true"
-          style={{ background: '#0883A8', filter: 'blur(60px)' }}
-        />
-        <div
-          className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none opacity-5"
-          aria-hidden="true"
-          style={{ background: '#3B82F6', filter: 'blur(50px)' }}
-        />
-        <div className="max-w-2xl mx-auto text-center relative">
-          <h2 className="text-4xl md:text-5xl font-bold text-cream mb-4">
+      <section className="isd-hero-bg py-28 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="isd-eyebrow text-isd-mint mb-4">{t.builderCta.eyebrow ?? 'Builders'}</p>
+          <div className="isd-section-divider mx-auto" style={{ background: 'linear-gradient(90deg, #c4fddb, #8fcedc)' }} />
+          <h2 className="font-slab font-normal text-white text-4xl md:text-5xl mt-2 mb-5">
             {t.builderCta.title}
           </h2>
-          <p className="text-warm-muted text-lg leading-relaxed mb-3">
+          <p className="text-white/60 text-lg leading-relaxed mb-3 max-w-2xl mx-auto">
             {t.builderCta.desc}
           </p>
-          <p className="text-warm-muted text-sm mb-10 opacity-70">{t.builderCta.note}</p>
-          <Link
-            href="/join"
-            className="border-2 border-cyan text-cyan hover:bg-cyan hover:text-brown-dark font-semibold px-10 py-5 rounded-full text-lg transition-colors inline-block"
-          >
+          <p className="text-white/40 text-sm mb-10">{t.builderCta.note}</p>
+          <Link href="/join" className="isd-btn-mint text-base px-8 py-3">
             {t.builderCta.cta}
           </Link>
-          <p className="text-warm-muted/60 text-sm mt-4">{t.builderCta.time}</p>
+          <p className="text-white/30 text-xs mt-5">{t.builderCta.time}</p>
         </div>
       </section>
 
-      {/* ── About This Pilot ── */}
-      <section className="py-14 px-4" style={{ background: '#E6EEF7' }}>
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-sm px-10 py-10" style={{ boxShadow: '0 4px 24px rgba(10,26,58,0.08)' }}>
-            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3 text-center">
-              {t.about.eyebrow}
-            </p>
-            <h2 className="text-2xl font-bold text-brown-dark mb-4 text-center">
-              {t.about.title}
-            </h2>
-            <p className="text-warm-muted text-base leading-relaxed text-center mb-8">
-              {t.about.desc}
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {t.about.tags.map((label) => (
-                <span
-                  key={label}
-                  className="px-4 py-1.5 rounded-full text-sm font-semibold text-brown-mid border border-terracotta/20 bg-sand"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
+      {/* ── Stats / Table ── */}
+      <section className="py-20 px-6 bg-isd-navy">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="isd-eyebrow text-isd-mint mb-3">{t.table.eyebrow}</p>
+            <h2 className="font-slab font-normal text-white text-4xl mb-3">{t.table.title}</h2>
+            <p className="text-white/50 max-w-xl mx-auto">{t.table.subtitle}</p>
+          </div>
+          <div className="flex justify-center gap-16 mb-10 flex-wrap">
+            {t.table.stats.map((item) => (
+              <div key={item.stat} className="text-center">
+                <p className="font-slab text-isd-mint text-4xl font-normal">{item.stat}</p>
+                <p className="text-white/40 text-sm mt-1 font-mono tracking-wide">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/apply" className="isd-btn-mint text-base px-8 py-3">
+              {t.table.cta}
+            </Link>
           </div>
         </div>
       </section>

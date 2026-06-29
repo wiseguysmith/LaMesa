@@ -8,54 +8,76 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        slab: ['var(--font-roboto-slab)', 'Georgia', 'serif'],
+        sans: ['var(--font-roboto)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'monospace'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
 
-        // ISD-aligned palette. Legacy names (cream/sand/terracotta/brown/warm)
-        // are kept so existing classes keep working, but remapped to ISD colors:
-        // deep navy + cyan tech-accent + white + orange highlight.
+        // ── ISD Brand Palette (Brandbook 2025) ──────────────────────────────
 
-        // Page + surface neutrals (cool, near-white)
-        cream: '#F4F7FB',          // main page background
-        sand: '#E6EEF7',           // secondary surfaces / cards
+        // Primary
+        'isd-navy':       '#264473',   // Primary brand navy (Lilic dark)
+        'isd-dark':       '#0f1b2e',   // Darkest bg (Blue dark)
+        'isd-dark-green': '#354940',   // Dark section secondary (Green dark)
 
-        // Primary = ISD cyan / tech-blue
-        terracotta: '#0883A8',       // primary buttons / accents (deep cyan, white-text safe)
-        'terracotta-light': '#06B6D4', // bright cyan for hover / highlights
+        // Accent / interactive
+        'isd-teal':       '#0eabcd',   // Primary CTA / interactive (Blue intermediate)
+        'isd-blue':       '#0196ea',   // Vivid blue
+        'isd-mint':       '#c4fddb',   // Mint highlight / button on dark
+        'isd-mint-mid':   '#8fcedc',   // Blue midtone
+        'isd-lilac':      '#ca86ff',   // Lilac accent
+        'isd-green-vivid':'#7cf844',   // Vivid green accent
+        'isd-cyan-light': '#ccf4f6',   // Light cyan
 
-        // Dark anchors = ISD deep navy
-        'brown-dark': '#0A1A3A',    // dark sections, headings, footer
-        'brown-mid': '#16315E',     // dark secondary
+        // Neutrals
+        'isd-light':      '#efefef',   // Light background
+        'isd-white':      '#ffffff',
+        'isd-gray':       '#6e7175',   // Muted / body secondary text
+        'isd-gray-light': '#e0e0e0',   // Borders / dividers
+        'isd-gray-mid':   '#b1b8b8',   // Mid gray
 
-        // Muted text = slate
-        'warm-muted': '#5B6B82',
+        // Legacy aliases — keep so existing logged-in UI classes don't break
+        cream:            '#efefef',
+        sand:             '#e0e0e0',
+        terracotta:       '#0eabcd',
+        'terracotta-light':'#c4fddb',
+        'brown-dark':     '#0f1b2e',
+        'brown-mid':      '#264473',
+        'warm-muted':     '#6e7175',
+        navy:             '#0f1b2e',
+        'navy-mid':       '#264473',
+        cyan:             '#0eabcd',
+        'cyan-deep':      '#0196ea',
+        'isd-orange':     '#0eabcd',
+        'isd-orange-light':'#c4fddb',
+        ink:              '#0f1b2e',
+        'cool-border':    '#e0e0e0',
 
-        // Explicit ISD semantic aliases for new code
-        navy: '#0A1A3A',
-        'navy-mid': '#16315E',
-        cyan: '#06B6D4',
-        'cyan-deep': '#0883A8',
-        'isd-orange': '#F5841F',
-        'isd-orange-light': '#FBA94C',
-        ink: '#0A1A3A',
-        'cool-border': '#DCE4ED',
-
-        // Override Tailwind's default `amber` scale with ISD cyan/tech-blue.
-        // The logged-in app uses amber-* utilities as the brand accent; remapping
-        // the scale recolors the whole authenticated UI to ISD in one place.
+        // Remap amber scale → ISD teal (logged-in UI uses amber-* utilities)
         amber: {
-          50: '#ECFBFF',
-          100: '#D0F4FB',
-          200: '#A5E9F5',
-          300: '#6FD8EC',
-          400: '#38C3DE',
-          500: '#14A8C7',
-          600: '#0883A8',
-          700: '#0A6E8F',
-          800: '#0C586F',
-          900: '#0D4255',
+          50:  '#f0fdfc',
+          100: '#ccf4f6',
+          200: '#8fcedc',
+          300: '#5bbdd4',
+          400: '#0eabcd',
+          500: '#0196ea',
+          600: '#0eabcd',
+          700: '#0a8baa',
+          800: '#0a6e8a',
+          900: '#0a5270',
         },
+      },
+      backgroundImage: {
+        // ISD gradient presets from brandbook
+        'isd-hero':     'linear-gradient(135deg, #0f1b2e 0%, #354940 100%)',
+        'isd-light-1':  'linear-gradient(135deg, #efefef 0%, #c4fddb 50%, #ca86ff 100%)',
+        'isd-light-2':  'linear-gradient(135deg, #efefef 0%, #ccf4f6 50%, #0196ea 100%)',
+        'isd-light-3':  'linear-gradient(135deg, #efefef 0%, #c4fddb 50%, #7cf844 100%)',
+        'isd-mint-fade':'linear-gradient(180deg, #c4fddb 0%, #efefef 100%)',
       },
     },
   },
