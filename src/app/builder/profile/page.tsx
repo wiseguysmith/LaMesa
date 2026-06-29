@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+﻿import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getServerDictionary } from '@/lib/i18n/server'
 import DashboardNav from '@/components/layout/DashboardNav'
@@ -27,14 +27,14 @@ export default async function BuilderProfilePage() {
     .single()
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-isd-light">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">
             {existingProfile ? t.editTitle : t.createTitle}
           </h1>
-          <p className="text-slate-500 mt-1">
+          <p className="text-isd-gray mt-2">
             {existingProfile ? t.editSubtitle : t.createSubtitle}
           </p>
         </div>

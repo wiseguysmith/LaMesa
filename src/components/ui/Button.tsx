@@ -3,26 +3,27 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'mint' | 'danger' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', loading, children, className = '', disabled, ...props }, ref) => {
-    const base = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+    const base = 'inline-flex items-center justify-center font-sans font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variants = {
-      primary: 'bg-terracotta hover:bg-[#0A6E8F] text-white focus:ring-terracotta',
-      secondary: 'bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:text-white focus:ring-terracotta',
-      danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-      ghost: 'bg-transparent hover:bg-sand text-brown-mid focus:ring-warm-muted',
+      primary:   'bg-isd-navy hover:bg-[#1e3a63] text-white focus:ring-isd-navy',
+      secondary: 'bg-transparent border border-isd-navy text-isd-navy hover:bg-isd-navy hover:text-white focus:ring-isd-navy',
+      mint:      'bg-isd-mint hover:bg-[#a8f5c8] text-isd-dark focus:ring-isd-teal',
+      danger:    'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
+      ghost:     'bg-transparent hover:bg-isd-light text-isd-gray focus:ring-isd-gray-light',
     }
 
     const sizes = {
       sm: 'px-3 py-1.5 text-sm',
       md: 'px-5 py-2.5 text-sm',
-      lg: 'px-7 py-3.5 text-base',
+      lg: 'px-7 py-3 text-base',
     }
 
     return (

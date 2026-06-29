@@ -1,10 +1,9 @@
-import { redirect } from 'next/navigation'
+﻿import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { getServerDictionary } from '@/lib/i18n/server'
 import type { Dictionary } from '@/lib/i18n/dictionaries'
 import DashboardNav from '@/components/layout/DashboardNav'
 import Link from 'next/link'
-import Card, { CardBody } from '@/components/ui/Card'
 import { StatusBadge, ApprovalBadge } from '@/components/ui/Badge'
 import { Project, FounderStatus, BuilderStatus } from '@/types/database'
 
@@ -14,15 +13,15 @@ function getFounderBanner(founderStatus: FounderStatus | null | undefined, d: Di
     case 'pending_consideration':
       return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800', message: d.pending }
     case 'selected':
-      return { bg: 'bg-green-50 border-green-200', text: 'text-green-800', message: d.selected }
+      return { bg: 'bg-isd-mint/20 border-isd-mint/40', text: 'text-isd-dark-green', message: d.selected }
     case 'not_selected':
-      return { bg: 'bg-slate-50 border-slate-200', text: 'text-slate-700', message: d.notSelected }
+      return { bg: 'bg-isd-light border-isd-gray-light', text: 'text-isd-gray', message: d.notSelected }
     case 'matched':
-      return { bg: 'bg-teal-50 border-teal-200', text: 'text-teal-800', message: d.matched }
+      return { bg: 'bg-isd-teal/10 border-isd-teal/30', text: 'text-isd-navy', message: d.matched }
     case 'building':
-      return { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800', message: d.building }
+      return { bg: 'bg-isd-navy/5 border-isd-navy/20', text: 'text-isd-navy', message: d.building }
     case 'demo_ready':
-      return { bg: 'bg-yellow-50 border-yellow-300', text: 'text-yellow-800', message: d.demoReady }
+      return { bg: 'bg-isd-mint/30 border-isd-mint/50', text: 'text-isd-dark-green', message: d.demoReady }
     default:
       return null
   }
@@ -35,33 +34,33 @@ function getBuilderBanner(builderStatus: BuilderStatus | null | undefined, d: Di
       return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800', message: d.underReview }
     case 'approved':
     case 'eligible_for_matching':
-      return { bg: 'bg-green-50 border-green-200', text: 'text-green-800', message: d.approved }
+      return { bg: 'bg-isd-mint/20 border-isd-mint/40', text: 'text-isd-dark-green', message: d.approved }
     case 'not_approved':
-      return { bg: 'bg-slate-50 border-slate-200', text: 'text-slate-700', message: d.notApproved }
+      return { bg: 'bg-isd-light border-isd-gray-light', text: 'text-isd-gray', message: d.notApproved }
     case 'assigned':
     case 'active_builder':
-      return { bg: 'bg-blue-50 border-blue-200', text: 'text-blue-800', message: d.assigned }
+      return { bg: 'bg-isd-navy/5 border-isd-navy/20', text: 'text-isd-navy', message: d.assigned }
     default:
       return null
   }
 }
 
 const TRACK_COLORS: Record<string, string> = {
-  AI: 'bg-violet-100 text-violet-700',
-  Web3: 'bg-blue-100 text-blue-700',
+  AI: 'bg-isd-navy/10 text-isd-navy',
+  Web3: 'bg-isd-teal/10 text-isd-teal',
   Robotics: 'bg-cyan-100 text-cyan-700',
-  Climate: 'bg-green-100 text-green-700',
-  'Community Impact': 'bg-orange-100 text-orange-700',
+  Climate: 'bg-isd-mint/30 text-isd-dark-green',
+  'Community Impact': 'bg-isd-lilac/20 text-purple-700',
   'Student Founder': 'bg-pink-100 text-pink-700',
-  'Technical Founder': 'bg-indigo-100 text-indigo-700',
+  'Technical Founder': 'bg-isd-navy/10 text-isd-navy',
   'Nontechnical Founder': 'bg-amber-100 text-amber-700',
 }
 
 function TrackBadge({ track }: { track: string | null | undefined }) {
   if (!track) return null
-  const color = TRACK_COLORS[track] || 'bg-slate-100 text-slate-600'
+  const color = TRACK_COLORS[track] || 'bg-isd-light text-isd-gray'
   return (
-    <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${color}`}>
+    <span className={`inline-block text-xs font-mono px-2 py-0.5 rounded-full border border-current/10 ${color}`}>
       {track}
     </span>
   )
@@ -74,7 +73,7 @@ function WeekIndicator({ project, batchStartDate, label }: { project: Project; b
   const daysDiff = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
   const week = Math.min(Math.max(Math.floor(daysDiff / 7) + 1, 1), 4)
   return (
-    <span className="text-xs bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">
+    <span className="text-xs bg-isd-teal/10 text-isd-teal font-mono px-2 py-0.5 rounded-full border border-isd-teal/20">
       {label.replace('{n}', String(week))}
     </span>
   )
@@ -110,7 +109,6 @@ export default async function DashboardPage() {
       .order('created_at', { ascending: false })
     projects = data || []
 
-    // Fetch active batch start date
     const { data: batch } = await supabase
       .from('batches')
       .select('starts_at')
@@ -127,7 +125,6 @@ export default async function DashboardPage() {
       .single()
     builderProfile = data
 
-    // Get assigned projects
     const { data: memberships } = await supabase
       .from('project_members')
       .select('*, projects(*)')
@@ -137,7 +134,6 @@ export default async function DashboardPage() {
     }
   }
 
-  // Determine banner for founder — use the most advanced founder_status across projects
   const founderBannerStatus: FounderStatus | null = (() => {
     if (userData.role !== 'founder' || projects.length === 0) return null
     const order: FounderStatus[] = ['submitted', 'pending_consideration', 'selected', 'not_selected', 'matched', 'building', 'demo_ready', 'alumni', 'archived']
@@ -151,20 +147,19 @@ export default async function DashboardPage() {
   const builderBanner = userData.role === 'builder' ? getBuilderBanner((builderProfile as { builder_status?: BuilderStatus } | null)?.builder_status, t.builderBanner) : null
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-isd-light">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
 
       <main className="max-w-5xl mx-auto px-4 py-10">
+        {/* Page header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">
+          <p className="isd-eyebrow mb-1">{userData.role === 'founder' ? t.founderSubtitle : t.builderSubtitle}</p>
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">
             {t.welcome} {userData.full_name || t.there}
           </h1>
-          <p className="text-slate-500 mt-1">
-            {userData.role === 'founder' ? t.founderSubtitle : t.builderSubtitle}
-          </p>
         </div>
 
-        {/* Status Banner */}
+        {/* Status Banners */}
         {founderBanner && (
           <div className={`mb-6 p-4 rounded-xl border ${founderBanner.bg}`}>
             <p className={`text-sm font-medium ${founderBanner.text}`}>{founderBanner.message}</p>
@@ -179,60 +174,47 @@ export default async function DashboardPage() {
         {userData.role === 'founder' && (
           <>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-slate-800">{t.yourProjects}</h2>
-              <Link
-                href="/founder/projects/new"
-                className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-              >
+              <h2 className="font-slab font-normal text-isd-dark text-xl">{t.yourProjects}</h2>
+              <Link href="/founder/projects/new" className="isd-btn-primary text-sm px-4 py-2">
                 {t.newProjectBtn}
               </Link>
             </div>
 
             {projects.length === 0 ? (
-              <Card>
-                <CardBody className="text-center py-16">
-                  <p className="text-slate-400 text-lg mb-2">{t.noProjects}</p>
-                  <p className="text-slate-400 text-sm mb-6">{t.noProjectsSub}</p>
-                  <Link
-                    href="/founder/projects/new"
-                    className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                  >
-                    {t.applyForSeat}
-                  </Link>
-                </CardBody>
-              </Card>
+              <div className="isd-card p-16 text-center">
+                <p className="text-isd-gray text-lg mb-2">{t.noProjects}</p>
+                <p className="text-isd-gray text-sm mb-8">{t.noProjectsSub}</p>
+                <Link href="/founder/projects/new" className="isd-btn-primary text-sm px-6 py-3">
+                  {t.applyForSeat}
+                </Link>
+              </div>
             ) : (
               <div className="space-y-4">
                 {projects.map((project) => (
-                  <Card key={project.id}>
-                    <CardBody className="flex items-center justify-between">
-                      <div>
-                        <div className="flex items-center gap-3 mb-1 flex-wrap">
-                          <h3 className="font-semibold text-slate-800">{project.project_name}</h3>
-                          <StatusBadge status={project.status} />
-                          <ApprovalBadge status={project.approval_status} />
-                          <TrackBadge track={project.track} />
-                          <WeekIndicator project={project} batchStartDate={batchStartDate} label={t.weekOf} />
-                        </div>
-                        <p className="text-slate-500 text-sm">{project.one_sentence_idea}</p>
-                        <div className="flex items-center gap-4 mt-2 text-xs text-slate-400">
-                          <span>{project.category}</span>
-                          <span>{project.stage}</span>
-                          {project.readiness_score !== null && (
-                            <span className="text-amber-600 font-medium">
-                              {t.readiness}: {project.readiness_score}/100
-                            </span>
-                          )}
-                        </div>
+                  <div key={project.id} className="isd-card p-6 flex items-center justify-between hover:shadow-md transition-shadow duration-200">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-1 flex-wrap">
+                        <h3 className="font-slab font-normal text-isd-dark text-base">{project.project_name}</h3>
+                        <StatusBadge status={project.status} />
+                        <ApprovalBadge status={project.approval_status} />
+                        <TrackBadge track={project.track} />
+                        <WeekIndicator project={project} batchStartDate={batchStartDate} label={t.weekOf} />
                       </div>
-                      <Link
-                        href={`/founder/projects/${project.id}`}
-                        className="text-sm font-medium text-amber-600 hover:text-amber-700 ml-4"
-                      >
-                        {t.view} →
-                      </Link>
-                    </CardBody>
-                  </Card>
+                      <p className="text-isd-gray text-sm truncate">{project.one_sentence_idea}</p>
+                      <div className="flex items-center gap-4 mt-2 text-xs text-isd-gray/70">
+                        <span>{project.category}</span>
+                        <span>{project.stage}</span>
+                        {project.readiness_score !== null && (
+                          <span className="text-isd-teal font-mono font-medium">
+                            {t.readiness}: {project.readiness_score}/100
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <Link href={`/founder/projects/${project.id}`} className="text-sm font-medium text-isd-teal hover:text-isd-navy ml-6 flex-shrink-0 transition-colors">
+                      {t.view} →
+                    </Link>
+                  </div>
                 ))}
               </div>
             )}
@@ -241,60 +223,49 @@ export default async function DashboardPage() {
 
         {userData.role === 'builder' && (
           <>
-            {/* Profile Status */}
-            <Card className="mb-8">
-              <CardBody>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="font-semibold text-slate-800 mb-1">{t.builderNetwork}</h2>
-                    {builderProfile ? (
-                      <div className="flex items-center gap-2">
-                        <ApprovalBadge status={builderProfile.approval_status as 'pending' | 'approved' | 'rejected'} />
-                        <span className="text-sm text-slate-500">
-                          {builderProfile.approval_status === 'pending'
-                            ? t.profilePending
-                            : builderProfile.approval_status === 'approved'
-                            ? t.profileApproved
-                            : t.profileRejected}
-                        </span>
-                      </div>
-                    ) : (
-                      <p className="text-sm text-slate-500">{t.noProfile}</p>
-                    )}
-                  </div>
-                  <Link
-                    href="/builder/profile"
-                    className="text-sm font-medium text-amber-600 hover:text-amber-700"
-                  >
-                    {builderProfile ? `${t.editProfile} →` : `${t.createProfile} →`}
-                  </Link>
+            {/* Profile card */}
+            <div className="isd-card p-6 mb-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="font-slab font-normal text-isd-dark text-lg mb-2">{t.builderNetwork}</h2>
+                  {builderProfile ? (
+                    <div className="flex items-center gap-2">
+                      <ApprovalBadge status={builderProfile.approval_status as 'pending' | 'approved' | 'rejected'} />
+                      <span className="text-sm text-isd-gray">
+                        {builderProfile.approval_status === 'pending'
+                          ? t.profilePending
+                          : builderProfile.approval_status === 'approved'
+                          ? t.profileApproved
+                          : t.profileRejected}
+                      </span>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-isd-gray">{t.noProfile}</p>
+                  )}
                 </div>
-              </CardBody>
-            </Card>
+                <Link href="/builder/profile" className="text-sm font-medium text-isd-teal hover:text-isd-navy transition-colors">
+                  {builderProfile ? `${t.editProfile} →` : `${t.createProfile} →`}
+                </Link>
+              </div>
+            </div>
 
-            <h2 className="text-lg font-semibold text-slate-800 mb-4">{t.assignedProjects}</h2>
+            <h2 className="font-slab font-normal text-isd-dark text-xl mb-4">{t.assignedProjects}</h2>
             {projects.length === 0 ? (
-              <Card>
-                <CardBody className="text-center py-12">
-                  <p className="text-slate-400">{t.noAssignments}</p>
-                  <p className="text-slate-400 text-sm mt-1">
-                    {t.noAssignmentsSub}
-                  </p>
-                </CardBody>
-              </Card>
+              <div className="isd-card p-12 text-center">
+                <p className="text-isd-gray">{t.noAssignments}</p>
+                <p className="text-isd-gray text-sm mt-1">{t.noAssignmentsSub}</p>
+              </div>
             ) : (
               <div className="space-y-4">
                 {projects.map((project) => (
-                  <Card key={project.id}>
-                    <CardBody>
-                      <div className="flex items-center gap-3 mb-1 flex-wrap">
-                        <h3 className="font-semibold text-slate-800">{project.project_name}</h3>
-                        <StatusBadge status={project.status} />
-                        <TrackBadge track={project.track} />
-                      </div>
-                      <p className="text-slate-500 text-sm">{project.one_sentence_idea}</p>
-                    </CardBody>
-                  </Card>
+                  <div key={project.id} className="isd-card p-6">
+                    <div className="flex items-center gap-3 mb-1 flex-wrap">
+                      <h3 className="font-slab font-normal text-isd-dark text-base">{project.project_name}</h3>
+                      <StatusBadge status={project.status} />
+                      <TrackBadge track={project.track} />
+                    </div>
+                    <p className="text-isd-gray text-sm">{project.one_sentence_idea}</p>
+                  </div>
                 ))}
               </div>
             )}

@@ -1,7 +1,6 @@
-import { redirect } from 'next/navigation'
+﻿import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import DashboardNav from '@/components/layout/DashboardNav'
-import Card, { CardBody, CardHeader } from '@/components/ui/Card'
 import { StatusBadge } from '@/components/ui/Badge'
 import MatchCard from '@/components/admin/MatchCard'
 
@@ -13,7 +12,6 @@ export default async function AdminMatchesPage() {
   const { data: userData } = await supabase.from('users').select('*').eq('id', user.id).single()
   if (!userData || userData.role !== 'admin') redirect('/dashboard')
 
-  // Get approved projects that need team members
   const { data: projects } = await supabase
     .from('projects')
     .select(`
@@ -28,24 +26,21 @@ export default async function AdminMatchesPage() {
     .order('created_at', { ascending: false })
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-isd-light">
       <DashboardNav role={userData.role} fullName={userData.full_name} />
 
       <main className="max-w-6xl mx-auto px-4 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Team Formation — Table 01</h1>
-          <p className="text-slate-500 mt-1">
-            Run AI match suggestions and assign builders to selected projects.
-          </p>
+          <p className="isd-eyebrow mb-1">Admin</p>
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">Team Formation — Table 01</h1>
+          <p className="text-isd-gray mt-2">Run AI match suggestions and assign builders to selected projects.</p>
         </div>
 
         {!projects?.length ? (
-          <Card>
-            <CardBody className="text-center py-16">
-              <p className="text-slate-400">No approved projects available for matching.</p>
-              <p className="text-slate-400 text-sm mt-1">Approve projects first in the Projects section.</p>
-            </CardBody>
-          </Card>
+          <div className="isd-card p-16 text-center">
+            <p className="text-isd-gray text-lg">No approved projects available for matching.</p>
+            <p className="text-isd-gray text-sm mt-1">Approve projects first in the Projects section.</p>
+          </div>
         ) : (
           <div className="space-y-8">
             {projects.map((project) => {
@@ -55,25 +50,25 @@ export default async function AdminMatchesPage() {
               const unfilledRoles = roles.filter((r: { is_filled: boolean }) => !r.is_filled)
 
               return (
-                <Card key={project.id}>
-                  <CardHeader>
+                <div key={project.id} className="bg-white rounded-xl border border-isd-gray-light overflow-hidden shadow-sm">
+                  <div className="px-6 py-5 border-b border-isd-gray-light bg-isd-light/30">
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="flex items-center gap-3 mb-1">
-                          <h2 className="font-semibold text-slate-800">{project.project_name}</h2>
+                        <div className="flex items-center gap-3 mb-1 flex-wrap">
+                          <h2 className="font-slab font-normal text-isd-dark text-lg">{project.project_name}</h2>
                           <StatusBadge status={project.status} />
-                        </div>
-                        <p className="text-slate-500 text-sm">{project.one_sentence_idea}</p>
-                        <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
-                          <span>{project.category} · by {(project.users as { full_name: string } | null)?.full_name}</span>
                           {project.track && (
-                            <span className="bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">{project.track}</span>
+                            <span className="bg-isd-navy/10 text-isd-navy text-xs font-mono px-2 py-0.5 rounded-full">{project.track}</span>
                           )}
+                        </div>
+                        <p className="text-isd-gray text-sm">{project.one_sentence_idea}</p>
+                        <p className="text-xs text-isd-gray/70 mt-0.5">
+                          {project.category} · by {(project.users as { full_name: string } | null)?.full_name}
                         </p>
                       </div>
                     </div>
-                  </CardHeader>
-                  <CardBody>
+                  </div>
+                  <div className="p-6">
                     <MatchCard
                       projectId={project.id}
                       projectName={project.project_name}
@@ -83,8 +78,8 @@ export default async function AdminMatchesPage() {
                       suggestions={suggestions}
                       unfilledRoles={unfilledRoles}
                     />
-                  </CardBody>
-                </Card>
+                  </div>
+                </div>
               )
             })}
           </div>
