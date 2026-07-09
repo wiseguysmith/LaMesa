@@ -2,23 +2,24 @@
 
 ## Purpose
 
-This plan defines manual acceptance tests for La Mesa Batch 01.
+This plan defines manual acceptance tests for the La Mesa Founder 12 MVP.
 
-QA should verify the product can safely support founder intake, builder network approval, AI-assisted analysis, admin matching, weekly progress, and Demo Day preparation.
+QA should verify the product can safely support founder intake, ISD review, accepted-founder gating, builder network approval, AI-assisted analysis, admin matching, progress tracking, and demo readiness.
 
 ## Test Environments
 
 Minimum:
-- Local development
-- Netlify deploy preview
-- Production Supabase project before launch
+- Local development.
+- Netlify deploy preview.
+- Production Supabase project before launch.
 
 Recommended test accounts:
-- Founder A
-- Founder B
-- Builder Pending
-- Builder Approved
-- Admin
+- Founder Applicant A.
+- Founder Applicant B.
+- Accepted Founder.
+- Builder Pending.
+- Builder Approved.
+- Admin.
 
 ## Build Checks
 
@@ -31,7 +32,7 @@ npm run build
 
 If either fails, document the failure and fix before production launch.
 
-## Founder Flow
+## Founder Applicant Flow
 
 ### Founder Signup
 
@@ -39,33 +40,72 @@ Verify:
 - Founder can create account.
 - Founder role is created as `founder`.
 - Founder cannot access admin pages.
-- Founder is routed to submit a project or dashboard.
+- Founder is routed to submit a Founder 12 application or dashboard.
 
-### Founder Project Submission
+### Founder 12 Application Submission
 
 Verify:
 - Required fields are enforced.
-- Founder can submit project.
-- Project is associated with correct founder.
-- Project enters pending consideration for La Mesa Summer 2026 Table.
-- Founder sees confirmation/status language.
+- Founder can submit application.
+- Application/venture is associated with correct founder.
+- Application enters under-review state.
+- Founder sees Founder 12 status language.
 
 ### Founder Readiness Report
 
 Verify:
 - Founder can see readiness score.
 - Founder can see category scores.
+- Founder can see Founder 12 fit notes.
 - Founder can see strengths, risks, next steps, role map, and roadmap.
 - Founder cannot see admin-only notes.
-- AI failure does not delete or lose the project.
+- AI failure does not delete or lose the application.
+
+### Non-Accepted Founder Access
+
+Verify:
+- Non-accepted founder cannot view Founders Coffee details.
+- Non-accepted founder cannot view ISD member privileges.
+- Non-accepted founder cannot view AI session access.
+- Non-accepted founder cannot view external community link.
+- Non-accepted founder sees clear "under review," "shortlisted," or "not selected" state.
 
 ### Founder Isolation
 
 Verify:
-- Founder A cannot view Founder B project.
-- Founder A cannot update Founder B project.
-- Founder cannot approve own project.
+- Founder A cannot view Founder B application/venture.
+- Founder A cannot update Founder B application/venture.
+- Founder cannot accept own application.
 - Founder cannot run match suggestions.
+
+## Accepted Founder Flow
+
+### Acceptance State
+
+Verify:
+- Admin can mark founder accepted to Founder 12.
+- Accepted founder sees accepted state.
+- Accepted founder count is visible to admin against 12-seat capacity.
+
+### Accepted-Founder Modules
+
+Verify accepted founder can see:
+- Founders Coffee module.
+- ISD member privileges module.
+- AI sessions module.
+- External community link if configured.
+- Team formation status.
+- 30-day roadmap.
+
+Verify non-accepted founder cannot see those modules.
+
+### Accepted Venture Progress
+
+Verify:
+- Accepted founder can view assigned builders.
+- Accepted founder can view missing roles.
+- Accepted founder can submit progress update if enabled.
+- Accepted founder can see demo/prototype readiness status.
 
 ## Builder Flow
 
@@ -81,7 +121,7 @@ Verify:
 Verify:
 - Builder can submit profile.
 - Builder status is pending review.
-- Pending builder cannot view projects.
+- Pending builder cannot view ventures.
 - Pending builder cannot view match suggestions.
 
 ### Builder Approval
@@ -89,14 +129,14 @@ Verify:
 Verify:
 - Admin can approve builder.
 - Approved builder can view own status.
-- Approved builder still cannot browse all projects in V1.
-- Approved builder can view assigned projects after assignment.
+- Approved builder still cannot browse all ventures in MVP.
+- Approved builder can view assigned ventures after assignment.
 
 ### Builder Isolation
 
 Verify:
-- Builder cannot view unassigned projects.
-- Builder cannot assign self to a project.
+- Builder cannot view unassigned ventures.
+- Builder cannot assign self to a venture.
 - Builder cannot call admin APIs.
 - Builder cannot see admin notes.
 
@@ -107,16 +147,18 @@ Verify:
 Verify:
 - Admin can access `/admin`.
 - Non-admin users are redirected or blocked.
-- Admin dashboard stats load.
+- Cohort Command Center stats load.
 
-### Project Review
+### Founder 12 Review
 
 Verify:
-- Admin can view submitted projects.
+- Admin can view submitted applications.
 - Admin can view AI analysis.
-- Admin can approve/select project.
-- Admin can reject/not-select project.
-- Status labels use Table language where founder-facing.
+- Admin can shortlist founder.
+- Admin can accept founder to Founder 12.
+- Admin can mark founder not selected.
+- Status labels use Founder 12 language where founder-facing.
+- Accepted founder count can be tracked against 12 seats.
 
 ### Builder Review
 
@@ -125,16 +167,16 @@ Verify:
 - Admin can approve builder into Builder Network.
 - Admin can reject builder.
 
-### Matching
+### Team Formation
 
 Verify:
 - Admin can run match suggestions.
 - Non-admin cannot run match suggestions.
 - Suggestions only include approved builders.
-- Admin can assign builder to project.
-- Assigned builder appears on project page.
+- Admin can assign builder to accepted venture.
+- Assigned builder appears on venture page.
 - Admin can remove builder.
-- Removed builder no longer sees the project.
+- Removed builder no longer sees the venture.
 
 ### Admin Notes
 
@@ -146,13 +188,13 @@ Verify:
 
 ## AI Flow
 
-### Analyze Project
+### Analyze Application
 
 Verify:
 - Auth is required.
-- Founder can analyze own project.
-- Founder cannot analyze another founder's project.
-- Admin can analyze any project.
+- Founder can analyze own application.
+- Founder cannot analyze another founder's application.
+- Admin can analyze any application.
 - Output validates before storage.
 - Invalid AI JSON is handled gracefully.
 
@@ -176,9 +218,10 @@ Verify:
 Verify with real accounts:
 
 - Anonymous user cannot query private tables.
-- Founder cannot query other founder projects.
-- Pending builder cannot query projects.
-- Approved builder cannot query unassigned projects.
+- Founder cannot query other founder applications.
+- Non-accepted founder cannot query accepted-founder data.
+- Pending builder cannot query ventures.
+- Approved builder cannot query unassigned ventures.
 - Founder cannot query admin notes.
 - Builder cannot query admin notes.
 - Non-admin cannot insert match suggestions.
@@ -200,6 +243,7 @@ Verify:
 - Status badges do not overlap.
 - Navigation is accessible.
 - Loading states are clear.
+- Accepted-founder modules work on mobile.
 
 ## Accessibility
 
@@ -211,15 +255,19 @@ Verify:
 - Keyboard navigation works for forms and actions.
 - Error messages are visible and specific.
 
-## Batch 01 Operating Tests
+## Founder 12 Operating Tests
 
 Verify:
-- Project can be tied to Batch 01 / Table 01.
-- Project has primary track.
-- Admin can filter or identify projects by track.
+- Application can be tied to Founder 12.
+- Application has primary track/category.
+- Admin can filter or identify applications by track/category.
+- Admin can track accepted founder count against 12.
+- Founders Coffee module is visible only to accepted founders.
+- ISD privileges module is visible only to accepted founders.
+- AI sessions module is visible only to accepted founders.
 - Weekly progress update can be recorded.
-- Project can move to prototype-ready.
-- Project can move to presented/demo day.
+- Venture can move to prototype-ready.
+- Venture can move to presented/demo day.
 - Alumni/archive state is clear.
 
 ## Release Checklist
@@ -230,7 +278,8 @@ Before production launch:
 - Lint passes or documented.
 - RLS tests pass.
 - Admin flow passes.
-- Founder flow passes.
+- Founder applicant flow passes.
+- Accepted founder flow passes.
 - Builder flow passes.
 - AI failure states pass.
 - Netlify env vars configured.

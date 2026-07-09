@@ -266,13 +266,13 @@ create policy "updates_admin" on public.project_updates for all using (public.is
 create policy "updates_founder" on public.project_updates for all using (public.is_project_founder(project_id));
 create policy "updates_member" on public.project_updates for select using (public.is_project_member(project_id));
 
--- Batch 01 Schema Extensions
+-- Founder 12 Schema Extensions
 
 create table public.batches (
   id uuid primary key default gen_random_uuid(),
-  system_name text not null,         -- 'La Mesa Batch 01'
-  public_name text not null,         -- 'La Mesa Summer 2026 Table'
-  participant_identity text not null, -- 'Table 01'
+  system_name text not null,         -- 'La Mesa Founder 12'
+  public_name text not null,         -- 'Founder 12'
+  participant_identity text not null, -- 'Founder 12 Member'
   status text not null default 'active', -- active, closed, archived
   starts_at timestamptz,
   ends_at timestamptz,
@@ -310,9 +310,9 @@ create table public.demo_day_outcomes (
   created_at timestamptz not null default now()
 );
 
--- Insert Batch 01
+-- Insert Founder 12
 insert into public.batches (system_name, public_name, participant_identity, status, starts_at, ends_at)
-values ('La Mesa Batch 01', 'La Mesa Summer 2026 Table', 'Table 01', 'active', now(), now() + interval '30 days')
+values ('La Mesa Founder 12', 'Founder 12', 'Founder 12 Member', 'active', now(), now() + interval '30 days')
 on conflict do nothing;
 
 -- RLS for new tables

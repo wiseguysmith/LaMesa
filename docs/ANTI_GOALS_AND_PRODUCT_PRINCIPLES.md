@@ -2,41 +2,57 @@
 
 ## Why This Exists
 
-La Mesa has an ambitious concept. Without clear boundaries, it could drift into a marketplace, social network, accelerator CRM, or generic AI tool.
+La Mesa has an ambitious concept. Without clear boundaries, it could drift into a marketplace, social network, accelerator CRM, event page, LMS, or generic AI tool.
 
 This document defines what La Mesa should avoid and the principles that should guide product decisions.
 
 ## Anti-Goals
 
-### Not LinkedIn For Founders
+### Not A Generic Marketplace
 
-La Mesa should not become a place for endless networking, vanity profiles, or connection collecting.
+La Mesa is not a public place to browse all founders, projects, or builders.
 
-Profiles should support credibility, matching, and execution.
-
-### Not A Generic Freelancer Marketplace
-
-Builders are not bidding on random jobs.
-
-They join a selective Builder Network and are matched to serious projects with clear expectations.
+Founder 12 is selective. Access is curated.
 
 ### Not A Dating-App Gimmick
 
-La Mesa can borrow fast discovery and mutual interest mechanics, but matching should feel thoughtful, high-trust, and mission-driven.
+La Mesa can borrow fast review and fit signals, but the product should not feel like shallow swiping.
 
-Shallow swipe behavior should not become the core experience.
+Founder 12 is serious, ISD-backed, and cohort-centered.
+
+### Not A Freelancer Job Board
+
+Builders are not bidding on random jobs.
+
+They join a selective Builder Network and may be matched to accepted Founder 12 ventures with clear expectations.
+
+### Not Just An Event Page
+
+Founders Coffee matters, but La Mesa is not only an event page.
+
+Founders Coffee should connect to application, acceptance, community access, AI sessions, support, and venture progress.
+
+### Not A Native Chat App In MVP
+
+Community matters, but native chat is out of scope.
+
+Use a gated external community link if ISD uses WhatsApp, Slack, Discord, Circle, or another tool.
+
+### Not A Full ISD Membership CRM
+
+ISD member privileges should be visible to accepted founders, but the MVP should not become a full membership management system.
 
 ### Not A School Assignment Portal
 
 La Mesa may serve students, but the tone should not feel like homework.
 
-This is startup formation, prototype execution, and founder accountability.
+This is founder selection, community access, prototype execution, and startup readiness.
 
 ### Not Just An Accelerator CRM
 
 Admin tools matter, but La Mesa is not only back-office software.
 
-Participants should experience momentum, clarity, and selective belonging.
+Accepted founders should feel momentum, access, and selective belonging.
 
 ### Not A Social Feed
 
@@ -44,11 +60,11 @@ Project updates are useful.
 
 A noisy feed is not.
 
-Social behavior should be structured around cohorts, progress, asks, wins, and Demo Day outcomes.
+Social behavior should be structured around cohort access, progress, asks, wins, and demo outcomes.
 
 ### Not A Startup Idea Graveyard
 
-Projects should move, change, recruit, build, present, or archive.
+Ventures should move, change, recruit, build, present, or archive.
 
 Dormant ideas should not pile up forever.
 
@@ -60,7 +76,7 @@ It should not generate generic startup theater.
 
 La Mesa needs taste.
 
-### Not Automatic Team Formation
+### Not Automatic Selection Or Team Formation
 
 AI recommends.
 
@@ -68,29 +84,35 @@ ISD decides.
 
 Human judgment stays central.
 
-### Not A Full Company Operating System In V1
-
-Do not build chat, equity, contracts, payments, investor dashboards, or a complex collaboration suite before proving the formation model.
-
 ## Product Principles
+
+### Founder 12 Is The Center
+
+Every major feature should support the Founder 12 cohort experience.
 
 ### Access Is Earned
 
 Founders and builders can apply, but meaningful participation depends on review and approval.
 
+### Acceptance Unlocks Privileges
+
+Founders Coffee, ISD member privileges, AI sessions, community link, and team formation support should be gated to accepted founders.
+
 ### Taste Beats Volume
 
-Fewer strong projects are better than many weak ones.
+Fewer strong founders are better than many weak submissions.
+
+Founder 12 should select 12 serious founders.
 
 ### AI Informs, Humans Decide
 
 AI should help ISD move faster and see more clearly, not replace judgment.
 
-### Every Project Must Have Motion
+### Every Venture Must Have Motion
 
 No passive listings.
 
-Each project needs a next milestone, status, and owner.
+Each accepted venture needs a next milestone, status, and owner.
 
 ### Builders Are Not Commodities
 
@@ -100,41 +122,35 @@ Builder profiles should capture ambition, reliability, interests, work style, an
 
 The platform should reward clarity, coachability, speed, and follow-through.
 
-### The Table Is The Container
+### Founders Coffee Is A Real Touchpoint
 
-The 30-day Table creates urgency, identity, and accountability.
-
-### Demo Day Is The Forcing Function
-
-Every project should have a clear answer to:
-
-What must be true before this can be demoed?
+Founders Coffee should be treated as part of the Founder 12 experience, not a decorative mention.
 
 ### Structured Social, Not Social Noise
 
-Community should show up through cohorts, progress, requests for help, outcomes, and alumni identity.
+Community should show up through accepted-founder access, progress, requests for help, outcomes, and alumni identity.
 
-### Build The Smallest System That Proves The Pilot
+### Build The Smallest System That Proves The Cohort
 
 Do not overbuild.
 
-The first goal is to prove that ISD can form teams that complete prototypes.
+The first goal is to prove that ISD can select and support 12 founders.
 
 ## Feature Decision Test
 
 Before adding a feature, ask:
 
-1. Does this help identify serious founders?
-2. Does this help approve or understand capable builders?
-3. Does this help form better teams?
-4. Does this move a team closer to prototype in 30 days?
-5. Does this strengthen trust in the La Mesa network?
-6. Can ISD operate this during Batch 01?
+1. Does this help identify serious Founder 12 applicants?
+2. Does this help ISD select the right 12 founders?
+3. Does this help accepted founders access Founders Coffee, ISD privileges, or AI sessions?
+4. Does this help approved builders support accepted ventures?
+5. Does this move a venture closer to prototype readiness?
+6. Can ISD operate this during the first Founder 12 cohort?
 
 If the answer is no, defer it.
 
 ## The Product Standard
 
-La Mesa should feel like serious people gathering around a real opportunity.
+La Mesa should feel like serious founders entering a real ISD-backed opportunity.
 
-Warm, selective, ambitious, and practical.
+Warm, selective, ambitious, practical, and connected to Costa Rica's founder community.

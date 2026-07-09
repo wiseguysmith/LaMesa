@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This spec defines the access model for La Mesa Batch 01.
+This spec defines the access model for the La Mesa Founder 12 MVP.
 
-The goal is simple: participants can only access what they need, while ISD admins can operate the fellowship safely.
+The goal is simple: participants can only access what they need, while ISD admins can operate Founder 12 safely.
 
 ## Roles
 
@@ -16,11 +16,12 @@ Initial roles:
 
 ## Access Philosophy
 
-- Founders can create accounts and submit projects.
-- Founder acceptance depends on project review.
+- Founders can create accounts and submit Founder 12 applications.
+- Founder 12 acceptance depends on ISD review.
+- Only accepted founders can access Founder 12 member privileges.
 - Builders can apply to the Builder Network.
-- Builders cannot view projects before approval.
-- Admins manage all projects, profiles, matches, notes, and statuses.
+- Builders cannot view ventures before assignment.
+- Admins manage all applications, profiles, matches, notes, and cohort status.
 - AI recommendations are decision support only.
 - Service role access must stay server-only and must be wrapped by route-level authorization.
 
@@ -34,27 +35,48 @@ Can:
 - Start founder or builder onboarding.
 
 Cannot:
-- View projects.
+- View applications/ventures.
 - View builder profiles.
+- View accepted-founder modules.
 - View admin data.
 - Run matching.
 
-### Founder
+### Founder Applicant
 
 Can:
 - View and edit own user profile.
-- Submit own project applications.
-- View own projects.
+- Submit own Founder 12 application.
+- View own application/venture.
 - View own Founder Readiness Report.
-- View assigned team members on own selected projects.
-- View own roadmap and progress updates.
-- Submit project updates for own project.
+- View own roadmap and application status.
 
 Cannot:
-- View other founders' projects.
+- View other founders' applications.
+- View accepted-founder modules unless selected.
+- View Founders Coffee details unless accepted.
+- View ISD member privileges unless accepted.
+- View AI session access unless accepted.
 - View unassigned builders.
 - View admin-only notes.
-- Approve projects.
+- Approve applications.
+- Assign builders.
+- Run match suggestions.
+
+### Accepted Founder
+
+Can:
+- Do everything a founder applicant can do.
+- View accepted-founder dashboard modules.
+- View Founders Coffee details.
+- View ISD member privileges.
+- View AI session details.
+- View external community link if configured.
+- View assigned team members.
+- Submit venture progress updates.
+
+Cannot:
+- View other founders' private applications.
+- View admin-only notes.
 - Assign builders.
 - Run match suggestions.
 
@@ -65,41 +87,43 @@ Can:
 - View own approval status.
 
 Cannot:
-- View projects.
+- View ventures.
 - View founder profiles.
 - View match suggestions.
 - View other builders.
+- View accepted-founder modules.
 
 ### Builder Approved
 
 Can:
 - View and edit own builder profile.
-- View assigned projects.
-- View project details for assigned projects.
+- View assigned Founder 12 ventures.
+- View venture details for assigned ventures.
 - View own assignments.
-- View relevant team information for assigned projects.
+- View relevant team information for assigned ventures.
 
 Cannot:
-- Browse all projects in V1.
-- View projects before assignment unless a later mutual-interest feature is explicitly added.
+- Browse all ventures in MVP.
+- View ventures before assignment.
+- View accepted-founder privileges unless separately accepted as a founder.
 - View admin notes.
-- Assign self to projects.
+- Assign self to ventures.
 - Run match suggestions.
 
 ### Admin
 
 Can:
 - View and manage all users.
-- View and manage all founder/project submissions.
+- View and manage all Founder 12 applications/ventures.
 - View and manage all builder profiles.
 - View AI analysis.
-- Approve or reject founders/projects.
+- Shortlist, accept, or mark founders not selected.
 - Approve or reject builders.
 - Run match suggestions.
 - Assign and remove builders.
-- Update project statuses.
+- Update statuses.
 - Add internal notes.
-- View and manage Batch 01 operations.
+- View and manage Founder 12 operations.
 
 ## Table Access Matrix
 
@@ -133,19 +157,23 @@ Admin:
 - Select and manage all.
 
 Founder:
-- No broad access in V1.
-- May see assigned builder display fields through controlled project/member queries, not raw profile access.
+- No broad access in MVP.
+- May see assigned builder display fields through controlled venture/member queries, not raw profile access.
 
 ### projects
 
 Founder:
-- Select, insert, update own projects where allowed.
+- Select and insert own applications/ventures.
+- Update only safe own fields when allowed.
+
+Accepted founder:
+- Select own accepted venture and accepted-founder fields intended for founders.
 
 Builder pending:
 - No access.
 
 Builder approved:
-- Select assigned projects only.
+- Select assigned ventures only.
 
 Admin:
 - Select and manage all.
@@ -153,10 +181,10 @@ Admin:
 ### project_role_recommendations
 
 Founder:
-- Select for own projects.
+- Select for own ventures.
 
 Builder:
-- Select for assigned projects only.
+- Select for assigned ventures only.
 
 Admin:
 - Manage all.
@@ -164,10 +192,10 @@ Admin:
 ### project_roadmaps
 
 Founder:
-- Select for own projects.
+- Select for own ventures.
 
 Builder:
-- Select for assigned projects only.
+- Select for assigned ventures only.
 
 Admin:
 - Manage all.
@@ -175,7 +203,7 @@ Admin:
 ### project_members
 
 Founder:
-- Select members assigned to own projects.
+- Select members assigned to own ventures.
 
 Builder:
 - Select own assignments.
@@ -189,10 +217,10 @@ Admin:
 - Manage all.
 
 Founder:
-- No direct access in V1.
+- No direct access in MVP.
 
 Builder:
-- No direct access in V1.
+- No direct access in MVP.
 
 ### admin_notes
 
@@ -208,14 +236,21 @@ Builder:
 ### project_updates
 
 Founder:
-- Select and insert updates for own projects.
+- Select and insert updates for own ventures.
 
 Builder:
-- Select assigned project updates.
-- Insert updates for assigned projects if product enables team updates.
+- Select assigned venture updates.
+- Insert updates for assigned ventures if product enables team updates.
 
 Admin:
 - Manage all.
+
+### Future Founder 12 Member Tables
+
+Future tables for Founders Coffee, AI sessions, benefits, or external community links must:
+- Return data only to accepted founders and admins.
+- Return no data to non-accepted applicants.
+- Never expose private links publicly.
 
 ## API Authorization Requirements
 
@@ -235,7 +270,7 @@ Must:
 
 Must:
 - Require an authenticated founder or admin.
-- Only analyze a project owned by the founder or accessible by admin.
+- Only analyze an application/venture owned by the founder or accessible by admin.
 - Prefer project_id lookup over trusting full project payload from client.
 - Validate input and AI output.
 
@@ -243,7 +278,7 @@ Must:
 
 Must:
 - Require an authenticated founder or admin.
-- Only generate for an owned or admin-accessible project.
+- Only generate for an owned or admin-accessible application/venture.
 - Validate output before storage.
 
 `/api/suggest-matches`
@@ -252,7 +287,7 @@ Must:
 - Require admin.
 - Use service role only after admin authorization.
 - Validate project_id.
-- Save suggestions only for projects admin can manage.
+- Save suggestions only for ventures admin can manage.
 
 ### Admin APIs
 
@@ -289,6 +324,7 @@ Separate policies by action:
 
 Use helper functions where useful:
 - `is_admin()`
+- `is_accepted_founder(user_id)`
 - `is_approved_builder()`
 - `is_project_founder(project_id)`
 - `is_project_member(project_id)`
@@ -298,12 +334,15 @@ Use helper functions where useful:
 Before launch, verify:
 
 - Anonymous user cannot query private tables.
-- Founder cannot view another founder's project.
+- Founder cannot view another founder's application/venture.
 - Founder cannot view admin notes.
-- Founder cannot approve own project.
-- Pending builder cannot view projects.
-- Approved builder cannot view unassigned projects.
-- Builder cannot assign self to project.
+- Non-accepted founder cannot view Founders Coffee details.
+- Non-accepted founder cannot view ISD member privileges.
+- Non-accepted founder cannot view AI session access.
+- Founder cannot accept own application.
+- Pending builder cannot view ventures.
+- Approved builder cannot view unassigned ventures.
+- Builder cannot assign self to venture.
 - Non-admin cannot run match suggestions.
 - Non-admin cannot call admin APIs.
 - Service-role routes reject unauthenticated requests.
@@ -312,7 +351,8 @@ Before launch, verify:
 ## Known Current Risks To Fix
 
 - Match suggestion endpoint must be admin-protected.
-- AI endpoints need auth and project ownership checks.
+- AI endpoints need auth and application ownership checks.
 - Public create-user route must verify authenticated identity.
 - Admin notes should be admin-only.
+- Accepted-founder modules need explicit gating before launch.
 - RLS policies should be split and reviewed before production.

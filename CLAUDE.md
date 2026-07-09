@@ -1,59 +1,96 @@
 # CLAUDE.md
 
+## Source Of Truth
+
+Build La Mesa as the ISD Founder 12 cohort portal for Costa Rica.
+
+La Mesa is not primarily a marketplace, dating-style matching app, freelancer board, social network, LMS, or generic accelerator CRM. It is the digital front door and operating layer for Founder 12: a selective ISD founder cohort where accepted founders coordinate around Founders Coffee, ISD member privileges, AI sessions, and admin-guided team formation.
+
+Builder matching remains part of the product, but it is a support benefit for accepted founders, not the main product identity.
+
 ## Mission
 
-Build the La Mesa MVP as a clean, practical, production-ready pilot platform for ISD.
-
-Do not overbuild. Do not create a full marketplace, social network, chat app, LMS, or accelerator operating system in version one.
-
-The MVP should help ISD test whether founders, students, and builders can form teams and move toward prototype completion.
+The MVP should help ISD:
+- Collect serious Founder 12 applications.
+- Use AI to evaluate founder and venture readiness.
+- Select exactly 12 accepted founders.
+- Coordinate accepted founders around Founders Coffee in Costa Rica.
+- Surface ISD member privileges and AI session access.
+- Match accepted founders with approved builders when ISD decides support is needed.
+- Move selected founders toward prototype and demo readiness.
 
 ## Product Definition
 
-La Mesa is an AI-assisted startup incubation and team-formation platform.
+La Mesa is an AI-assisted cohort application and founder coordination platform for ISD.
 
 Long-term vision:
-- Startup incubation
-- University innovation
-- Hackathons
-- Founder communities
-- Technical education programs
-- Team formation
-- Prototype development
+- Founder 12 cohort operations
+- Costa Rica founder community coordination
+- Founders Coffee programming
+- ISD member privilege access
+- AI founder support sessions
+- Admin-guided team formation
+- Prototype and demo readiness
+- Alumni and reputation signals
 
 MVP focus:
-- Founder project intake
-- Builder profile intake
+- Founder 12 public landing page
+- Founder 12 application intake
+- Builder Network profile intake
+- AI founder readiness scoring
 - AI role mapping
-- AI readiness scoring
 - AI 30-day roadmap generation
-- Admin approval
-- Admin-assisted matching
-- Simple project pages
+- Admin review and selection
+- Accepted Founder 12 dashboard
+- Founders Coffee coordination surface
+- ISD member privilege surface
+- AI session surface
+- Admin-assisted builder matching
+- Simple venture pages
 
 ## Build Philosophy
 
-Build the simplest version that proves the pilot.
+Build the simplest version that proves the Founder 12 pilot.
 
-Prefer clarity over cleverness.
-
-Prefer working flows over decorative features.
-
-Prefer admin control over full automation.
+Prefer:
+- Cohort clarity over marketplace breadth.
+- Accepted-founder coordination over generic browsing.
+- Admin control over full automation.
+- Gated external community links over native chat.
+- Working founder/admin flows over decorative features.
 
 Do not build:
-- Real-time chat
+- Real-time native chat
 - Full collaboration workspace
+- Full calendar scheduling system
 - Payments
 - Equity tracking
 - Contracts
 - Investor dashboard
 - Public marketplace
+- Public project browsing
 - Automatic AI team formation
 - Mentor portal
 - University admin portal
-- Mobile app
+- Native mobile app
 - Complex notification system
+- Full ISD membership CRM
+
+## Product Vocabulary
+
+Use these terms consistently:
+
+- Founder 12: the selective ISD founder cohort.
+- Founder 12 applicant: a founder who has applied but has not been accepted.
+- Accepted founder: one of the 12 founders selected by ISD.
+- Venture: the project/startup submitted by a founder.
+- Builder Network: approved builders who may support accepted founders.
+- Founders Coffee: the Costa Rica founder gathering coordinated through La Mesa.
+- ISD member privileges: benefits unlocked for accepted Founder 12 members.
+- AI sessions: ISD/La Mesa AI support sessions available to accepted founders.
+- Cohort Command Center: admin operating view for the cohort.
+
+Avoid positioning the product as a marketplace.
 
 ## Tech Stack
 
@@ -67,9 +104,9 @@ Use:
 - OpenAI or Anthropic API for AI analysis
 - Netlify deployment
 
-## Initial Routes
+## Routes
 
-Recommended routes:
+Current routes can remain, but their meaning should follow the cohort model.
 
 Public:
 - `/`
@@ -79,27 +116,35 @@ Public:
 - `/login`
 
 Founder:
-- `/dashboard`
-- `/founder/projects/new`
-- `/founder/projects/[id]`
+- `/dashboard` - Founder Portal
+- `/founder/projects/new` - Founder 12 application
+- `/founder/projects/[id]` - venture/application detail
 
 Builder:
 - `/builder/profile`
-- `/builder/projects`
+- `/builder/projects` - assigned Founder 12 ventures only
 
 Admin:
-- `/admin`
-- `/admin/projects`
+- `/admin` - Cohort Command Center
+- `/admin/projects` - founder applications / ventures
 - `/admin/projects/[id]`
 - `/admin/builders`
-- `/admin/matches`
+- `/admin/matches` - team formation
 
 API:
 - `/api/analyze-project`
 - `/api/generate-roadmap`
 - `/api/suggest-matches`
 
-## Initial User Roles
+Future accepted-founder surfaces may include:
+- `/founder/member`
+- `/founder/coffee`
+- `/founder/sessions`
+- `/founder/benefits`
+
+Do not add future routes until a build task explicitly calls for them.
+
+## Roles And Access
 
 Use three roles:
 
@@ -107,48 +152,64 @@ Use three roles:
 2. `builder`
 3. `admin`
 
-Users should be able to create accounts, but access to active platform functionality should depend on approval status.
+Founder approval is not the same as Founder 12 acceptance.
 
-Approval model:
-- Users can sign up.
-- Profiles/projects are submitted.
-- Admin approves users, projects, and matches.
-- MVP uses admin-managed matching.
+Founder model:
+- Founders can sign up.
+- Founders submit a Founder 12 application.
+- ISD reviews applications.
+- ISD selects 12 accepted founders.
+- Only accepted founders should see Founder 12 member privileges, Founders Coffee details, AI sessions, and team formation support.
+
+Builder model:
+- Builders can sign up.
+- Builders submit profiles.
+- ISD approves builders for the Builder Network.
+- Builders cannot browse all ventures.
+- Builders see only assigned accepted-founder ventures.
+
+Admin model:
+- Admin controls selection, acceptance, matching, status updates, and notes.
+- AI recommends. ISD decides.
 
 ## Public Landing Page
 
-The MVP should include a public landing page.
+The public landing page should position La Mesa as the gateway to Founder 12.
 
 Core sections:
 1. Hero
-2. Problem
-3. Solution
-4. How It Works
-5. Who It Is For
-6. Founder CTA
-7. Builder CTA
+2. Founder 12 offer
+3. Why ideas need a cohort
+4. How selection works
+5. What accepted founders unlock
+6. Founders Coffee in Costa Rica
+7. Builder Network support
 8. ISD pilot context
-9. Footer
+9. CTA
+10. Footer
 
 Primary CTA:
-- Apply as Founder
+- Apply for Founder 12
 
 Secondary CTA:
-- Join as Builder
+- Join the Builder Network
 
 Hero copy direction:
 
-> Bring your idea to the table.
-> La Mesa helps founders, students, and builders form teams, map the roles they need, and move from idea to prototype.
+> Build the future together.
+> Apply for Founder 12, the ISD cohort for founders in Costa Rica moving from proof of concept to capital readiness.
 
-## Project Intake
+Support copy direction:
 
-The founder application should feel like a startup application, not a casual note form.
+> Accepted founders unlock Founders Coffee access, ISD member privileges, AI sessions, admin-guided team formation, and a structured path toward prototype readiness.
 
-Use a guided form first. AI conversation can come later.
+## Founder 12 Application
+
+The founder application should feel like a selective cohort application, not a casual project form.
 
 Required fields:
-- Project name
+- Founder name
+- Venture name
 - One-sentence idea
 - Problem being solved
 - Target users
@@ -161,6 +222,8 @@ Required fields:
 - Collaboration expectation
 - Location preference
 - Founder goals
+- Why Founder 12
+- Founders Coffee availability/interest
 - Additional notes
 
 Supported categories:
@@ -183,32 +246,50 @@ Supported stages:
 - MVP
 - Launched
 
-Collaboration expectations:
-- Portfolio/experience
-- Paid
-- Equity
-- Volunteer/community
-- To be discussed
+## Founder Status Pipeline
 
-## Builder Profile
+Use founder-facing statuses for the cohort selection process:
 
-Builder profiles should capture role fit, availability, and interest.
+1. Application submitted
+2. Under ISD review
+3. Shortlisted
+4. Accepted to Founder 12
+5. Not selected for this cohort
+6. Team formation
+7. Building
+8. Demo ready
+9. Alumni
+10. Archived
 
-Fields:
-- Full name
-- Email
-- Location
-- Languages
-- Skills
-- Experience level
-- Preferred roles
-- Portfolio/GitHub/LinkedIn
-- Interests
-- Availability per week
-- Collaboration preference
-- Project goals
-- Short bio
-- Approval status
+Database/project status slugs may remain:
+- `submitted`
+- `under_review`
+- `roles_mapped`
+- `matching`
+- `team_formed`
+- `building`
+- `prototype_ready`
+- `presented_demo_day`
+- `archived`
+
+When writing UI copy, translate these slugs into Founder 12 language.
+
+## Accepted Founder 12 Privileges
+
+Accepted founders should unlock:
+- Founders Coffee details and RSVP/status surface.
+- ISD member privileges overview.
+- AI session information.
+- Team formation status.
+- 30-day roadmap.
+- Admin notes or next steps from ISD.
+- Community chat link if ISD uses an external tool.
+
+For MVP, community chat should be a gated external link, not native chat.
+
+## Builder Network
+
+Builder profiles should capture role fit, availability, interest, and ability to support accepted Founder 12 ventures.
 
 Supported roles:
 - Founder / Project Lead
@@ -227,49 +308,16 @@ Supported roles:
 - Researcher
 - No-Code Builder
 
-## Project Status Pipeline
-
-Use these project statuses:
-
-1. Submitted
-2. Under Review
-3. Roles Mapped
-4. Matching
-5. Team Formed
-6. Building
-7. Prototype Ready
-8. Presented / Demo Day
-9. Archived
-
-Store status values as lowercase slugs:
-- `submitted`
-- `under_review`
-- `roles_mapped`
-- `matching`
-- `team_formed`
-- `building`
-- `prototype_ready`
-- `presented_demo_day`
-- `archived`
-
 ## AI Features
 
-The top three AI features for MVP are:
+The top AI features for MVP are:
 
-1. AI role mapping
-2. AI project readiness score
+1. Founder readiness scoring
+2. AI role mapping
 3. AI 30-day milestone roadmap
+4. Admin-facing builder match suggestions
 
-### AI Role Mapping
-
-Given a project submission, AI should return:
-- Recommended roles
-- Priority level for each role
-- Reason each role is needed
-- Suggested team size
-- Missing information needed from founder
-
-### AI Project Readiness Score
+### Founder Readiness Score
 
 Score should be from 0 to 100.
 
@@ -277,10 +325,11 @@ Measure:
 - Problem clarity
 - User/customer clarity
 - Technical feasibility
-- Team readiness
+- Founder commitment
 - Timeline realism
 - Prototype potential
 - Market/impact potential
+- Fit for Founder 12
 
 Return:
 - Overall score
@@ -289,62 +338,40 @@ Return:
 - Biggest strengths
 - Biggest risks
 - Recommended next steps
+- Questions ISD should ask during review
 
-### AI 30-Day Milestone Roadmap
+### AI Role Mapping
+
+Given a Founder 12 application, AI should return:
+- Recommended roles
+- Priority level for each role
+- Reason each role is needed
+- Suggested team size
+- Missing information needed from founder
+
+### AI 30-Day Roadmap
 
 Roadmap should follow a 4-week format:
-
-- Week 1: Clarify problem, define MVP, validate assumptions
-- Week 2: Build prototype foundation
-- Week 3: Test with users, refine product
-- Week 4: Prepare demo, pitch, and next-step plan
-
-Each week should include:
-- Objective
-- Key tasks
-- Deliverables
-- Suggested owner roles
+- Week 1: Clarify problem, define MVP, validate assumptions.
+- Week 2: Build prototype foundation.
+- Week 3: Test with users, refine product.
+- Week 4: Prepare demo, pitch, and next-step plan.
 
 ## Matching Logic
 
-MVP matching should be AI-assisted but admin-approved.
+Builder matching should happen after Founder 12 acceptance or when ISD explicitly decides a venture is ready for support.
 
-Level 1:
-- AI recommends roles based on project idea.
+MVP matching is AI-assisted but admin-approved.
 
-Level 2:
-- AI suggests possible builders based on skills, availability, interests, and role fit.
-- Admin reviews and approves assignments.
+AI recommends roles and possible builders. Admin reviews and approves assignments. Do not automatically assign builders to ventures.
 
-Do not automatically assign builders to projects without admin approval.
+## Venture Page
 
-Match criteria:
-- Skills
-- Availability
-- Interests
-- Role fit
-- Project category alignment
-- Builder goals
-
-Admin matching screen should show:
-- Project summary
-- Needed roles
-- Missing roles
-- Suggested builders
-- Match reasons
-- Builder availability
-- Builder skills
-- Assign to team button
-
-## Project Page
-
-The MVP project page should be simple.
-
-It should include:
-- Project name
-- Project summary
+The MVP venture page should include:
+- Venture name
+- Venture summary
 - Founder
-- Status
+- Founder 12 status
 - Category
 - Current stage
 - Readiness score
@@ -352,6 +379,7 @@ It should include:
 - Assigned team members
 - Missing roles
 - 30-day roadmap
+- Founders Coffee / cohort next step when accepted
 - Admin notes
 - Basic progress updates
 
@@ -359,23 +387,30 @@ Do not build a full collaboration suite.
 
 ## Admin Dashboard
 
-Admin dashboard should include:
-- Total projects
+Admin dashboard should become the Cohort Command Center.
+
+It should include:
+- Total Founder 12 applications
+- Accepted founders count, with a target of 12
+- Pending applications
+- Shortlisted applicants
+- Not selected applicants
 - Total builders
-- Pending approvals
-- Projects by status
 - Builders awaiting approval
-- Projects needing matches
+- Accepted ventures needing matches
 - Teams formed
-- Prototype-ready projects
+- Demo-ready ventures
 
 Admin should be able to:
+- Review founder applications
+- Shortlist founders
+- Accept/reject founders
+- Review builder profiles
 - Approve/reject builders
-- Approve/reject projects
 - View AI analysis
-- Assign builders to projects
-- Remove builders from projects
-- Update project status
+- Assign builders to accepted ventures
+- Remove builders from ventures
+- Update venture status
 - Add internal notes
 
 ## Security
@@ -384,10 +419,11 @@ Use Supabase Row Level Security.
 
 Basic rules:
 - Users can view and edit their own profiles.
-- Founders can view their own projects.
-- Builders can view their own profiles and assigned projects.
-- Admins can view and manage all projects, profiles, and matches.
+- Founders can view their own applications and accepted-founder content only if selected.
+- Builders can view their own profiles and assigned ventures.
+- Admins can view and manage all applications, profiles, matches, notes, and cohort data.
 - Do not expose admin data to non-admin users.
+- Do not expose accepted-founder privileges to applicants who were not accepted.
 
 ## Code Quality Expectations
 
@@ -402,37 +438,8 @@ Use:
 - Responsive design
 - Accessible form labels
 
-## Environment Variables
-
-Create `.env.example` with:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-OPENAI_API_KEY=
-ANTHROPIC_API_KEY=
-NEXT_PUBLIC_SITE_URL=
-```
-
-Only use one AI provider initially, but leave structure flexible.
-
-## Deployment
-
-Prepare for Netlify deployment.
-
-Include:
-- `netlify.toml`
-- proper build command
-- environment variable documentation
-- deployment notes
-
 ## Final Reminder
 
-This MVP is about proving the pilot.
+This MVP is about proving the Founder 12 pilot.
 
-Do not overbuild.
-
-The goal is not to create the perfect platform.
-
-The goal is to help ISD form teams that can complete prototypes.
+The goal is to help ISD select 12 serious founders, coordinate their Founder 12 experience, support them through Founders Coffee and AI sessions, and form the builder-supported teams most likely to reach prototype readiness.

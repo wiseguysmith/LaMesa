@@ -2,42 +2,47 @@
 
 ## Core Idea
 
-La Mesa is a selective AI-assisted startup fellowship for founders and builders.
+La Mesa is the ISD Founder 12 cohort portal for Costa Rica.
 
-It helps early teams form, focus, and move from idea to prototype through founder evaluation, role mapping, curated matching, cohort accountability, and 30-day execution roadmaps.
+It helps ISD collect founder applications, evaluate readiness with AI, select 12 accepted founders, coordinate Founders Coffee and ISD member privileges, provide AI sessions, and support accepted founders through admin-guided builder matching and prototype readiness.
 
-La Mesa is not an open marketplace. It is a trusted formation layer for serious founders, approved builders, and ISD operators.
+La Mesa is not an open marketplace. It is the trusted operating layer for a selective founder cohort.
 
 ## Positioning
 
-Great early-stage ideas need a trusted formation layer before they can become real companies.
+Great founder communities need more than events and forms. They need a clear path from application to acceptance, from acceptance to community access, and from community access to execution.
 
-La Mesa is that layer.
+La Mesa is that path for Founder 12.
 
-The platform gives founders a structured way to prove seriousness, gives builders access to credible projects, and gives ISD an operating system for turning raw ambition into prototype-ready teams.
+The platform gives founders a serious way to apply, gives ISD a structured way to select the 12, and gives accepted founders a coordinated space to access Founders Coffee, ISD member benefits, AI sessions, and builder support.
 
 ## First Pilot
 
 Public name:
-- La Mesa Summer 2026 Table
+- Founder 12
 
 System name:
-- La Mesa Batch 01
+- La Mesa Founder 12
 
 Participant-facing identity:
-- Table 01
+- Founder 12 Member
 
 Pilot targets:
-- 20 founders
-- 50 builders
-- 20 projects
-- 30 days
-- Demo Day at the end of the cycle
+- Select 12 accepted founders.
+- Coordinate Founders Coffee attendance/access.
+- Provide AI session access.
+- Support selected ventures with role mapping and builder matching where needed.
+- Move accepted founders toward prototype and demo readiness.
 
 Pilot outcomes:
-- Prototype completion
-- Startup formation
-- Local ecosystem development
+- Strong Founder 12 applications.
+- Clear ISD selection process.
+- 12 accepted founders.
+- Accepted-founder engagement with Founders Coffee.
+- Accepted-founder engagement with AI sessions.
+- Builder-supported ventures where appropriate.
+- Prototype-ready or demo-ready ventures.
+- Stronger Costa Rica founder community.
 
 ## Operating Model
 
@@ -45,36 +50,39 @@ Pilot outcomes:
 
 Founders can create accounts directly.
 
-Founder access is not the same as acceptance. A founder becomes eligible for review only after submitting a serious project application.
+Founder access is not the same as Founder 12 acceptance. A founder becomes eligible for review only after submitting a serious Founder 12 application.
 
 Founder flow:
 1. Create account.
-2. Submit YC-style project application.
-3. Receive Founder Readiness Report.
-4. Enter pending consideration for La Mesa Summer 2026 Table.
-5. ISD reviews the project, founder readiness, and team needs.
-6. If selected, founder earns a seat in Table 01.
-7. Founder moves into team formation and the 30-day build cycle.
+2. Submit Founder 12 application.
+3. Receive AI readiness analysis and roadmap.
+4. Enter ISD review.
+5. ISD reviews the founder, venture, readiness, and fit.
+6. ISD shortlists if appropriate.
+7. ISD selects exactly 12 accepted founders.
+8. Accepted founders unlock Founder 12 member surfaces.
+9. Accepted founders coordinate around Founders Coffee, AI sessions, ISD privileges, and team formation support.
 
 ### Builders
 
 Builders apply to join the La Mesa Builder Network.
 
-Builders cannot view project opportunities before approval. Once approved, they can be considered for matching and, in later versions, view selected opportunities.
+Builders cannot view venture opportunities before approval. Approved builders can be assigned to accepted Founder 12 ventures by ISD.
 
 Builder flow:
 1. Create account.
 2. Submit builder profile.
 3. Enter review for the Builder Network.
 4. ISD approves or rejects the builder.
-5. Approved builders become eligible for matching.
-6. Builders build reliability and reputation over time.
+5. Approved builders become eligible for Founder 12 matching.
+6. ISD assigns builders manually to accepted ventures.
+7. Builders build reliability and reputation over time.
 
 ### Admins
 
 ISD is the only operator for the first pilot.
 
-Admins review founder applications, approve builders, inspect AI analysis, curate matches, track weekly progress, and prepare teams for Demo Day.
+Admins review founder applications, select the 12, approve builders, inspect AI analysis, curate matches, coordinate accepted-founder access, track progress, and prepare founders for demo readiness.
 
 AI supports the admin. It does not replace admin judgment.
 
@@ -82,81 +90,79 @@ AI supports the admin. It does not replace admin judgment.
 
 ### La Mesa
 
-The platform and fellowship.
+The platform.
 
-### Batch
+### Founder 12
 
-The internal operating cycle.
+The selective ISD founder cohort.
 
-Example:
-- La Mesa Batch 01
+### Accepted Founder
 
-### Table
+One of the 12 founders selected by ISD.
 
-The public and participant-facing identity.
+### Venture
 
-Examples:
-- La Mesa Summer 2026 Table
-- Table 01
-- AI Table
-- Robotics Table
-- Climate Table
+The founder's project/startup inside La Mesa.
 
-### Seat
+### Founders Coffee
 
-The access metaphor.
+The Costa Rica founder gathering available to accepted founders.
 
-Examples:
-- Apply for a seat at La Mesa.
-- You have been selected for a seat in Table 01.
-- Your project is pending consideration for La Mesa Summer 2026 Table.
+### ISD Member Privileges
 
-### Track
+The benefits and access unlocked by acceptance into Founder 12.
 
-The focus area for a founder or project.
+### Builder Network
 
-Tracks are not just filters. Each track can develop its own review criteria, builder pool, office hours, mentors, demo category, and alumni identity.
+The vetted pool of builders who can support accepted Founder 12 ventures.
+
+### Cohort Command Center
+
+The admin operating surface.
 
 ## Product Promise
 
-La Mesa helps a project move from:
+La Mesa helps a founder move from:
 
-Idea -> Founder Readiness -> Role Map -> Curated Match -> 30-Day Roadmap -> Prototype -> Demo Day
+Application -> ISD Review -> Founder 12 Acceptance -> Founders Coffee -> AI Sessions -> Team Formation -> Prototype Readiness
 
 ## Core Bet
 
 La Mesa is built on five connected beliefs:
 
-1. Great ideas fail because founders cannot find the right early team.
-2. Great builders waste time because they cannot find serious projects.
-3. Innovation programs fail when they lack operating structure after intake.
-4. AI can reduce the friction of team formation and early execution.
-5. Communities need a trusted table where talent and ambition can meet.
+1. Serious founders need a selective path into trusted community.
+2. Founder events become more powerful when connected to structured follow-through.
+3. ISD can create more value by selecting and supporting a focused group of 12.
+4. AI can reduce the friction of founder evaluation, role mapping, and early execution.
+5. Builder matching works best as curated support for accepted founders, not as an open marketplace.
 
 ## Experience Principles
 
 La Mesa should feel:
-- Premium and selective
-- Futuristic and AI-native
-- Startup-intense and ambitious
-- Warmly selective
-- Human, direct, and practical
+- Premium and selective.
+- ISD-backed.
+- Costa Rica connected.
+- Founder-centered.
+- AI-native.
+- Warm, direct, and practical.
 
 It should not feel:
-- Generic
-- Academic in a stale way
-- Like a random freelancer marketplace
-- Like a passive project directory
-- Like a social network without a purpose
+- Generic.
+- Like a random freelancer marketplace.
+- Like a dating-app gimmick.
+- Like a passive project directory.
+- Like a social network without a purpose.
+- Like a full school portal.
 
 ## MVP Interpretation
 
 The MVP should prove that ISD can:
-- Attract serious founder submissions.
-- Evaluate founder and project readiness.
+- Attract serious Founder 12 applications.
+- Evaluate founder and venture readiness.
+- Select 12 accepted founders.
+- Coordinate accepted-founder access.
 - Approve a strong builder pool.
-- Form teams around selected projects.
-- Give teams a 30-day operating rhythm.
-- Move projects toward prototype and Demo Day.
+- Form support teams around selected ventures.
+- Move accepted founders toward prototype and demo readiness.
 
-The MVP should not attempt to become a full marketplace, collaboration suite, investor portal, chat app, or legal/equity system.
+The MVP should not attempt to become a full marketplace, collaboration suite, investor portal, chat app, LMS, or legal/equity system.

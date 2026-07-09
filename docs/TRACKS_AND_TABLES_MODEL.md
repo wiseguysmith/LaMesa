@@ -1,149 +1,151 @@
-# Tracks And Tables Model
+# Tracks Model
 
 ## Purpose
 
-Tracks give La Mesa identity, focus, and matching structure.
+Tracks help ISD understand Founder 12 applications, organize builder support, and tell a clearer story about the cohort.
 
-They should not be treated only as filters. Each track can become a mini-community with its own criteria, office hours, builder pool, Demo Day category, and alumni signal.
+Tracks should not replace Founder 12 as the core identity.
+
+The primary identity is:
+- Founder 12
+
+Tracks are secondary:
+- Founder 12 / AI
+- Founder 12 / Climate
+- Founder 12 / Community Impact
 
 ## Core Tracks
 
-### AI Table
+### AI
 
-For projects involving intelligent software, automation, agents, machine learning, data products, or AI-native workflows.
+For ventures involving intelligent software, automation, agents, machine learning, data products, or AI-native workflows.
 
 Signals:
-- Clear AI use case
-- Data or workflow advantage
-- Feasible prototype
-- Responsible AI awareness
+- Clear AI use case.
+- Data or workflow advantage.
+- Feasible prototype.
+- Responsible AI awareness.
 
-### Web3 Table
+### Web3
 
 For blockchain, ownership, decentralized applications, smart contracts, tokenized systems, and trust infrastructure.
 
 Signals:
-- Clear reason for Web3
-- Technical feasibility
-- User value beyond speculation
-- Security awareness
+- Clear reason for Web3.
+- Technical feasibility.
+- User value beyond speculation.
+- Security awareness.
 
-### Robotics Table
+### Robotics
 
 For hardware, automation, physical-world systems, sensors, robotics, and human-machine interaction.
 
 Signals:
-- Feasible demo scope
-- Hardware access
-- Technical team needs
-- Safety and testing awareness
+- Feasible demo scope.
+- Hardware access.
+- Technical team needs.
+- Safety and testing awareness.
 
-### Climate Table
+### Climate
 
 For sustainability, energy, circular economy, climate resilience, food systems, and environmental impact.
 
 Signals:
-- Measurable impact
-- Market or community need
-- Feasible pilot
-- Domain credibility
+- Measurable impact.
+- Market or community need.
+- Feasible pilot.
+- Domain credibility.
 
-### Community Impact Table
+### Community Impact
 
 For civic technology, education, health access, local business support, community infrastructure, and equity-focused ideas.
 
 Signals:
-- Strong community need
-- Founder proximity to the problem
-- Local ecosystem relevance
-- Practical path to pilot
+- Strong community need.
+- Founder proximity to the problem.
+- Local ecosystem relevance.
+- Practical path to pilot.
 
-### Student Founder Table
+### Student Founder
 
 For first-time or early founders coming from schools, universities, or youth innovation programs.
 
 Signals:
-- Coachability
-- Learning speed
-- Clear problem
-- Willingness to execute
+- Coachability.
+- Learning speed.
+- Clear problem.
+- Willingness to execute.
 
-### Technical Founder Table
+### Technical Founder
 
 For builders turning technical insight into startups.
 
 Signals:
-- Technical depth
-- Prototype ability
-- Market clarity
-- Ability to communicate user value
+- Technical depth.
+- Prototype ability.
+- Market clarity.
+- Ability to communicate user value.
 
-### Nontechnical Founder Table
+### Nontechnical Founder
 
 For operators, domain experts, storytellers, community leaders, and business builders who need technical collaborators.
 
 Signals:
-- Domain insight
-- Founder-market fit
-- Recruiting ability
-- Clear product need
+- Domain insight.
+- Founder-market fit.
+- Recruiting ability.
+- Clear product need.
 
 ## Track Experience
 
 Each track may eventually have:
-- Track-specific application questions
-- Track-specific readiness weighting
-- Track lead
-- Track office hours
-- Track-specific builder recommendations
-- Track Demo Day category
-- Track alumni badge
-- Track partner or sponsor
+- Track-specific application questions.
+- Track-specific readiness weighting.
+- Track lead.
+- Track office hours.
+- Track-specific builder recommendations.
+- Demo category.
+- Alumni badge.
+- Partner or sponsor.
+
+For MVP, tracks should remain lightweight:
+- Structured field.
+- Filter.
+- Admin review label.
+- Builder matching signal.
+- Reporting dimension.
 
 ## Track Assignment
 
-Projects should select a primary track and optional secondary tracks.
+Founders should select a primary track and optional secondary track.
 
-Builders should select preferred tracks.
+Builders may select preferred tracks.
 
 Admins should be able to adjust track assignment during review.
-
-## Table Structure
-
-For Batch 01:
-- Public Table: La Mesa Summer 2026 Table
-- Participant Identity: Table 01
-- Tracks operate inside Table 01
-
-Example:
-- Table 01 / AI
-- Table 01 / Robotics
-- Table 01 / Community Impact
 
 ## Product Language
 
 Use:
-- Apply for a seat at La Mesa.
-- Join the La Mesa Summer 2026 Table.
-- Table 01 teams build for 30 days.
-- Each track has its own focus and criteria.
+- Founder 12 / AI.
+- Founder 12 / Climate.
+- Founder 12 / Community Impact.
+- Track focus.
+- Venture track.
 
 Avoid:
-- Open marketplace
-- Browse all projects
-- Gig board
-- Class assignment
-- Passive directory
+- Open marketplace.
+- Browse all projects.
+- Gig board.
+- Passive directory.
+- Track community as a separate product in MVP.
 
 ## Track Strategy
 
 Tracks should help:
-- Founders feel they belong to a serious lane.
-- Builders find projects aligned with their interests.
-- Admins prioritize matching.
+- Founders feel their venture belongs to a serious lane.
+- Builders understand where they can contribute.
+- Admins prioritize review and matching.
 - ISD tell a stronger story about ecosystem development.
-- Demo Day organize outcomes.
+- Demo/showcase outcomes become easier to organize.
 
 Tracks should not add heavy complexity in V1.
-
-For the MVP, tracks can start as structured fields, filters, labels, and review criteria. The deeper track experience can grow after the first pilot.

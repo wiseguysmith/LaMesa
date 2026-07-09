@@ -1,55 +1,42 @@
 # Handoff
 
-## Current Branch
+## Current Product Direction
 
-Documentation branch:
-- `codex/production-docs`
+La Mesa is now defined as the ISD Founder 12 cohort portal for Costa Rica.
 
-Pushed commit:
-- `f881f64` - `Document La Mesa production concept`
-
-GitHub PR URL:
-- https://github.com/wiseguysmith/LaMesa/pull/new/codex/production-docs
-
-## Important Local State
-
-The documentation changes were committed and pushed.
-
-Uncommitted local changes were intentionally left untouched:
-- `src/app/login/page.tsx`
-- `src/app/page.tsx`
-- `AGENTS.md`
-
-The generated `.next` folder was deleted locally to free disk space after Git reported the C: drive was full. It can be regenerated with:
-
-```bash
-npm run build
-```
+It is not primarily a marketplace. Builder matching is a support benefit for accepted founders.
 
 ## Product Decisions Locked
 
-- La Mesa is a selective AI-assisted startup fellowship.
-- Public pilot name: La Mesa Summer 2026 Table.
-- System name: La Mesa Batch 01.
-- Participant-facing identity: Table 01.
-- Public/brand term: Table.
-- Internal/startup term: Batch.
+- Founder 12 is the core product identity.
+- Founder 12 accepts exactly 12 founders.
 - Founders can create accounts directly.
-- Founders become pending consideration only after submitting project information.
-- Founder-facing status should say: pending consideration for La Mesa Summer 2026 Table.
+- Founders are applicants until ISD accepts them.
+- Accepted-founder access must be gated.
+- Accepted founders unlock:
+  - Founders Coffee details.
+  - ISD member privileges.
+  - AI session information.
+  - External community link if configured.
+  - Team formation support.
+  - 30-day roadmap and progress updates.
 - Builders apply to join the La Mesa Builder Network.
-- Builders cannot see projects before approval.
-- Founder scoring should be visible through the Founder Readiness Report.
-- Builder reliability should become visible over time.
-- Tracks should have their own identity and cohort experience.
+- Builders cannot browse all ventures.
+- Builders can only see assigned Founder 12 ventures.
+- Builder matching happens after acceptance or when ISD explicitly decides support is appropriate.
+- Native chat is out of scope for MVP.
+- Full scheduling, LMS, marketplace, investor, legal/equity, and membership CRM features are out of scope.
 - AI recommends. ISD decides.
 
-## New Documentation
+## Read First
 
 Start with:
+- `AGENTS.md`
+- `CLAUDE.md`
 - `docs/CONCEPT_DOCS_INDEX.md`
+- `docs/FOUNDER_12_COHORT_MODEL.md`
 
-Concept docs:
+Core concept docs:
 - `docs/OPERATING_CONCEPT.md`
 - `docs/PRODUCT_STRATEGY.md`
 - `docs/BATCH_01_PLAYBOOK.md`
@@ -58,27 +45,42 @@ Concept docs:
 - `docs/TRACKS_AND_TABLES_MODEL.md`
 - `docs/ANTI_GOALS_AND_PRODUCT_PRINCIPLES.md`
 
-Production docs:
-- `docs/PRODUCTION_READINESS_PLAN.md`
-- `docs/SECURITY_AND_RLS_SPEC.md`
+Implementation docs:
+- `docs/BUILD_TASKS.md`
+- `docs/PRODUCT_SPEC.md`
+- `docs/MVP_SCOPE.md`
+- `docs/USER_FLOWS.md`
+- `docs/UI_REQUIREMENTS.md`
+- `docs/DATA_MODEL.md`
+- `docs/AI_MATCHING_LOGIC.md`
 - `docs/API_CONTRACTS.md`
+- `docs/SECURITY_AND_RLS_SPEC.md`
+- `docs/PRODUCTION_READINESS_PLAN.md`
 - `docs/QA_TEST_PLAN.md`
-
-Updated:
-- `README.md`
 
 ## Next Implementation Priorities
 
-1. Protect `/api/suggest-matches` with admin auth.
-2. Harden `/api/analyze-project` and `/api/generate-roadmap` with auth, project ownership checks, and output validation.
-3. Fix `/api/auth/create-user` so it verifies the authenticated Supabase user and does not trust client-supplied privileged identity.
-4. Update RLS so admin notes are admin-only.
-5. Confirm pending builders cannot see projects before approval.
-6. Add Batch/Table/Track fields to the data model.
-7. Update founder-facing status language to "pending consideration for La Mesa Summer 2026 Table."
-8. Add or normalize Founder Readiness Report fields.
-9. Add builder reliability signal structure.
-10. Run the QA plan against real founder, builder, and admin accounts.
+1. Reframe public copy around Founder 12.
+2. Reframe founder application copy around selective cohort application.
+3. Add or normalize Founder 12 statuses:
+   - under review
+   - shortlisted
+   - accepted
+   - not selected
+4. Add accepted-founder gating.
+5. Add accepted-founder dashboard modules:
+   - Founders Coffee
+   - ISD member privileges
+   - AI sessions
+   - external community link
+   - team formation status
+6. Update admin dashboard into Cohort Command Center.
+7. Add accepted founder count with 12-seat target.
+8. Update builder language to Builder Network support.
+9. Ensure builders cannot browse all ventures.
+10. Keep builder matching admin-approved.
+11. Harden API auth and validation.
+12. Run QA against founder applicant, accepted founder, builder, and admin roles.
 
 ## Security Notes
 
@@ -87,10 +89,11 @@ Before production launch:
 - Avoid public endpoints that trust client-provided user IDs.
 - Split broad RLS `for all` policies into action-specific policies where needed.
 - Keep admin notes admin-only.
+- Gate Founders Coffee, ISD privileges, AI sessions, and community links to accepted founders.
 - Treat AI output as untrusted until validated.
 
 ## Product Restraint
 
-Do not add chat, payments, equity tracking, contracts, investor dashboards, public marketplace behavior, or full social feeds before Batch 01 proves the formation model.
+Do not add native chat, payments, equity tracking, contracts, investor dashboards, public marketplace behavior, full scheduling, full LMS, full membership CRM, or full social feeds before Founder 12 proves the operating model.
 
-Batch 01 should prove that ISD can form serious founder-builder teams and help them reach prototype readiness in 30 days.
+Founder 12 should prove that ISD can select 12 serious founders, coordinate their cohort experience, and help accepted founders move toward prototype readiness.

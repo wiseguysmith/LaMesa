@@ -2,130 +2,147 @@
 
 ## Strategic Thesis
 
-La Mesa exists because early-stage company formation is broken before the company exists.
+Founder communities do not fail because people lack ideas. They fail because application, selection, access, support, and follow-through are disconnected.
 
-Founders often have ambition but lack the right early team. Builders often have skill but lack serious projects. Innovation programs often have energy but lack a structured formation system after intake.
-
-La Mesa turns that gap into a product category: startup formation infrastructure for founder communities.
+La Mesa turns Founder 12 into a structured product experience: founders apply, ISD selects 12, accepted founders unlock a real community and support layer, and selected ventures move toward prototype readiness.
 
 ## Category
 
-La Mesa is best understood as a selective startup fellowship powered by AI-assisted team formation.
+La Mesa is best understood as cohort infrastructure for a selective founder program.
 
 It combines:
-- YC-style selection and accountability
-- A vetted builder network
-- AI-assisted founder/project analysis
-- Curated human matching
-- Cohort-based execution
-- Demo Day outcomes
+- Founder application and selection.
+- AI-assisted readiness analysis.
+- Founders Coffee coordination.
+- ISD member privilege access.
+- AI support sessions.
+- A vetted Builder Network.
+- Curated human matching.
+- Prototype and demo readiness tracking.
 
 ## Who It Serves
 
 ### Founders
 
-Serious founders who have an idea, domain insight, or early concept and need help forming the right team to build a prototype.
+Serious founders who want to apply for Founder 12 and earn access to ISD's cohort, community, and support.
+
+### Accepted Founders
+
+The 12 selected founders who need structure, support, community access, AI sessions, and optional builder support to move faster.
 
 ### Builders
 
-Developers, designers, AI builders, operators, marketers, researchers, and technical collaborators who want access to serious projects and a reputation-building builder network.
+Approved builders who want to support serious Founder 12 ventures and build reputation through meaningful contribution.
 
 ### ISD
 
-The operator of the fellowship, responsible for selection, review, matching, accountability, and pilot outcomes.
+The operator of Founder 12, responsible for selection, review, accepted-founder coordination, builder matching, accountability, and pilot outcomes.
 
 ## Why Now
 
-AI makes it easier to analyze projects, map team needs, generate roadmaps, and support early execution.
+Costa Rica's founder ecosystem needs visible, coordinated spaces where serious founders can move from concept to execution.
+
+AI makes it easier to analyze ideas, clarify founder readiness, map team needs, and generate roadmaps.
 
 But AI alone does not create trust.
 
-The opportunity is to combine AI structure with human judgment, community trust, and selective access.
+The opportunity is to combine AI structure with ISD's human judgment, Founders Coffee community, and selective cohort access.
 
 ## Product Wedge
 
 The initial wedge is not a broad marketplace.
 
-The wedge is a 30-day selective startup formation batch where ISD can prove that curated teams can move from idea to prototype faster and with more clarity.
+The wedge is Founder 12: a selective 12-founder cohort where ISD can prove that clear intake, AI-assisted review, community access, and curated support help founders move toward prototype readiness.
 
 ## Differentiation
 
-La Mesa differs from a marketplace because access is curated.
+La Mesa differs from a marketplace because access is curated and cohort-based.
 
-La Mesa differs from an accelerator CRM because participants experience the product directly.
+La Mesa differs from an accelerator CRM because accepted founders directly experience the product.
 
-La Mesa differs from a social network because every interaction should support formation, accountability, or execution.
+La Mesa differs from a community chat because the product is structured around application, acceptance, support, and execution.
 
-La Mesa differs from a startup school because teams are expected to build toward a prototype, not just learn concepts.
+La Mesa differs from a startup school because founders are expected to move toward prototypes, not just consume content.
+
+La Mesa differs from an event page because Founders Coffee is connected to a deeper founder support system.
 
 ## Strategic Inspiration
 
 ### YC
 
-Selection, batch identity, application rigor, weekly accountability, Demo Day, founder intensity.
+Selection, founder seriousness, cohort identity, accountability, demo readiness.
 
-### Facebook
+### Founder Communities
 
-Real identity, network effects, cohort belonging, alumni signal, profiles that matter.
-
-### Tinder
-
-Fast fit discovery, shortlisting, mutual interest signals, lightweight decisions.
+In-person trust, recurring touchpoints, peer energy, local ecosystem identity.
 
 ### Upwork
 
 Skills, availability, work preferences, portfolio evidence, reliability over time.
 
+### AI Copilots
+
+Readiness analysis, role mapping, review questions, roadmap generation.
+
 La Mesa should borrow carefully from each without becoming any one of them.
 
 ## Product Shape Over Time
 
-### V1: Admin-Led Formation
+### V1: Founder 12 Intake And Admin Review
 
-Founders submit projects. Builders apply to the network. AI maps roles and readiness. ISD reviews, approves, and matches manually.
+Founders submit applications. Builders apply to the network. AI maps readiness, roles, and roadmaps. ISD reviews and manages selected founders manually.
 
-### V1.5: Mutual Interest Signals
+### V1.5: Accepted Founder Portal
 
-Approved builders can express interest in selected projects. Founders and admins can shortlist builders. Admin still approves assignments.
+Accepted founders unlock Founders Coffee, ISD member privileges, AI sessions, community link, and team formation status.
 
-### V2: Cohort Network
+### V2: Cohort Operating Layer
 
-Tables, tracks, progress updates, Demo Day outcomes, alumni badges, and reliability signals become part of the participant experience.
+Founder 12 member area, event/session coordination, builder support, progress updates, and demo readiness become central product surfaces.
 
-### V3: Formation Graph
+### V3: Founder Network Graph
 
-La Mesa begins to understand people, projects, teams, tracks, outcomes, and trust signals across multiple batches.
+La Mesa begins to understand founders, builders, ventures, sessions, cohorts, outcomes, trust signals, and alumni over time.
 
 ## Success Metrics
 
 Primary metric:
-- Teams formed
+- 12 accepted Founder 12 members selected and onboarded.
 
 Pilot metrics:
-- Founder applications submitted
-- Founder applications selected
-- Builder applications submitted
-- Builders approved
-- Projects matched
-- Weekly updates completed
-- Projects reaching prototype-ready status
-- Projects presented at Demo Day
-- Projects continuing after Demo Day
-- Incorporated startups or formal ventures created
+- Founder applications submitted.
+- Founder applications reviewed.
+- Founders shortlisted.
+- Founders accepted.
+- Founders attending Founders Coffee.
+- Founders engaging with AI sessions.
+- Builder applications submitted.
+- Builders approved.
+- Accepted ventures needing builder support.
+- Builders assigned.
+- Weekly updates completed.
+- Ventures reaching prototype-ready status.
+- Ventures presented at demo day or founder showcase.
+- Ventures continuing after Founder 12.
 
 Quality metrics:
-- Founder readiness improvement
-- Builder reliability
-- Match quality
-- Admin confidence in AI recommendations
-- Time from project submission to match
-- Time from match to first prototype milestone
+- Founder readiness improvement.
+- Founder 12 fit.
+- Builder reliability.
+- Match quality.
+- Admin confidence in AI recommendations.
+- Time from application to review.
+- Time from acceptance to first meaningful support action.
 
 ## Strategic Risks
 
-### Too Open
+### Too Marketplace-Like
 
-If access is too open, the product becomes noisy and loses trust.
+If the product feels like open browsing or talent shopping, Founder 12 loses selectivity.
+
+### Too Event-Only
+
+If Founders Coffee is not connected to structured support, the platform becomes an event page.
 
 ### Too Manual
 
@@ -133,11 +150,11 @@ If every step requires admin effort, the pilot may not scale.
 
 ### Too Automated
 
-If AI makes decisions too early, the product may lose human judgment and credibility.
+If AI makes selection or matching decisions too early, the product loses human judgment and credibility.
 
 ### Too Social
 
-If feeds and networking dominate, the product can drift away from execution.
+If feeds and chat dominate, the product can drift away from founder progress.
 
 ### Too Academic
 
@@ -147,8 +164,9 @@ If the experience feels like school, high-ambition founders may not take it seri
 
 Every feature should answer one of these questions:
 
-1. Does this help ISD identify serious founders?
-2. Does this help serious builders find credible projects?
-3. Does this help teams form with more trust and clarity?
-4. Does this move a team closer to prototype in 30 days?
-5. Does this strengthen the La Mesa network over time?
+1. Does this help ISD identify serious Founder 12 applicants?
+2. Does this help ISD select the right 12 founders?
+3. Does this help accepted founders access Founders Coffee, ISD privileges, or AI sessions?
+4. Does this help accepted founders get the right support?
+5. Does this move a venture closer to prototype readiness?
+6. Does this strengthen the Founder 12 network over time?
