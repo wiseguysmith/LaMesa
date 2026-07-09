@@ -79,6 +79,61 @@ function WeekIndicator({ project, batchStartDate, label }: { project: Project; b
   )
 }
 
+const ACCEPTED_FOUNDER_STATUSES: FounderStatus[] = ['selected', 'matched', 'building', 'demo_ready', 'alumni']
+
+function hasFounder12Access(status: FounderStatus | null) {
+  return status ? ACCEPTED_FOUNDER_STATUSES.includes(status) : false
+}
+
+function Founder12AccessPanel() {
+  const privileges = [
+    {
+      title: 'Founders Coffee',
+      label: 'Accepted-founder gathering',
+      description: 'ISD shares the next coffee details with the Founder 12 cohort.',
+    },
+    {
+      title: 'ISD Member Privileges',
+      label: 'Cohort access',
+      description: 'Your accepted-founder status unlocks member support, community access, and ISD opportunities.',
+    },
+    {
+      title: 'AI Sessions',
+      label: 'Structured founder support',
+      description: 'Use sessions for product clarity, prototype roadmaps, pitch prep, and next-step planning.',
+    },
+    {
+      title: 'Builder Support',
+      label: 'Admin-guided formation',
+      description: 'ISD coordinates builder support around the skills your accepted venture needs.',
+    },
+  ]
+
+  return (
+    <section className="mb-8 rounded-xl border border-isd-mint/40 bg-white overflow-hidden">
+      <div className="p-6 border-b border-isd-gray-light bg-isd-mint/10">
+        <p className="isd-eyebrow mb-2">Founder 12 Access</p>
+        <h2 className="font-slab font-normal text-isd-dark text-xl">Accepted-founder privileges are unlocked.</h2>
+        <p className="text-isd-gray text-sm mt-2 max-w-2xl">
+          This is your cohort home base for Founders Coffee, ISD member privileges, AI sessions, and admin-guided builder support.
+        </p>
+      </div>
+      <div className="grid md:grid-cols-2">
+        {privileges.map((item, index) => (
+          <div
+            key={item.title}
+            className={`p-5 border-t border-isd-gray-light ${index < 2 ? 'md:border-t-0' : ''} ${index % 2 === 1 ? 'md:border-l' : ''}`}
+          >
+            <p className="text-xs font-mono text-isd-teal uppercase tracking-wide mb-2">{item.label}</p>
+            <h3 className="font-slab font-normal text-isd-dark text-base mb-1">{item.title}</h3>
+            <p className="text-sm text-isd-gray leading-relaxed">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default async function DashboardPage() {
   const { dict } = getServerDictionary()
   const t = dict.app.dashboard
@@ -169,6 +224,9 @@ export default async function DashboardPage() {
           <div className={`mb-6 p-4 rounded-xl border ${builderBanner.bg}`}>
             <p className={`text-sm font-medium ${builderBanner.text}`}>{builderBanner.message}</p>
           </div>
+        )}
+        {userData.role === 'founder' && hasFounder12Access(founderBannerStatus) && (
+          <Founder12AccessPanel />
         )}
 
         {userData.role === 'founder' && (

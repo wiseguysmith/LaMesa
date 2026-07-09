@@ -32,14 +32,14 @@ export default async function AdminMatchesPage() {
       <main className="max-w-6xl mx-auto px-4 py-10">
         <div className="mb-8">
           <p className="isd-eyebrow mb-1">Admin</p>
-          <h1 className="font-slab font-normal text-isd-dark text-3xl">Team Formation — Table 01</h1>
-          <p className="text-isd-gray mt-2">Run AI match suggestions and assign builders to selected projects.</p>
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">Founder 12 Team Formation</h1>
+          <p className="text-isd-gray mt-2">Run AI suggestions and assign approved builders to accepted Founder 12 ventures.</p>
         </div>
 
         {!projects?.length ? (
           <div className="isd-card p-16 text-center">
-            <p className="text-isd-gray text-lg">No approved projects available for matching.</p>
-            <p className="text-isd-gray text-sm mt-1">Approve projects first in the Projects section.</p>
+            <p className="text-isd-gray text-lg">No accepted ventures available for team formation.</p>
+            <p className="text-isd-gray text-sm mt-1">Accept founders first in Founder 12 Applications.</p>
           </div>
         ) : (
           <div className="space-y-8">

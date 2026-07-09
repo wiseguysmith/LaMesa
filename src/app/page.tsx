@@ -299,7 +299,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Stats / Table ── */}
+      {/* Cohort stats */}
       <section className="py-20 px-6 bg-isd-navy">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">

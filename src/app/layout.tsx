@@ -26,8 +26,8 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'La Mesa — Innovation Smart District',
-  description: 'La Mesa connects founders, builders, and ecosystem partners through the Innovation Smart District startup formation platform.',
+  title: 'La Mesa | Founder 12',
+  description: 'La Mesa is the ISD Founder 12 cohort portal for Costa Rica, helping accepted founders access cohort support and admin-guided builder formation.',
 }
 
 export default function RootLayout({

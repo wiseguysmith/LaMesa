@@ -35,8 +35,8 @@ export default async function AdminProjectsPage({
         <div className="flex items-center justify-between mb-8">
           <div>
             <p className="isd-eyebrow mb-1">Admin</p>
-            <h1 className="font-slab font-normal text-isd-dark text-3xl">Projects</h1>
-            <p className="text-isd-gray mt-1 text-sm">{projects?.length ?? 0} total projects</p>
+            <h1 className="font-slab font-normal text-isd-dark text-3xl">Founder 12 Applications</h1>
+            <p className="text-isd-gray mt-1 text-sm">{projects?.length ?? 0} total applications</p>
           </div>
           <div className="flex gap-2">
             <Link
@@ -59,7 +59,7 @@ export default async function AdminProjectsPage({
             <table className="w-full">
               <thead>
                 <tr className="border-b border-isd-gray-light bg-isd-light/50">
-                  <th className="text-left px-6 py-3 text-xs font-mono text-isd-gray uppercase tracking-wide">Project</th>
+                  <th className="text-left px-6 py-3 text-xs font-mono text-isd-gray uppercase tracking-wide">Venture</th>
                   <th className="text-left px-6 py-3 text-xs font-mono text-isd-gray uppercase tracking-wide">Founder</th>
                   <th className="text-left px-6 py-3 text-xs font-mono text-isd-gray uppercase tracking-wide">Category</th>
                   <th className="text-left px-6 py-3 text-xs font-mono text-isd-gray uppercase tracking-wide">Status</th>
@@ -97,7 +97,7 @@ export default async function AdminProjectsPage({
                 ))}
                 {!projects?.length && (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-isd-gray">No projects found.</td>
+                    <td colSpan={7} className="px-6 py-12 text-center text-isd-gray">No applications found.</td>
                   </tr>
                 )}
               </tbody>

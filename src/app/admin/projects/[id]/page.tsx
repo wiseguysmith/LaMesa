@@ -132,7 +132,7 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
             <div className="isd-card p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-slab font-normal text-isd-dark text-lg">Team Members</h2>
-                <a href="/admin/matches" className="text-xs text-isd-teal hover:text-isd-navy font-medium transition-colors">Manage in Matching →</a>
+                <a href="/admin/matches" className="text-xs text-isd-teal hover:text-isd-navy font-medium transition-colors">Manage team formation →</a>
               </div>
               {members && members.length > 0 ? (
                 <div className="space-y-2">
@@ -184,7 +184,7 @@ export default async function AdminProjectDetailPage({ params }: { params: { id:
             </div>
 
             <div className="isd-card p-6">
-              <h2 className="font-slab font-normal text-isd-dark text-base mb-4">Project Details</h2>
+                <h2 className="font-slab font-normal text-isd-dark text-base mb-4">Venture Details</h2>
               <div className="space-y-3 text-sm">
                 {[
                   { label: 'Problem', value: project.problem },

@@ -129,7 +129,7 @@ export default function AdminProjectActions({
           )}
         </div>
 
-        {/* Table 01 Quick Actions */}
+        {/* Founder 12 Quick Actions */}
         <div className="flex flex-wrap gap-3 mb-5 pb-5 border-b border-amber-200">
           <Button
             size="sm"
@@ -149,7 +149,7 @@ export default function AdminProjectActions({
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ project_id: projectId, status: 'roles_mapped' }),
                 })
-                if (!r1.ok || !r2.ok) setError('Failed to select for Table 01')
+                if (!r1.ok || !r2.ok) setError('Failed to accept for Founder 12')
                 else router.refresh()
               } catch {
                 setError('Request failed')
@@ -157,7 +157,7 @@ export default function AdminProjectActions({
               setLoading(null)
             }}
           >
-            Mark as Selected for Table 01
+            Accept to Founder 12
           </Button>
           <Button
             size="sm"
@@ -214,7 +214,7 @@ export default function AdminProjectActions({
             href="/admin/matches"
             className="text-sm text-amber-700 font-medium hover:text-amber-800"
           >
-            Go to Team Formation — Table 01 →
+            Go to Founder 12 Team Formation
           </a>
         </div>
       </CardBody>

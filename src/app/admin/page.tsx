@@ -66,9 +66,9 @@ export default async function AdminPage() {
   ])
 
   const stats = [
-    { label: 'Total Projects', value: totalProjects ?? 0, href: '/admin/projects', accent: 'text-isd-navy' },
+    { label: 'Founder 12 Applications', value: totalProjects ?? 0, href: '/admin/projects', accent: 'text-isd-navy' },
     { label: 'Total Builders', value: totalBuilders ?? 0, href: '/admin/builders', accent: 'text-isd-teal' },
-    { label: 'Pending Approvals', value: (pendingProjects ?? 0) + (pendingBuilders ?? 0), href: '/admin/projects', accent: 'text-amber-600' },
+    { label: 'Pending Review', value: (pendingProjects ?? 0) + (pendingBuilders ?? 0), href: '/admin/projects', accent: 'text-amber-600' },
     { label: 'Selected Founders', value: selectedFounders ?? 0, href: '/admin/projects', accent: 'text-isd-dark-green' },
     { label: 'Approved Builders', value: approvedBuilders ?? 0, href: '/admin/builders', accent: 'text-isd-teal' },
     { label: 'Active Teams', value: activeTeams ?? 0, href: '/admin/matches', accent: 'text-isd-navy' },
@@ -94,7 +94,7 @@ export default async function AdminPage() {
         {batch && (
           <div className="mb-8 isd-hero-bg p-6 rounded-xl flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <p className="isd-eyebrow text-isd-mint/80 mb-1">Active Batch</p>
+              <p className="isd-eyebrow text-isd-mint/80 mb-1">Active Cohort</p>
               <h2 className="font-slab font-normal text-white text-xl">{batch.public_name} — {batch.participant_identity}</h2>
             </div>
             <div className="flex items-center gap-8 text-sm">
@@ -114,7 +114,7 @@ export default async function AdminPage() {
 
         <div className="mb-8">
           <p className="isd-eyebrow mb-1">Platform Management</p>
-          <h1 className="font-slab font-normal text-isd-dark text-3xl">Admin Overview</h1>
+          <h1 className="font-slab font-normal text-isd-dark text-3xl">Cohort Command Center</h1>
         </div>
 
         {/* Stats Grid */}
@@ -130,23 +130,23 @@ export default async function AdminPage() {
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Link href="/admin/projects?filter=pending" className="isd-card p-5 border-l-4 border-amber-400 hover:shadow-md transition-shadow block">
-            <p className="font-slab font-normal text-isd-dark text-base mb-1">Review Pending Projects</p>
-            <p className="text-isd-gray text-sm">{pendingProjects ?? 0} waiting for approval</p>
+            <p className="font-slab font-normal text-isd-dark text-base mb-1">Review Founder 12 Applications</p>
+            <p className="text-isd-gray text-sm">{pendingProjects ?? 0} waiting for review</p>
           </Link>
           <Link href="/admin/builders?filter=pending" className="isd-card p-5 border-l-4 border-isd-teal hover:shadow-md transition-shadow block">
             <p className="font-slab font-normal text-isd-dark text-base mb-1">Review Builder Profiles</p>
             <p className="text-isd-gray text-sm">{pendingBuilders ?? 0} profiles to review</p>
           </Link>
           <Link href="/admin/matches" className="isd-card p-5 border-l-4 border-isd-navy hover:shadow-md transition-shadow block">
-            <p className="font-slab font-normal text-isd-dark text-base mb-1">Team Formation — Table 01</p>
-            <p className="text-isd-gray text-sm">Run AI match suggestions</p>
+            <p className="font-slab font-normal text-isd-dark text-base mb-1">Founder 12 Team Formation</p>
+            <p className="text-isd-gray text-sm">Run AI builder suggestions</p>
           </Link>
         </div>
 
         {/* Recent Projects */}
         <div className="bg-white rounded-xl border border-isd-gray-light overflow-hidden">
           <div className="px-6 py-4 border-b border-isd-gray-light flex items-center justify-between">
-            <h2 className="font-slab font-normal text-isd-dark text-lg">Recent Projects</h2>
+            <h2 className="font-slab font-normal text-isd-dark text-lg">Recent Applications</h2>
             <Link href="/admin/projects" className="text-sm text-isd-teal hover:text-isd-navy font-medium transition-colors">View all →</Link>
           </div>
           <div className="divide-y divide-isd-gray-light/50">
@@ -172,7 +172,7 @@ export default async function AdminPage() {
               </div>
             ))}
             {!recentProjects?.length && (
-              <div className="px-6 py-8 text-center text-isd-gray text-sm">No projects yet.</div>
+              <div className="px-6 py-8 text-center text-isd-gray text-sm">No applications yet.</div>
             )}
           </div>
         </div>

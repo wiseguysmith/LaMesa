@@ -30,6 +30,9 @@ Read these before changing product scope, database design, user flows, UI, or pr
 8. `ANTI_GOALS_AND_PRODUCT_PRINCIPLES.md`
    Defines what La Mesa must not become and the principles that should guide product decisions.
 
+9. `FOUNDER_12_GUARDRAILS.md`
+   Defines implementation guardrails and the product-language scanner that should be run before product/UI commits.
+
 ## Locked Concept Decisions
 
 - La Mesa is the ISD Founder 12 cohort portal for Costa Rica.
